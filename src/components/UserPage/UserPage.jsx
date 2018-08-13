@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Nav from '../../components/Nav/Nav';
+import Questionnaire from '../Questionnaire/Questionnaire'
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
@@ -13,10 +14,13 @@ const mapStateToProps = state => ({
 
 class UserPage extends Component {
   componentDidMount() {
-    this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+    this.props.dispatch({ type: USER_ACTIONS.FETCH_USER }); //this goes to userSaga gives us access to userName and id on redux state
+    
+    this.props.dispatch({type:USER_ACTIONS.CHECK_INTRO});
   }
 
   componentDidUpdate() {
+    //reroute back to login if not logged in user
     if (!this.props.user.isLoading && this.props.user.userName === null) {
       this.props.history.push('home');
     }
@@ -28,6 +32,7 @@ class UserPage extends Component {
   }
 
   render() {
+    console.log(this.props.user.questionnaire);
     let content = null;
 
     if (this.props.user.userName) {
@@ -44,6 +49,7 @@ class UserPage extends Component {
           >
             Log Out
           </button>
+          <Questionnaire />
         </div>
       );
     }

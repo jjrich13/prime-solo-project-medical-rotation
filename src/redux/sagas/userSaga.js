@@ -1,12 +1,13 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { USER_ACTIONS } from '../actions/userActions';
 import { callUser } from '../requests/userRequests';
+import axios from 'axios';
 
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchUser() {
   try {
     yield put({ type: USER_ACTIONS.REQUEST_START });
-    const user = yield callUser();
+    const user = yield callUser(); //this sets action.payload essentially, function is in userRequests
     yield put({
       type: USER_ACTIONS.SET_USER,
       user,
@@ -22,6 +23,29 @@ function* fetchUser() {
       type: USER_ACTIONS.USER_FETCH_FAILED,
       message: error.data || "FORBIDDEN",
     });
+  }
+}
+
+const getIntroData = () => {
+  return axios.get(`/api/user/intro`).then(response => response.data
+  ).catch( err => {
+    return 'incomplete';
+    
+  })
+}
+
+function* checkIntro() {
+  try {
+    const data = yield getIntroData();
+    console.log(data);
+    
+    yield put({
+      type: 'SET_GOALS',
+      payload: data
+    })
+  } catch (error) {
+    console.log(error);
+    
   }
 }
 /*
@@ -41,6 +65,7 @@ function* fetchUser() {
 */
 function* userSaga() {
   yield takeLatest(USER_ACTIONS.FETCH_USER, fetchUser);
+  yield takeLatest(USER_ACTIONS.CHECK_INTRO, checkIntro)
 }
 
 export default userSaga;

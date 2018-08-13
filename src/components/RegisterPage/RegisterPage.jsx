@@ -10,6 +10,9 @@ class RegisterPage extends Component {
       username: '',
       password: '',
       message: '',
+      firstName: '',
+      lastName: '',
+      email: ''
     };
   }
 
@@ -24,6 +27,9 @@ class RegisterPage extends Component {
       const body = {
         username: this.state.username,
         password: this.state.password,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email
       };
 
       // making the request to the server to post the new user's registration
@@ -69,7 +75,7 @@ class RegisterPage extends Component {
     return (
       <div>
         {this.renderAlert()}
-        <form onSubmit={this.registerUser}>
+        <form  className="form" onSubmit={this.registerUser}>
           <h1>Register User</h1>
           <div>
             <label htmlFor="username">
@@ -90,6 +96,37 @@ class RegisterPage extends Component {
                 name="password"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="firstName">
+              First Name:
+              <input
+                type="text"
+                name="firstName"
+                value={this.state.firstName}
+                onChange={this.handleInputChangeFor('firstName')}
+              />
+            </label>
+          </div><div>
+            <label htmlFor="lastName">
+              Last Name:
+              <input
+                type="text"
+                name="lastName"
+                value={this.state.lastName}
+                onChange={this.handleInputChangeFor('lastName')}
+              />
+            </label>
+          </div><div>
+            <label htmlFor="email">
+              email:
+              <input
+                type="text"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleInputChangeFor('email')}
               />
             </label>
           </div>

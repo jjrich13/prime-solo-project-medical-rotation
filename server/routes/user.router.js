@@ -9,7 +9,24 @@ const router = express.Router();
 // Handles Ajax request for user information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) => {
   // Send back user object from database
+  console.log(req.user);
+  
   res.send(req.user);
+});
+
+router.get('/intro', rejectUnauthenticated, (req, res) => {
+  
+  // Send back user object from database
+  console.log('checking questionnaire');
+  pool.query(`SELECT * FROM initial_survey WHERE user_id = $1`, [req.user.id]).then( response => {
+    console.log(response.rows);
+    
+    res.send(response.rows)
+  }).catch( err => {
+    console.log(err);
+    res.sendStatus(500);
+    
+  })
 });
 
 // Handles POST request with new user data
@@ -18,11 +35,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/register', (req, res, next) => {
   console.log('req: ', req.body);
   
-  const username = req.body.username;
+  const {username, firstName, lastName, email} = req.body;
   const password = encryptLib.encryptPassword(req.body.password);
 
-  const queryText = 'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id';
-  pool.query(queryText, [username, password])
+  const queryText = 'INSERT INTO users (username, password, first_name, last_name, email) VALUES ($1, $2, $3, $4, $5) RETURNING id';
+  pool.query(queryText, [username, password, firstName, lastName, email])
     .then(() => { res.sendStatus(201); })
     .catch((err) => { next(err); });
 });
