@@ -32,8 +32,13 @@ class UserPage extends Component {
   }
 
   render() {
-    console.log(this.props.user.questionnaire);
+    console.log(...this.props.user.questionnaire);
     let content = null;
+    let questionnaire = null;
+
+    if ((typeof this.props.user.questionnaire[0] != 'object')){
+      questionnaire = <Questionnaire />
+    }
 
     if (this.props.user.userName) {
       content = (
@@ -43,13 +48,12 @@ class UserPage extends Component {
           >
             Welcome, { this.props.user.userName }!
           </h1>
-          <p>Your ID is: {this.props.user.id}</p>
           <button
             onClick={this.logout}
           >
             Log Out
           </button>
-          <Questionnaire />
+          {questionnaire}
         </div>
       );
     }
