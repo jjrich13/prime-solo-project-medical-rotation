@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import { USER_ACTIONS } from '../actions/userActions';
 import { callUser } from '../requests/userRequests';
 import axios from 'axios';
@@ -48,6 +48,16 @@ function* checkIntro() {
     
   }
 }
+
+function* postQuestionnaire (action) {
+  try {
+    yield call(axios.post, `/api/user/intro/questionnaire`, action.payload)
+    yield call(axios.post, `/api/user/intro/goals`, action.payload)
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
 /*
   Starts fetchUser on each dispatched `FETCH_USER` action.
   Allows concurrent fetches of user.
@@ -66,6 +76,7 @@ function* checkIntro() {
 function* userSaga() {
   yield takeLatest(USER_ACTIONS.FETCH_USER, fetchUser);
   yield takeLatest(USER_ACTIONS.CHECK_INTRO, checkIntro)
+  yield takeLatest('POST_QUESTIONNAIRE', postQuestionnaire)
 }
 
 export default userSaga;

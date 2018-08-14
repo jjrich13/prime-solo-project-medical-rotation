@@ -29,6 +29,89 @@ router.get('/intro', rejectUnauthenticated, (req, res) => {
   })
 });
 
+router.post('/intro/questionnaire', rejectUnauthenticated, (req, res) => {
+  console.log('posting questionnaire', req.body);
+  const queryString = `INSERT INTO initial_survey (
+      user_id, 
+      year, 
+      applying_to, 
+      applied_to, 
+      matched_in, 
+      interested_in, 
+      letter_interest, 
+      intubations, 
+      iv, 
+      mask_ventilated, 
+      central_line, 
+      run_ventilator
+    ) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`
+  const queryValues = [
+    req.user.id, 
+    req.body.year, 
+    req.body.applyingTo, 
+    req.body.appliedTo, 
+    req.body.matchedIn, 
+    req.body.letter, 
+    req.body.experience.intubations, 
+    req.body.experience.ivs, 
+    req.body.experience.maskVentilations, 
+    req.body.experience.centralLines, 
+    req.body.experience.arterialLines, 
+    req.body.runVentilator
+  ]
+  pool.query(queryString, queryValues).then(response => {
+    res.sendStatus(201);
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500);
+    
+  })
+})
+
+router.post('/intro/goals', rejectUnauthenticated, (req, res) => {
+  console.log('posting goals', req.body);
+  const {airwayAssessments,
+    arterialLines,
+    asaScorings,
+    intubations,
+    ivs,
+    lmaInsertions,
+    maskVentilations,
+    plannedAirwayMgmt} = req.body.goals
+
+  const queryString = `INSERT INTO goals (
+      user_id, 
+      iv, 
+      a_line, 
+      mask_ventilation, 
+      insert_lma, 
+      intubation, 
+      planned_airway_management, 
+      airway_assessment, 
+      assess_asa_score
+    ) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`
+  const queryValues = [
+    req.user.id,
+    airwayAssessments,
+    arterialLines,
+    asaScorings,
+    intubations,
+    ivs,
+    lmaInsertions,
+    maskVentilations,
+    plannedAirwayMgmt
+  ]
+  pool.query(queryString, queryValues).then(response => {
+    res.sendStatus(201);
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500);
+    
+  })
+})
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted

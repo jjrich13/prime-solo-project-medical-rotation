@@ -36,7 +36,8 @@ class UserPage extends Component {
     let content = null;
     let questionnaire = null;
 
-    if ((typeof this.props.user.questionnaire[0] != 'object')){
+    //SQL returns an empty array if there is no match for the questionnaire, this is checking for that
+    if ((typeof this.props.user.questionnaire[0] !== 'object')){
       questionnaire = <Questionnaire />
     }
 
