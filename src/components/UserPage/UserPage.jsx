@@ -14,7 +14,7 @@ import { triggerLogout } from '../../redux/actions/loginActions';
 const mapStateToProps = state => ({
   user: state.user
 });
-
+// let userContent = null;
 class UserPage extends Component {
   componentDidMount() {
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER }); //this goes to userSaga gives us access to userName and id on redux state
@@ -35,17 +35,30 @@ class UserPage extends Component {
     // this.props.history.push('home');
   }
 
+
+  
+  // setContent = () => {
+  //   if(this.props.user.details.resident){
+  //     userContent = <ResidentHomeView />
+  //   } else if (typeof this.props.user.questionnaire[0] !== 'object' && !this.props.user.details.resident){
+  //     userContent = <Questionnaire setContent={this.setContent}/>
+  //   } else {
+  //     userContent = <StudentHomeView />
+  //   }
+  // }
+
   render() {
     console.log('from render:', this.props.user.details.resident);
     
     let content = null;
+    // this.setContent();
     let userContent = null;
 
-    //SQL returns an empty array if there is no match for the questionnaire, this is checking for that
+    // SQL returns an empty array if there is no match for the questionnaire, this is checking for that
     if(this.props.user.details.resident){
       userContent = <ResidentHomeView />
-    } else if (typeof this.props.user.questionnaire[0] !== 'object' && !this.props.user.details.resident){
-      userContent = <Questionnaire />
+    } else if (!this.props.user.details.intubations && !this.props.user.details.resident){
+      userContent = <Questionnaire fetchDetails={this.fetchDetails}/>
     } else {
       userContent = <StudentHomeView />
     }
@@ -63,6 +76,8 @@ class UserPage extends Component {
           >
             Log Out
           </button>
+
+    <pre>{JSON.stringify(this.props, null, 2)}</pre>
           {userContent}
         </div>
       );

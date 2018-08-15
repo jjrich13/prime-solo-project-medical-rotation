@@ -1,4 +1,4 @@
-import { put, takeLatest, call } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery, call } from 'redux-saga/effects';
 import { USER_ACTIONS } from '../actions/userActions';
 import { callUser } from '../requests/userRequests';
 import axios from 'axios';
@@ -38,6 +38,8 @@ const getUserDetails = () => {
 }
 
 function* fetchUserDetails() {
+  console.log('1');
+  
   try {
     const details = yield getUserDetails();
     console.log(details);
@@ -77,9 +79,13 @@ function* checkIntro() {
 
 function* postQuestionnaire (action) {
   try {
-    yield call(axios.post, `/api/user/intro/questionnaire`, action.payload)
-    yield call(axios.post, `/api/user/intro/goals`, action.payload)
-    yield fetchUserDetails();
+    debugger;
+    yield call(axios.post, `/api/user/intro/questionnaire`, action.payload);
+    debugger;
+    yield call(axios.post, `/api/user/intro/goals`, action.payload);
+    debugger;
+    yield put({type: USER_ACTIONS.FETCH_USER_DETAILS});
+    debugger;
   } catch (error) {
     console.log(error);
     
@@ -101,10 +107,10 @@ function* postQuestionnaire (action) {
   and only the latest one will be run.
 */
 function* userSaga() {
-  yield takeLatest(USER_ACTIONS.FETCH_USER, fetchUser);
-  yield takeLatest(USER_ACTIONS.CHECK_INTRO, checkIntro)
-  yield takeLatest('POST_QUESTIONNAIRE', postQuestionnaire)
-  yield takeLatest(USER_ACTIONS.FETCH_USER_DETAILS, fetchUserDetails)
+  yield takeEvery(USER_ACTIONS.FETCH_USER, fetchUser);
+  yield takeEvery(USER_ACTIONS.CHECK_INTRO, checkIntro)
+  yield takeEvery('POST_QUESTIONNAIRE', postQuestionnaire)
+  yield takeEvery(USER_ACTIONS.FETCH_USER_DETAILS, fetchUserDetails)
 }
 
 export default userSaga;

@@ -64,7 +64,7 @@ class Questionnaire extends Component {
 
     handleSubmit = () => {
         this.props.dispatch({type: 'POST_QUESTIONNAIRE', payload: this.state})
-        
+        // this.props.setContent();
     }
 
     handleCheckboxChange = (event) => {
@@ -161,4 +161,8 @@ class Questionnaire extends Component {
     }
 }
 
-export default connect()(Questionnaire);
+const mapStateToProps = state => ({
+    user: state.user
+  });
+
+export default connect(mapStateToProps)(Questionnaire);

@@ -28,7 +28,7 @@ CREATE TABLE "feedback" (
 	"monitors" BOOLEAN NOT NULL DEFAULT 'false',
 	"airway_management" BOOLEAN NOT NULL DEFAULT 'false',
 	"iv" int NOT NULL DEFAULT '0',
-	"a-line" int NOT NULL DEFAULT '0',
+	"a_line" int NOT NULL DEFAULT '0',
 	"mask_ventilation" int NOT NULL DEFAULT '0',
 	"insert_lma" int NOT NULL DEFAULT '0',
 	"intubation" int NOT NULL DEFAULT '0',
@@ -52,9 +52,9 @@ CREATE TABLE "feedback" (
 
 CREATE TABLE "goals" (
 	"id" serial NOT NULL,
-	"user_id" int NOT NULL,
+	"user_id" int NOT NULL UNIQUE,
 	"iv" int NOT NULL DEFAULT '0',
-	"a-line" int NOT NULL DEFAULT '0',
+	"a_line" int NOT NULL DEFAULT '0',
 	"mask_ventilation" int NOT NULL DEFAULT '0',
 	"insert_lma" int NOT NULL DEFAULT '0',
 	"intubation" int NOT NULL DEFAULT '0',
@@ -70,12 +70,12 @@ CREATE TABLE "goals" (
 
 CREATE TABLE "initial_survey" (
 	"id" serial NOT NULL,
-	"user_id" int NOT NULL,
+	"user_id" int NOT NULL UNIQUE,
 	"year" int NOT NULL,
 	"applying_to" TEXT,
 	"applied_to" TEXT,
 	"matched_in" TEXT,
-	"interested_in" TEXT,
+	"interested_in" TEXT[],
 	"letter_interest" varchar(10) NOT NULL,
 	"intubations" int NOT NULL,
 	"iv" int NOT NULL,
@@ -88,10 +88,9 @@ CREATE TABLE "initial_survey" (
 );
 
 
-
-
 ALTER TABLE "feedback" ADD CONSTRAINT "feedback_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 
 ALTER TABLE "goals" ADD CONSTRAINT "goals_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 
 ALTER TABLE "initial_survey" ADD CONSTRAINT "initial_survey_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
+

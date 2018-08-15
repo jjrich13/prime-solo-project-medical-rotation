@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import StudentGoalsTable from '../StudentGoalsTable/StudentGoalsTable'
 
 class StudentHomeView extends Component {
     constructor(props){
@@ -9,11 +10,24 @@ class StudentHomeView extends Component {
 
     
     render(){
+        console.log(this.props.user.details);
+        
         return(
-            <div>STUDENT HOME VIEW</div>
+            <div>
+                <h1>STUDENT HOME</h1>
+                <div>
+                    <button>Submit Daily Feedback</button>
+                    <button>Feedback History</button>
+                </div>
+                <StudentGoalsTable />
+            </div>
 
         )
     }
 }
 
-export default connect()(StudentHomeView);
+const mapStateToProps = state => ({
+    user: state.user
+  });
+
+export default connect(mapStateToProps)(StudentHomeView);
