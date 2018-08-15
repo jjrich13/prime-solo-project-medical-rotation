@@ -9,7 +9,7 @@ import { triggerLogout } from '../../redux/actions/loginActions';
 
 
 const mapStateToProps = state => ({
-  user: state.user,
+  user: state.user
 });
 
 class UserPage extends Component {
@@ -17,6 +17,7 @@ class UserPage extends Component {
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER }); //this goes to userSaga gives us access to userName and id on redux state
     
     this.props.dispatch({type:USER_ACTIONS.CHECK_INTRO});
+    this.props.dispatch({type:USER_ACTIONS.FETCH_USER_DETAILS})
   }
 
   componentDidUpdate() {
@@ -32,14 +33,15 @@ class UserPage extends Component {
   }
 
   render() {
-    console.log(...this.props.user.questionnaire);
+    console.log('from render:', this.props.user.details);
+    
     let content = null;
     let questionnaire = null;
 
     //SQL returns an empty array if there is no match for the questionnaire, this is checking for that
     if ((typeof this.props.user.questionnaire[0] !== 'object')){
       questionnaire = <Questionnaire />
-    }
+    } 
 
     if (this.props.user.userName) {
       content = (

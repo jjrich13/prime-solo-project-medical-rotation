@@ -10,15 +10,58 @@ const router = express.Router();
 router.get('/', rejectUnauthenticated, (req, res) => {
   // Send back user object from database
   console.log(req.user);
-  
-  res.send(req.user);
+  // pool.query(`SELECT * FROM users WHERE id = $1`, [req.user.id]).then(response => {
+  //   console.log(response.rows);
+    
+  //   res.send(response.rows)
+  // })
+  res.send(req.user)
 });
 
 router.get('/intro', rejectUnauthenticated, (req, res) => {
-  
   // Send back user object from database
   console.log('checking questionnaire');
   pool.query(`SELECT * FROM initial_survey WHERE user_id = $1`, [req.user.id]).then( response => {
+    res.send(response.rows)
+  }).catch( err => {
+    console.log(err);
+    res.sendStatus(500);
+  })
+});
+
+router.get('/details', rejectUnauthenticated, (req, res) => {
+  const queryString = `SELECT 
+    initial_survey.user_id, 
+    initial_survey."year", 
+    initial_survey.applying_to, 
+    initial_survey.applied_to, 
+    initial_survey.matched_in, 
+    initial_survey.interested_in, 
+    initial_survey.letter_interest, 
+    initial_survey.intubations, 
+    initial_survey.iv, 
+    initial_survey.mask_ventilated, 
+    initial_survey.central_line, 
+    initial_survey.run_ventilator,
+    goals.user_id, 
+    goals.iv, 
+    goals.a_line, 
+    goals.mask_ventilation, 
+    goals.insert_lma, 
+    goals.intubation, 
+    goals.planned_airway_management, 
+    goals.airway_assessment, 
+    goals.assess_asa_score,
+    "users".first_name,
+    "users".last_name,
+    "users".email
+    FROM "users"
+    JOIN "goals" on "goals".user_id = "users".id
+    JOIN "initial_survey" ON "initial_survey".user_id = "users".id
+    WHERE users.id = $1;`
+  // Send back user object from database
+  console.log('getting details');
+  pool.query(queryString, [req.user.id]).then( response => {
     console.log(response.rows);
     
     res.send(response.rows)

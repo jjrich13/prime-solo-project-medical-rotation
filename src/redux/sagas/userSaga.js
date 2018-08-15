@@ -26,6 +26,29 @@ function* fetchUser() {
   }
 }
 
+const getUserDetails = () => {
+  return axios.get(`/api/user/details`).then(response => response.data
+  ).catch( err => {
+    console.log(err);
+    
+  })
+}
+
+function* fetchUserDetails() {
+  try {
+    const details = yield getUserDetails();
+    console.log(details);
+    
+    yield put({
+      type: 'SET_DETAILS',
+      payload: details
+    })
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
 const getIntroData = () => {
   return axios.get(`/api/user/intro`).then(response => response.data
   ).catch( err => {
@@ -77,6 +100,7 @@ function* userSaga() {
   yield takeLatest(USER_ACTIONS.FETCH_USER, fetchUser);
   yield takeLatest(USER_ACTIONS.CHECK_INTRO, checkIntro)
   yield takeLatest('POST_QUESTIONNAIRE', postQuestionnaire)
+  yield takeLatest(USER_ACTIONS.FETCH_USER_DETAILS, fetchUserDetails)
 }
 
 export default userSaga;

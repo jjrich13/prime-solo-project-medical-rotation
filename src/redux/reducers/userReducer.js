@@ -34,6 +34,15 @@ const isLoading = (state = false, action) => {
   }
 };
 
+const details = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_DETAILS':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 const questionnaire = (state = [], action) => {
   switch (action.type) {
     case 'SET_GOALS':
@@ -47,5 +56,6 @@ export default combineReducers({
   id,
   userName,
   isLoading,
-  questionnaire
+  questionnaire,
+  details
 });
