@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 
 import Nav from '../../components/Nav/Nav';
 import Questionnaire from '../Questionnaire/Questionnaire'
+import StudentHomeView from '../StudentHomeView/StudentHomeView'
+import ResidentHomeView from '../ResidentHomeView/ResidentHomeView'
+
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
@@ -36,12 +39,17 @@ class UserPage extends Component {
     console.log('from render:', this.props.user.details);
     
     let content = null;
-    let questionnaire = null;
+    let userContent = null;
 
     //SQL returns an empty array if there is no match for the questionnaire, this is checking for that
-    if ((typeof this.props.user.questionnaire[0] !== 'object')){
-      questionnaire = <Questionnaire />
-    } 
+
+    
+
+    if (typeof this.props.user.questionnaire[0] !== 'object'){
+      userContent = <Questionnaire />
+    } else {
+      userContent = <StudentHomeView />
+    }
 
     if (this.props.user.userName) {
       content = (
@@ -56,7 +64,7 @@ class UserPage extends Component {
           >
             Log Out
           </button>
-          {questionnaire}
+          {userContent}
         </div>
       );
     }
