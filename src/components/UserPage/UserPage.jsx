@@ -77,7 +77,6 @@ class UserPage extends Component {
             Log Out
           </button>
 
-    <pre>{JSON.stringify(this.props, null, 2)}</pre>
           {userContent}
         </div>
       );

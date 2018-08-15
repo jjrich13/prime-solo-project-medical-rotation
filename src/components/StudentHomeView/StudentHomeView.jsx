@@ -8,6 +8,15 @@ class StudentHomeView extends Component {
         
     }
 
+    handleSubmitDailyFeedbackButton = () => {
+        window.location.href= `/#/feedbackform`;
+    }
+
+    handleFeedbackHistoryButton = () => {
+        window.location.href= `/#/studentfeedbackhistory`;
+
+    }
+
     
     render(){
         console.log(this.props.user.details);
@@ -16,8 +25,8 @@ class StudentHomeView extends Component {
             <div>
                 <h1>STUDENT HOME</h1>
                 <div>
-                    <button>Submit Daily Feedback</button>
-                    <button>Feedback History</button>
+                    <button onClick={this.handleSubmitDailyFeedbackButton}>Submit Daily Feedback</button>
+                    <button onClick={this.handleFeedbackHistoryButton}>Feedback History</button>
                 </div>
                 <StudentGoalsTable />
             </div>
