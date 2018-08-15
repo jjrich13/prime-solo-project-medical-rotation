@@ -9,7 +9,6 @@ class ResidentHomeView extends Component {
 
     
     render(){
-        console.log(this.state);
         return(
             <div>RESIDENT HOME VIEW</div>
 

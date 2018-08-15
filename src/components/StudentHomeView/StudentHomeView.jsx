@@ -9,7 +9,6 @@ class StudentHomeView extends Component {
 
     
     render(){
-        console.log(this.state);
         return(
             <div>STUDENT HOME VIEW</div>
 

@@ -54,7 +54,9 @@ router.get('/details', rejectUnauthenticated, (req, res) => {
     goals.assess_asa_score,
     "users".first_name,
     "users".last_name,
-    "users".email
+    "users".email,
+    "users".resident,
+    "users".admin
     FROM "users"
     JOIN "goals" on "goals".user_id = "users".id
     JOIN "initial_survey" ON "initial_survey".user_id = "users".id
@@ -85,16 +87,18 @@ router.post('/intro/questionnaire', rejectUnauthenticated, (req, res) => {
       intubations, 
       iv, 
       mask_ventilated, 
-      central_line, 
+      central_line,
+      arterial_line, 
       run_ventilator
     ) 
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`
   const queryValues = [
     req.user.id, 
     req.body.year, 
     req.body.applyingTo, 
     req.body.appliedTo, 
-    req.body.matchedIn, 
+    req.body.matchedIn,
+    req.body.interestedIn, 
     req.body.letter, 
     req.body.experience.intubations, 
     req.body.experience.ivs, 
