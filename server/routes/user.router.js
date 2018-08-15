@@ -58,15 +58,15 @@ router.get('/details', rejectUnauthenticated, (req, res) => {
     "users".resident,
     "users".admin
     FROM "users"
-    JOIN "goals" on "goals".user_id = "users".id
-    JOIN "initial_survey" ON "initial_survey".user_id = "users".id
+    LEFT OUTER JOIN "goals" on "goals".user_id = "users".id
+    LEFT OUTER JOIN "initial_survey" ON "initial_survey".user_id = "users".id
     WHERE users.id = $1;`
   // Send back user object from database
   console.log('getting details');
   pool.query(queryString, [req.user.id]).then( response => {
     console.log(response.rows);
     
-    res.send(response.rows)
+    res.send(response.rows[0])
   }).catch( err => {
     console.log(err);
     res.sendStatus(500);
@@ -165,11 +165,11 @@ router.post('/intro/goals', rejectUnauthenticated, (req, res) => {
 router.post('/register', (req, res, next) => {
   console.log('req: ', req.body);
   
-  const {username, firstName, lastName, email} = req.body;
+  const {username, firstName, lastName, email, resident} = req.body;
   const password = encryptLib.encryptPassword(req.body.password);
 
-  const queryText = 'INSERT INTO users (username, password, first_name, last_name, email) VALUES ($1, $2, $3, $4, $5) RETURNING id';
-  pool.query(queryText, [username, password, firstName, lastName, email])
+  const queryText = 'INSERT INTO users (username, password, first_name, last_name, email, resident) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id';
+  pool.query(queryText, [username, password, firstName, lastName, email, resident])
     .then(() => { res.sendStatus(201); })
     .catch((err) => { next(err); });
 });

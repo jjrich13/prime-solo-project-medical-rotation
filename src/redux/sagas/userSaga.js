@@ -27,8 +27,11 @@ function* fetchUser() {
 }
 
 const getUserDetails = () => {
-  return axios.get(`/api/user/details`).then(response => response.data
-  ).catch( err => {
+  return axios.get(`/api/user/details`).then(response => {
+    console.log(response.data);
+    
+    return response.data;
+  }).catch( err => {
     console.log(err);
     
   })
@@ -76,6 +79,7 @@ function* postQuestionnaire (action) {
   try {
     yield call(axios.post, `/api/user/intro/questionnaire`, action.payload)
     yield call(axios.post, `/api/user/intro/goals`, action.payload)
+    yield fetchUserDetails();
   } catch (error) {
     console.log(error);
     

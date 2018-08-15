@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { USER_ACTIONS } from '../../redux/actions/userActions';
+
 
 class Questionnaire extends Component {
     constructor(props){
@@ -62,6 +64,7 @@ class Questionnaire extends Component {
 
     handleSubmit = () => {
         this.props.dispatch({type: 'POST_QUESTIONNAIRE', payload: this.state})
+        
     }
 
     handleCheckboxChange = (event) => {

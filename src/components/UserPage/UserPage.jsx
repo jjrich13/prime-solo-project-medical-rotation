@@ -36,7 +36,7 @@ class UserPage extends Component {
   }
 
   render() {
-    console.log('from render:', this.props.user);
+    console.log('from render:', this.props.user.details.resident);
     
     let content = null;
     let userContent = null;
@@ -44,7 +44,7 @@ class UserPage extends Component {
     //SQL returns an empty array if there is no match for the questionnaire, this is checking for that
     if(this.props.user.details.resident){
       userContent = <ResidentHomeView />
-    } else if (typeof this.props.user.questionnaire[0] !== 'object'){
+    } else if (typeof this.props.user.questionnaire[0] !== 'object' && !this.props.user.details.resident){
       userContent = <Questionnaire />
     } else {
       userContent = <StudentHomeView />

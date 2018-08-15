@@ -12,7 +12,8 @@ class RegisterPage extends Component {
       message: '',
       firstName: '',
       lastName: '',
-      email: ''
+      email: '',
+      resident: false
     };
   }
 
@@ -29,7 +30,8 @@ class RegisterPage extends Component {
         password: this.state.password,
         firstName: this.state.firstName,
         lastName: this.state.lastName,
-        email: this.state.email
+        email: this.state.email,
+        resident: this.state.resident
       };
 
       // making the request to the server to post the new user's registration
@@ -55,6 +57,8 @@ class RegisterPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
+    // console.log(this.state);
+    
   }
 
   renderAlert() {
@@ -72,6 +76,8 @@ class RegisterPage extends Component {
   }
 
   render() {
+    console.log(this.state);
+    
     return (
       <div>
         {this.renderAlert()}
@@ -119,7 +125,8 @@ class RegisterPage extends Component {
                 onChange={this.handleInputChangeFor('lastName')}
               />
             </label>
-          </div><div>
+          </div>
+          <div>
             <label htmlFor="email">
               email:
               <input
@@ -129,6 +136,11 @@ class RegisterPage extends Component {
                 onChange={this.handleInputChangeFor('email')}
               />
             </label>
+            <div>
+                        User Type: <br />
+                        Student <input name="userType" value="false" type="radio" onChange={this.handleInputChangeFor('resident')} />
+                        Resident <input name="userType" value="true" type="radio" onChange={this.handleInputChangeFor('resident')} />
+                    </div>
           </div>
           <div>
             <input
