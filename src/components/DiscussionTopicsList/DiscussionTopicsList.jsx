@@ -23,12 +23,6 @@ class DiscussionTopicsList extends Component{
         })
     }
 
-    isEven = (value) => {
-        if (value%2 == 0)
-            return true;
-        else
-            return false;
-    }
 
     render(){
         console.log(this.state.discussionTopicsList);

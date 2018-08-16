@@ -8,7 +8,30 @@ class FeedbackForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            discussionTopics: []
+            discussionTopics: [],
+            date: '',
+            resident: '',
+            attendingPhysician: '',
+            ventilatorSettings: false,
+            inductionDrugs: false,
+            inhaledAgents: false,
+            vasopressors: false,
+            monitors: false,
+            airwayManagement: false,
+            ivs: 0,
+            aLine: 0,
+            maskVentilation: 0,
+            insertLMA: 0,
+            intubation: 0,
+            plannedAirwayManagement: 0,
+            airwayAssessment: 0,
+            assessASAScore: 0,
+            appliedMonitors: '',
+            setupRoom: '',
+            plannedInduction: false,
+            preparingMedication: '',
+            readListened: true,
+            signedByResident: false
         };
         
     }
@@ -173,8 +196,8 @@ class FeedbackForm extends Component {
                                 <tr>
                                     <td>
                                         Planned Induction<br/>
-                                        Yes <input name="ventilator" type="radio" value="Yes" />
-                                        No <input name="ventilator" type="radio" value="No" />
+                                        Yes <input name="ventilator" type="radio" value="true" />
+                                        No <input name="ventilator" type="radio" value="false" />
                                     </td>
                                     <td>
                                         Preparing Medication<br/>
@@ -193,8 +216,8 @@ class FeedbackForm extends Component {
                      />
                     <div>
                         <h4>Was it evident that this student read/listen to the required materials for today's assigned topic?</h4>
-                        Yes <input name="ventilator" type="radio" value="Yes" />
-                        No <input name="ventilator" type="radio" value="No" />
+                        Yes <input name="ventilator" type="radio" value="true" />
+                        No <input name="ventilator" type="radio" value="false" />
                     </div>
                     <div>
                         <h3>
