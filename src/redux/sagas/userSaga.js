@@ -79,13 +79,9 @@ function* checkIntro() {
 
 function* postQuestionnaire (action) {
   try {
-    debugger;
     yield call(axios.post, `/api/user/intro/questionnaire`, action.payload);
-    debugger;
     yield call(axios.post, `/api/user/intro/goals`, action.payload);
-    debugger;
     yield put({type: USER_ACTIONS.FETCH_USER_DETAILS});
-    debugger;
   } catch (error) {
     console.log(error);
     
