@@ -7,12 +7,34 @@ import DiscussionTopics from '../DiscussionTopics/DiscussionTopics'
 class FeedbackForm extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            discussionTopics: []
+        };
         
+    }
+
+    handleCheckboxChange = (event) => {
+        // current array of options
+        const discussionTopics = this.state.discussionTopics
+        let index
+    
+        // check if the check box is checked or unchecked
+        if (event.target.checked) {
+          // add the numerical value of the checkbox to options array
+          discussionTopics.push(event.target.value)
+        } else {
+          // or remove the value from the unchecked checkbox from the array
+          index = discussionTopics.indexOf(event.target.value)
+          discussionTopics.splice(index, 1)
+        }
+    
+        // update the state with the new array of options
+        this.setState({ discussionTopics: discussionTopics })
     }
 
     
     render(){
-        console.log(this.props.user.details);
+        console.log(this.state);
         
         return(
             <center>
@@ -166,7 +188,9 @@ class FeedbackForm extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <DiscussionTopics />
+                    <DiscussionTopics
+                        handleCheckboxChange={this.handleCheckboxChange}
+                     />
                     <div>
                         <h4>Was it evident that this student read/listen to the required materials for today's assigned topic?</h4>
                         Yes <input name="ventilator" type="radio" value="Yes" />

@@ -38,7 +38,8 @@ class DiscussionTopicsList extends Component{
                 <li key={index}>
                     <input 
                         type="checkbox" 
-                        value={topic.topic}
+                        value={topic.podcast_link}
+                        onChange={this.props.handleCheckboxChange}
                     />
                     {topic.topic} 
                     <br/> 
@@ -52,39 +53,10 @@ class DiscussionTopicsList extends Component{
 
         
         return(
-            <tbody>
+            <div>
                 {list}
-                {/* <tr>
-                    <td>
-                        <input type="checkbox" value="Ventilator Settings"/>
-                        Ventilator Settings
-                    </td>
-                    <td>
-                        <input type="checkbox" value="Inhaled Agents"/>
-                        Inhaled Agents
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" value="Induction Drugs"/>
-                        Induction Drugs
-                    </td>
-                    <td>
-                        <input type="checkbox" value="Vasopressors"/>
-                        Vasopressors
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" value="Monitors"/>
-                        Monitors
-                    </td>
-                    <td>
-                        <input type="checkbox" value="Airway Management"/>
-                        Airway Management
-                    </td>
-                </tr> */}
-            </tbody>
+            </div>
+                
         )
     }
 }

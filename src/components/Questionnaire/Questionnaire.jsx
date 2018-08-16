@@ -84,7 +84,7 @@ class Questionnaire extends Component {
     
         // update the state with the new array of options
         this.setState({ interestedIn: interestedIn })
-      }
+    }
 
 
     render(){

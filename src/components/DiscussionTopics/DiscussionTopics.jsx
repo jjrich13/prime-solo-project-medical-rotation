@@ -12,7 +12,7 @@ class DiscussionTopics extends Component{
             <div>
                 <h2>For Tomorrow</h2>
                 <p>Select What you'd like to discuss tomorrow with a resident (4 or fewer)</p>
-                <DiscussionTopicsList />
+                <DiscussionTopicsList handleCheckboxChange={this.props.handleCheckboxChange}/>
                         
             </div>
         )
