@@ -87,6 +87,15 @@ CREATE TABLE "initial_survey" (
   OIDS=FALSE
 );
 
+CREATE TABLE "discussion_topics" (
+    "id" serial,
+    "topic" varchar(255),
+    "podcast" text,
+    "podcast_link" text,
+    "additional_material" text,
+    PRIMARY KEY ("id")
+);
+
 
 ALTER TABLE "feedback" ADD CONSTRAINT "feedback_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 
