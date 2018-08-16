@@ -15,7 +15,7 @@ class FeedbackForm extends Component {
         console.log(this.props.user.details);
         
         return(
-            <div>
+            <center>
                 <Nav />
                 <h1>Daily Feedback</h1>
                 <div>
@@ -180,7 +180,7 @@ class FeedbackForm extends Component {
                     </div>
                 </div>
                 <button>Submit</button>
-            </div>
+            </center>
 
         )
     }
