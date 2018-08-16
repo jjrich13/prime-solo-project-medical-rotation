@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Nav from '../../components/Nav/Nav';
+import DiscussionTopics from '../DiscussionTopics/DiscussionTopics'
 
 
 class FeedbackForm extends Component {
@@ -165,44 +166,7 @@ class FeedbackForm extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <div>
-                        <h2>For Tomorrow</h2>
-                        <p>Select What you'd like to discuss tomorrow with a resident (4 or fewer)</p>
-                        <table>
-                        <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" value="Ventilator Settings"/>
-                                        Ventilator Settings
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" value="Inhaled Agents"/>
-                                        Inhaled Agents
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" value="Induction Drugs"/>
-                                        Induction Drugs
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" value="Vasopressors"/>
-                                        Vasopressors
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" value="Monitors"/>
-                                        Monitors
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" value="Airway Management"/>
-                                        Airway Management
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <DiscussionTopics />
                     <div>
                         <h4>Was it evident that this student read/listen to the required materials for today's assigned topic?</h4>
                         Yes <input name="ventilator" type="radio" value="Yes" />
