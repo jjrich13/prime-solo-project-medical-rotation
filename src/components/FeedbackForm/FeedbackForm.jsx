@@ -18,7 +18,7 @@ class FeedbackForm extends Component {
             vasopressors: false,
             monitors: false,
             airwayManagement: false,
-            ivs: 0,
+            iv: 0,
             aLine: 0,
             maskVentilation: 0,
             insertLMA: 0,
@@ -34,6 +34,24 @@ class FeedbackForm extends Component {
             signedByResident: false
         };
         
+    }
+
+    handleInputChangeFor = (property) => (event) => {
+        this.setState({
+            [property]: event.target.value
+        })
+    }
+
+    handleCheckboxBooleanToggle = (property) => (event) => {
+        if(event.target.checked) {
+            this.setState({
+                [property]: true
+            })
+        } else {
+            this.setState({
+                [property]: false
+            })
+        }
     }
 
     handleCheckboxChange = (event) => {
@@ -66,18 +84,18 @@ class FeedbackForm extends Component {
                 <div>
                     <div>
                         Date For which you are filling out feedback <br/>
-                        <input type="date"/>
+                        <input onChange={this.handleInputChangeFor('date')} type="date"/>
                     </div>
                     <div>
                         Which resident did you work with today? <br/>
                         <select>
-                        <option disabled selected="selected">-Resident-</option>
+                            <option disabled selected="selected">-Resident-</option>
                         </select>
                     </div>
                     <div>
                         If you DID NOT work with a resident today, who was the attending physician? <br/>
                         <select>
-                        <option disabled selected="selected">-Attending-</option>
+                            <option disabled selected="selected">-Attending-</option>
                         </select>
                     </div>
                     <div>
@@ -87,31 +105,49 @@ class FeedbackForm extends Component {
                             <tbody>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" value="Ventilator Settings"/>
+                                        <input 
+                                            type="checkbox"  
+                                            onChange={this.handleCheckboxBooleanToggle('ventilatorSettings')}
+                                        />
                                         Ventilator Settings
                                     </td>
                                     <td>
-                                        <input type="checkbox" value="Inhaled Agents"/>
+                                        <input 
+                                            type="checkbox" 
+                                            onChange={this.handleCheckboxBooleanToggle('inhaledAgents')}
+                                        />
                                         Inhaled Agents
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" value="Induction Drugs"/>
+                                        <input 
+                                            type="checkbox" 
+                                            onChange={this.handleCheckboxBooleanToggle('inductionDrugs')}
+                                        />
                                         Induction Drugs
                                     </td>
                                     <td>
-                                        <input type="checkbox" value="Vasopressors"/>
+                                        <input 
+                                            type="checkbox" 
+                                            onChange={this.handleCheckboxBooleanToggle('vasopressors')}
+                                        />
                                         Vasopressors
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" value="Monitors"/>
+                                        <input 
+                                            type="checkbox" 
+                                            onChange={this.handleCheckboxBooleanToggle('monitors')}
+                                        />
                                         Monitors
                                     </td>
                                     <td>
-                                        <input type="checkbox" value="Airway Management"/>
+                                        <input 
+                                            type="checkbox" 
+                                            onChange={this.handleCheckboxBooleanToggle('airwayManagement')}
+                                        />
                                         Airway Management
                                     </td>
                                 </tr>
@@ -125,42 +161,66 @@ class FeedbackForm extends Component {
                             <tbody>
                                 <tr>
                                     <td>
-                                        IV<br/>
-                                        <input type="number"/>
+                                        IVs<br/>
+                                        <input 
+                                            type="number" 
+                                            onChange={this.handleInputChangeFor('iv')}
+                                        />
                                     </td>
                                     <td>
-                                        Intubation<br/>
-                                        <input type="number"/>
+                                        Intubations<br/>
+                                        <input 
+                                            type="number" 
+                                            onChange={this.handleInputChangeFor('intubation')}
+                                        />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Arterial Lines<br/>
-                                        <input type="number"/>
+                                        <input 
+                                            type="number" 
+                                            onChange={this.handleInputChangeFor('aLine')}
+                                        />
                                     </td>
                                     <td>
                                         Planned Airway Management<br/>
-                                        <input type="number"/>
+                                        <input 
+                                            type="number" 
+                                            onChange={this.handleInputChangeFor('plannedAirwayManagement')}
+                                        />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Mask Ventilation<br/>
-                                        <input type="number"/>
+                                        Mask Ventilations<br/>
+                                        <input 
+                                            type="number" 
+                                            onChange={this.handleInputChangeFor('maskVentilation')}
+                                        />
                                     </td>
                                     <td>
-                                        Airway Assessment<br/>
-                                        <input type="number"/>
+                                        Airway Assessments<br/>
+                                        <input 
+                                            type="number" 
+                                            onChange={this.handleInputChangeFor('airwayAssessment')}
+                                        />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Insert LMA<br/>
-                                        <input type="number"/>
+                                        Insert LMAs<br/>
+                                        <input 
+                                            type="number" 
+                                            onChange={this.handleInputChangeFor('insertLMA')}
+                                        />
                                     </td>
                                     <td>
                                         Assess ASA Score <br/>
-                                        <input type="number"/>
+                                        <input 
+                                            type="number" 
+                                            onChange={this.handleInputChangeFor('assessASAScore')}
+                                        />
                                     </td>
                                 </tr>
                             </tbody>
