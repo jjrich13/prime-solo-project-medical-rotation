@@ -10,7 +10,17 @@ const progress = (state = {}, action) => {
   }
 };
 
+const history = (state = [], action) => {
+    switch (action.type) {
+      case 'SET_FEEDBACK_HISTORY':
+        return action.payload;
+      default:
+        return state;
+    }
+};
+
 
 export default combineReducers({
-  progress
+  progress,
+  history
 });

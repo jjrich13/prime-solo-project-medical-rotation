@@ -76,6 +76,7 @@ router.get('/details', rejectUnauthenticated, (req, res) => {
 
 router.post('/intro/questionnaire', rejectUnauthenticated, (req, res) => {
   console.log('posting questionnaire', req.body);
+
   const queryString = `INSERT INTO initial_survey (
       user_id, 
       year, 
@@ -91,7 +92,7 @@ router.post('/intro/questionnaire', rejectUnauthenticated, (req, res) => {
       arterial_line, 
       run_ventilator
     ) 
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`
   const queryValues = [
     req.user.id, 
     req.body.year, 
@@ -107,17 +108,8 @@ router.post('/intro/questionnaire', rejectUnauthenticated, (req, res) => {
     req.body.experience.arterialLines, 
     req.body.runVentilator
   ]
-  pool.query(queryString, queryValues).then(response => {
-    res.sendStatus(201);
-  }).catch(err => {
-    console.log(err);
-    res.sendStatus(500);
-    
-  })
-})
 
-router.post('/intro/goals', rejectUnauthenticated, (req, res) => {
-  console.log('posting goals', req.body);
+  //destructuring for second query
   const {airwayAssessments,
     arterialLines,
     asaScorings,
@@ -127,7 +119,7 @@ router.post('/intro/goals', rejectUnauthenticated, (req, res) => {
     maskVentilations,
     plannedAirwayMgmt} = req.body.goals
 
-  const queryString = `INSERT INTO goals (
+  const queryString2 = `INSERT INTO goals (
       user_id, 
       iv, 
       a_line, 
@@ -138,8 +130,9 @@ router.post('/intro/goals', rejectUnauthenticated, (req, res) => {
       airway_assessment, 
       assess_asa_score
     ) 
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`
-  const queryValues = [
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
+
+  const queryValues2 = [
     req.user.id,
     airwayAssessments,
     arterialLines,
@@ -150,14 +143,66 @@ router.post('/intro/goals', rejectUnauthenticated, (req, res) => {
     maskVentilations,
     plannedAirwayMgmt
   ]
+
+  //two nested queries
   pool.query(queryString, queryValues).then(response => {
-    res.sendStatus(201);
+      pool.query(queryString2, queryValues2).then(response => {
+        res.sendStatus(201);
+      }).catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+        
+      })
+    // res.sendStatus(201);
   }).catch(err => {
     console.log(err);
     res.sendStatus(500);
     
   })
 })
+
+// router.post('/intro/goals', rejectUnauthenticated, (req, res) => {
+//   console.log('posting goals', req.body);
+//   const {airwayAssessments,
+//     arterialLines,
+//     asaScorings,
+//     intubations,
+//     ivs,
+//     lmaInsertions,
+//     maskVentilations,
+//     plannedAirwayMgmt} = req.body.goals
+
+//   const queryString1 = `INSERT INTO goals (
+//       user_id, 
+//       iv, 
+//       a_line, 
+//       mask_ventilation, 
+//       insert_lma, 
+//       intubation, 
+//       planned_airway_management, 
+//       airway_assessment, 
+//       assess_asa_score
+//     ) 
+//     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
+//   const queryValues1 = [
+//     req.user.id,
+//     airwayAssessments,
+//     arterialLines,
+//     asaScorings,
+//     intubations,
+//     ivs,
+//     lmaInsertions,
+//     maskVentilations,
+//     plannedAirwayMgmt
+//   ]
+//   pool.query(queryString1, queryValues1).then(response => {
+//     res.sendStatus(201);
+//   }).catch(err => {
+//     console.log(err);
+//     res.sendStatus(500);
+    
+//   })
+// })
 
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
