@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Nav from '../../components/Nav/Nav';
 import DiscussionTopics from '../DiscussionTopics/DiscussionTopics'
-
+import AttendingsAndResidents from '../AttendingsAndResidents/AttendingsAndResidents'
 
 class FeedbackForm extends Component {
     constructor(props){
@@ -86,18 +86,7 @@ class FeedbackForm extends Component {
                         Date For which you are filling out feedback <br/>
                         <input onChange={this.handleInputChangeFor('date')} type="date"/>
                     </div>
-                    <div>
-                        Which resident did you work with today? <br/>
-                        <select>
-                            <option disabled selected="selected">-Resident-</option>
-                        </select>
-                    </div>
-                    <div>
-                        If you DID NOT work with a resident today, who was the attending physician? <br/>
-                        <select>
-                            <option disabled selected="selected">-Attending-</option>
-                        </select>
-                    </div>
+                    <AttendingsAndResidents handleInputChangeFor={this.handleInputChangeFor}/>
                     <div>
                         <h2>Discussion Points</h2>
                         <p>Check the box if discussed</p>

@@ -103,3 +103,8 @@ ALTER TABLE "goals" ADD CONSTRAINT "goals_fk0" FOREIGN KEY ("user_id") REFERENCE
 
 ALTER TABLE "initial_survey" ADD CONSTRAINT "initial_survey_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 
+
+ALTER TABLE "public"."feedback"
+  ALTER COLUMN "resident" TYPE integer,
+  ADD FOREIGN KEY ("user_id") REFERENCES "public"."users"("id"),
+  ADD CONSTRAINT "user.id" FOREIGN KEY ("resident") REFERENCES "public"."users"("id");
