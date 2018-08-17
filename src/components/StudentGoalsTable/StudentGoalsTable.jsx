@@ -7,9 +7,11 @@ class StudentGoalsTable extends Component {
         
     }
 
+    componentDidMount(){
+        this.props.dispatch({type:'GET_GOALS_PROGRESS'})
+    }
     
     render(){
-        console.log(this.props.user.details);
         
 const {
     goal_a_line,
@@ -22,7 +24,16 @@ const {
     goal_planned_airway_management
 } = this.props.user.details
 
-console.log(goal_a_line);
+const {
+    iv,
+    a_line,
+    mask_ventilation,
+    insert_lma,
+    intubation,
+    planned_airway_management,
+    airway_assessment,
+    assess_asa_score
+} = this.props.feedback.progress
 
         return(
                 <div>
@@ -37,35 +48,35 @@ console.log(goal_a_line);
                         <tbody>
                             <tr>
                                 <td>IVs</td>
-                                <td>#/{goal_iv}</td>
+                                <td>{iv}/{goal_iv}</td>
                             </tr>
                             <tr>
                                 <td>Arterial Lines</td>
-                                <td>#/{goal_a_line}</td>
+                                <td>{a_line}/{goal_a_line}</td>
                             </tr>
                             <tr>
                                 <td>Masks Ventilations</td>
-                                <td>#/{goal_mask_ventilation}</td>
+                                <td>{mask_ventilation}/{goal_mask_ventilation}</td>
                             </tr>
                             <tr>
                                 <td>LMA Insertions</td>
-                                <td>#/{goal_insert_lma}</td>
+                                <td>{insert_lma}/{goal_insert_lma}</td>
                             </tr>
                             <tr>
                                 <td>Intubations</td>
-                                <td>#/{goal_intubation}</td>
+                                <td>{intubation}/{goal_intubation}</td>
                             </tr>
                             <tr>
                                 <td>Planned Airway Management</td>
-                                <td>#/{goal_planned_airway_management}</td>
+                                <td>{planned_airway_management}/{goal_planned_airway_management}</td>
                             </tr>
                             <tr>
                                 <td>Airway Assessments</td>
-                                <td>#/{goal_airway_assessment}</td>
+                                <td>{airway_assessment}/{goal_airway_assessment}</td>
                             </tr>
                             <tr>
                                 <td>ASA Assesment Scorings</td>
-                                <td>#/{goal_assess_asa_score}</td>
+                                <td>{assess_asa_score}/{goal_assess_asa_score}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -75,7 +86,8 @@ console.log(goal_a_line);
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.user,
+    feedback: state.feedback,
   });
 
 export default connect(mapStateToProps)(StudentGoalsTable);

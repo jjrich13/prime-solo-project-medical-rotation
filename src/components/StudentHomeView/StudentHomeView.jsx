@@ -19,7 +19,7 @@ class StudentHomeView extends Component {
 
     
     render(){
-        console.log(this.props.user.details);
+        console.log('feedback:', this.props.feedback);
         
         return(
             <div>

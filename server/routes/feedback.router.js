@@ -137,4 +137,25 @@ $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25)`
   })
 })
 
+router.get('/goals', rejectUnauthenticated, (req,res) => {
+  console.log('Hit goals');
+  pool.query(`
+    SELECT 
+    SUM("iv") as iv, 
+    SUM("a_line") as a_line, 
+    SUM("mask_ventilation") as mask_ventilation, 
+    SUM("insert_lma") as insert_lma, 
+    SUM("intubation") as intubation, 
+    SUM("planned_airway_management") as planned_airway_management, 
+    SUM("airway_assessment") as airway_assessment, 
+    SUM("assess_asa_score") as assess_asa_score 
+    FROM "feedback" WHERE "user_id" = $1;`,[req.user.id]
+  ).then(response => {
+    console.log(response.rows[0]);
+    
+    res.send(response.rows[0])
+  })
+  
+})
+
 module.exports = router;

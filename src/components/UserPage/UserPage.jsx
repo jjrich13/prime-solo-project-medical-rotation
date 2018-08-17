@@ -48,7 +48,7 @@ class UserPage extends Component {
   // }
 
   render() {
-    console.log('from render:', this.props.user.details.resident);
+    // console.log('from render:', this.props.user.details.resident);
     
     let content = null;
     // this.setContent();
