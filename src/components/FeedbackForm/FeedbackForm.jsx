@@ -75,6 +75,7 @@ class FeedbackForm extends Component {
 
     handleSubmit = () => {
         this.props.dispatch({type: 'POST_FEEDBACK', payload: this.state})
+        window.location.href= `/#/user`;
     }
 
     
