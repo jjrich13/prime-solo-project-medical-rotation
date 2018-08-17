@@ -1,4 +1,4 @@
-import { put, takeLatest, takeEvery, call } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import { USER_ACTIONS } from '../actions/userActions';
 import { callUser } from '../requests/userRequests';
 import axios from 'axios';
@@ -103,10 +103,10 @@ function* postQuestionnaire (action) {
   and only the latest one will be run.
 */
 function* userSaga() {
-  yield takeEvery(USER_ACTIONS.FETCH_USER, fetchUser);
-  yield takeEvery(USER_ACTIONS.CHECK_INTRO, checkIntro)
-  yield takeEvery('POST_QUESTIONNAIRE', postQuestionnaire)
-  yield takeEvery(USER_ACTIONS.FETCH_USER_DETAILS, fetchUserDetails)
+  yield takeLatest(USER_ACTIONS.FETCH_USER, fetchUser);
+  yield takeLatest(USER_ACTIONS.CHECK_INTRO, checkIntro)
+  yield takeLatest('POST_QUESTIONNAIRE', postQuestionnaire)
+  yield takeLatest(USER_ACTIONS.FETCH_USER_DETAILS, fetchUserDetails)
 }
 
 export default userSaga;

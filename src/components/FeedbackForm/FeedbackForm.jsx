@@ -73,6 +73,10 @@ class FeedbackForm extends Component {
         this.setState({ discussionTopics: discussionTopics })
     }
 
+    handleSubmit = () => {
+        this.props.dispatch({type: 'POST_FEEDBACK', payload: this.state})
+    }
+
     
     render(){
         console.log(this.state);
@@ -86,7 +90,9 @@ class FeedbackForm extends Component {
                         Date For which you are filling out feedback <br/>
                         <input onChange={this.handleInputChangeFor('date')} type="date"/>
                     </div>
-                    <AttendingsAndResidents handleInputChangeFor={this.handleInputChangeFor}/>
+                    <AttendingsAndResidents 
+                        handleInputChangeFor={this.handleInputChangeFor}
+                    />
                     <div>
                         <h2>Discussion Points</h2>
                         <p>Check the box if discussed</p>
@@ -276,7 +282,7 @@ class FeedbackForm extends Component {
                         <input type="password" onChange={this.handleInputChangeFor('residentSignature')} />
                     </div>
                 </div>
-                <button>Submit</button>
+                <button onClick={this.handleSubmit}>Submit</button>
             </div>
 
         )
