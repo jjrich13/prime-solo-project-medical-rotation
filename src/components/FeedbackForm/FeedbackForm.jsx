@@ -31,7 +31,7 @@ class FeedbackForm extends Component {
             plannedInduction: false,
             preparingMedication: '',
             readListened: true,
-            signedByResident: false
+            residentSignature: ''
         };
         
     }
@@ -78,7 +78,7 @@ class FeedbackForm extends Component {
         console.log(this.state);
         
         return(
-            <center>
+            <div>
                 <Nav />
                 <h1>Daily Feedback</h1>
                 <div>
@@ -234,7 +234,7 @@ class FeedbackForm extends Component {
                                 <tr>
                                     <td>
                                         Applied Monitors <br/>
-                                        <select>
+                                        <select onChange={this.handleInputChangeFor('appliedMonitors')}>
                                             <option disabled selected="selected">-Select-</option>
                                             <option value="None">None</option>
                                             <option value="Some">Some</option>
@@ -244,7 +244,7 @@ class FeedbackForm extends Component {
                                     </td>
                                     <td>
                                         Setup Room<br/>
-                                        <select>
+                                        <select onChange={this.handleInputChangeFor('setupRoom')}>
                                             <option disabled selected="selected">-Select-</option>
                                             <option value="None">None</option>
                                             <option value="Some">Some</option>
@@ -256,12 +256,12 @@ class FeedbackForm extends Component {
                                 <tr>
                                     <td>
                                         Planned Induction<br/>
-                                        Yes <input name="ventilator" type="radio" value="true" />
-                                        No <input name="ventilator" type="radio" value="false" />
+                                        Yes <input name="ventilator" type="radio" value="true" onChange={this.handleInputChangeFor('plannedInduction')} />
+                                        No <input name="ventilator" type="radio" value="false" onChange={this.handleInputChangeFor('plannedInduction')} />
                                     </td>
                                     <td>
                                         Preparing Medication<br/>
-                                        <select>
+                                        <select onChange={this.handleInputChangeFor('preparingMedication')} >
                                             <option value="NA">NA</option>
                                             <option value="With Supervision">With Supervision</option>
                                             <option value="Entrustable">Entrustable</option>
@@ -271,23 +271,24 @@ class FeedbackForm extends Component {
                             </tbody>
                         </table>
                     </div>
+                    <br/>
                     <DiscussionTopics
                         handleCheckboxChange={this.handleCheckboxChange}
                      />
                     <div>
                         <h4>Was it evident that this student read/listen to the required materials for today's assigned topic?</h4>
-                        Yes <input name="ventilator" type="radio" value="true" />
-                        No <input name="ventilator" type="radio" value="false" />
+                        Yes <input name="ventilator" type="radio" value="true" onChange={this.handleInputChangeFor('readListened')} />
+                        No <input name="ventilator" type="radio" value="false" onChange={this.handleInputChangeFor('readListened')} />
                     </div>
                     <div>
                         <h3>
                             Resident Signature
                         </h3>
-                        <input type="password"/>
+                        <input type="password" onChange={this.handleInputChangeFor('residentSignature')} />
                     </div>
                 </div>
                 <button>Submit</button>
-            </center>
+            </div>
 
         )
     }
