@@ -37,9 +37,33 @@ function* goalsProgress() {
     }
 }
 
+const getFeedbackHistory = () => {
+    return axios.get(`/api/feedback/history`).then(response => {
+    
+        return response.data;
+    }).catch( err => {
+        console.log(err);
+    
+    })
+}
+
+function* fetchFeedbackHistory() {
+    try {
+        const history = yield getFeedbackHistory();
+        yield put({
+            type: 'SET_FEEDBACK_HISTORY',
+            payload: history
+        })
+    } catch (error) {
+        console.log(error);
+      
+    }
+}
+
 function* feedbackSaga () {
     yield takeLatest('POST_FEEDBACK', postFeedback);
     yield takeLatest('GET_GOALS_PROGRESS', goalsProgress);
+    yield takeLatest('FETCH_FEEDBACK_HISTORY', fetchFeedbackHistory)
   }
   
   export default feedbackSaga;
