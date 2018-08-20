@@ -9,18 +9,18 @@ const router = express.Router();
 // Handles Ajax request for user information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) => {
   // Send back user object from database
-  console.log(req.user);
-  // pool.query(`SELECT * FROM users WHERE id = $1`, [req.user.id]).then(response => {
-  //   console.log(response.rows);
+  // console.log(req.user);
+  pool.query(`SELECT * FROM users WHERE id = $1`, [req.user.id]).then(response => {
+    console.log('user', response.rows);
     
-  //   res.send(response.rows)
-  // })
-  res.send(req.user)
+    res.send(response.rows[0])
+  })
+  // res.send(req.user)
 });
 
 router.get('/intro', rejectUnauthenticated, (req, res) => {
   // Send back user object from database
-  console.log('checking questionnaire');
+  // console.log('checking questionnaire');
   pool.query(`SELECT * FROM initial_survey WHERE user_id = $1`, [req.user.id]).then( response => {
     res.send(response.rows)
   }).catch( err => {
@@ -62,9 +62,9 @@ router.get('/details', rejectUnauthenticated, (req, res) => {
     LEFT OUTER JOIN "initial_survey" ON "initial_survey".user_id = "users".id
     WHERE users.id = $1;`
   // Send back user object from database
-  console.log('getting details');
+  // console.log('getting details');
   pool.query(queryString, [req.user.id]).then( response => {
-    console.log(response.rows);
+    // console.log(response.rows);
     
     res.send(response.rows[0])
   }).catch( err => {
@@ -75,7 +75,7 @@ router.get('/details', rejectUnauthenticated, (req, res) => {
 });
 
 router.post('/intro/questionnaire', rejectUnauthenticated, (req, res) => {
-  console.log('posting questionnaire', req.body);
+  // console.log('posting questionnaire', req.body);
 
   const queryString = `INSERT INTO initial_survey (
       user_id, 
@@ -208,7 +208,6 @@ router.post('/intro/questionnaire', rejectUnauthenticated, (req, res) => {
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
 router.post('/register', (req, res, next) => {
-  console.log('req: ', req.body);
   
   const {username, firstName, lastName, email, resident} = req.body;
   const password = encryptLib.encryptPassword(req.body.password);

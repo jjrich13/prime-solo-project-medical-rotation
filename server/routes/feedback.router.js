@@ -161,7 +161,7 @@ router.get('/goals', rejectUnauthenticated, (req,res) => {
     SUM("assess_asa_score") as assess_asa_score 
     FROM "feedback" WHERE "user_id" = $1;`,[req.user.id]
   ).then(response => {
-    console.log(response.rows[0]);
+    // console.log(response.rows[0]);
     
     res.send(response.rows[0])
   })
