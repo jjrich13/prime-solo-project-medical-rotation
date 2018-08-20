@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class StudentGoalsTable extends Component {
+class ResidentStudentGoalsTable extends Component {
     constructor(props){
         super(props);
         
@@ -90,4 +90,4 @@ const mapStateToProps = state => ({
     feedback: state.feedback,
 });
 
-export default connect(mapStateToProps)(StudentGoalsTable);
+export default connect(mapStateToProps)(ResidentStudentGoalsTable);

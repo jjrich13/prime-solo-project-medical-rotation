@@ -13,6 +13,7 @@ import UserPage from './components/UserPage/UserPage';
 import InfoPage from './components/InfoPage/InfoPage';
 import FeedbackForm from './components/FeedbackForm/FeedbackForm'
 import StudentFeedbackHistory from './components/StudentFeedbackHistory/StudentFeedbackHistory'
+import StudentProfile from './components/StudentProfile/StudentProfile'
 
 import './styles/main.css';
 
@@ -46,6 +47,10 @@ const App = () => (
         <Route
           path="/studentfeedbackhistory"
           component={StudentFeedbackHistory}
+        />
+        <Route
+          path="/profile/:id"
+          component={StudentProfile}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />

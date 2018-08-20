@@ -16,7 +16,7 @@ class TableBodyResidentStudentList extends Component {
 
     handleProfile = (id) => {
         console.log(id);
-        
+        window.location.href= `/#/profile/${id}`;
     }
 
     
