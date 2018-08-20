@@ -14,26 +14,36 @@ class TableBodyResidentStudentList extends Component {
         })
     }
 
+    handleProfile = (id) => {
+        console.log(id);
+        
+    }
+
     
     render(){
         console.log(this.props.resident);
-        
-        return(
-            <tbody>
-                <tr>
+        const tableRowArray = this.props.resident.students.map((student, index) => {
+            return(
+                <tr key={index}>
                     <td>
-                        Student Name
+                        {student.first_name + ' ' + student.last_name}
                     </td>
                     <td>
-                        Year
+                        MS{student.year}
                     </td>
                     <td>
-                        Progress
+                        {Math.round(Number(student.progress_sum) / Number(student.goal_sum)*100)}%
                     </td>
                     <td>
-                        Buttons
+                        {/* button */}
+                        <button onClick={() => this.handleProfile(student.id)}>Profile</button>
                     </td>
                 </tr>
+            )
+        })
+        return(
+            <tbody>
+                {tableRowArray}
             </tbody>
 
         )
