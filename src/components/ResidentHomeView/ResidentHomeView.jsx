@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import TableBodyResidentStudentList from '../TableBodyResidentStudentList/TableBodyResidentStudentList'
 class ResidentHomeView extends Component {
     constructor(props){
         super(props);
@@ -25,6 +26,25 @@ class ResidentHomeView extends Component {
             <div>
                 <h1>Resident Home</h1>
                 <p>Resident Code: {this.state.residentCode}</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Student
+                            </th>
+                            <th>
+                                Year
+                            </th>
+                            <th>
+                                Progress
+                            </th>
+                            <th>
+                                Info
+                            </th>
+                        </tr>
+                    </thead>
+                    <TableBodyResidentStudentList />
+                </table>
             </div>
 
         )

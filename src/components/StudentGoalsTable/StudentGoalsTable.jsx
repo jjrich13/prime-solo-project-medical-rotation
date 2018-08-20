@@ -88,7 +88,7 @@ const {
 const mapStateToProps = state => ({
     user: state.user,
     feedback: state.feedback,
-  });
+});
 
 export default connect(mapStateToProps)(StudentGoalsTable);
 

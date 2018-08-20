@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 // import { USER_ACTIONS } from '../actions/userActions';
 
-const progress = (state = {}, action) => {
+const students = (state = [], action) => {
   switch (action.type) {
-    case 'SET_PROGRESS':
+    case 'SET_STUDENT_LIST':
       return action.payload;
     default:
       return state;
@@ -13,5 +13,5 @@ const progress = (state = {}, action) => {
 
 
 export default combineReducers({
-  progress,
+    students,
 });
