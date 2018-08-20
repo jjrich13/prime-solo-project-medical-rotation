@@ -10,8 +10,26 @@ const students = (state = [], action) => {
   }
 };
 
+const progress = (state = {}, action) => {
+    switch (action.type) {
+      case 'SET_GOALS_PROGRESS':
+        return action.payload;
+      default:
+        return state;
+    }
+};
 
+const details = (state = {}, action) => {
+    switch (action.type) {
+      case 'SET_INITIAL_DETAILS':
+        return action.payload;
+      default:
+        return state;
+    }
+};
 
 export default combineReducers({
     students,
+    progress,
+    details
 });

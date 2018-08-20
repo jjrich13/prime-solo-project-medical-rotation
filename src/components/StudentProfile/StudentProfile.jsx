@@ -20,7 +20,7 @@ class StudentProfile extends Component {
         <Nav />
         <p>Hello</p>
         {this.props.match.params.id}
-        <ResidentStudentGoalsTable />
+        <ResidentStudentGoalsTable studentId={this.props.match.params.id} />
       </div>
     );
   }

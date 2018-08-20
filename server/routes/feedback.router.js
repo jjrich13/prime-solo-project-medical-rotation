@@ -164,6 +164,9 @@ router.get('/goals', rejectUnauthenticated, (req,res) => {
     // console.log(response.rows[0]);
     
     res.send(response.rows[0])
+  }).catch( err => {
+    console.log(err);
+    res.sendStatus(500);
   })
   
 })

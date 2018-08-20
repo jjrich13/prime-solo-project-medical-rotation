@@ -8,32 +8,42 @@ class ResidentStudentGoalsTable extends Component {
     }
 
     componentDidMount(){
-        this.props.dispatch({type:'GET_GOALS_PROGRESS'})
+        this.props.dispatch({
+            type:'RESIDENT_FETCH_GOALS_PROGRESS',
+            payload: this.props.studentId
+        })
+        this.props.dispatch({
+            type:'RESIDENT_FETCH_INITIAL_DETAILS',
+            payload: this.props.studentId
+        })
     }
     
     render(){
+        console.log('resident',this.props.resident);
         
-const {
-    goal_a_line,
-    goal_airway_assessment,
-    goal_assess_asa_score,
-    goal_insert_lma,
-    goal_intubation,
-    goal_iv,
-    goal_mask_ventilation,
-    goal_planned_airway_management
-} = this.props.user.details
+        
+        const {
+            goal_a_line,
+            goal_airway_assessment,
+            goal_assess_asa_score,
+            goal_insert_lma,
+            goal_intubation,
+            goal_iv,
+            goal_mask_ventilation,
+            goal_planned_airway_management
+        } = this.props.resident.details
 
-const {
-    iv,
-    a_line,
-    mask_ventilation,
-    insert_lma,
-    intubation,
-    planned_airway_management,
-    airway_assessment,
-    assess_asa_score
-} = this.props.feedback.progress
+        const {
+            iv,
+            a_line,
+            mask_ventilation,
+            insert_lma,
+            intubation,
+            planned_airway_management,
+            airway_assessment,
+            assess_asa_score
+        } = this.props.resident.progress;
+
 
         return(
                 <div>
@@ -87,7 +97,7 @@ const {
 
 const mapStateToProps = state => ({
     user: state.user,
-    feedback: state.feedback,
+    resident: state.resident,
 });
 
 export default connect(mapStateToProps)(ResidentStudentGoalsTable);

@@ -1,6 +1,8 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+
 
 /**
  * GET route template
@@ -50,6 +52,75 @@ router.get('/students', (req, res) => {
         res.sendStatus(500);
     })
 });
+
+router.get('/progress/:id', rejectUnauthenticated, (req,res) => {
+    console.log('Hit goals');
+    pool.query(`
+      SELECT 
+      SUM("iv") as iv, 
+      SUM("a_line") as a_line, 
+      SUM("mask_ventilation") as mask_ventilation, 
+      SUM("insert_lma") as insert_lma, 
+      SUM("intubation") as intubation, 
+      SUM("planned_airway_management") as planned_airway_management, 
+      SUM("airway_assessment") as airway_assessment, 
+      SUM("assess_asa_score") as assess_asa_score 
+      FROM "feedback" WHERE "user_id" = $1;`,[req.params.id]
+    ).then(response => {
+      // console.log(response.rows[0]);
+      
+      res.send(response.rows[0])
+    }).catch( err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+    
+})
+
+router.get('/initialDetails/:id', rejectUnauthenticated, (req,res) => {
+    console.log('Hit goals');
+    pool.query(`SELECT 
+    initial_survey.user_id, 
+    initial_survey."year", 
+    initial_survey.applying_to, 
+    initial_survey.applied_to, 
+    initial_survey.matched_in, 
+    initial_survey.interested_in, 
+    initial_survey.letter_interest, 
+    initial_survey.intubations, 
+    initial_survey.iv, 
+    initial_survey.mask_ventilated, 
+    initial_survey.central_line, 
+    initial_survey.run_ventilator,
+    goals.user_id, 
+    goals.iv AS "goal_iv", 
+    goals.a_line AS "goal_a_line", 
+    goals.mask_ventilation AS "goal_mask_ventilation", 
+    goals.insert_lma AS "goal_insert_lma", 
+    goals.intubation AS "goal_intubation", 
+    goals.planned_airway_management AS "goal_planned_airway_management", 
+    goals.airway_assessment AS "goal_airway_assessment", 
+    goals.assess_asa_score AS "goal_assess_asa_score",
+    "users".first_name,
+    "users".last_name,
+    "users".email,
+    "users".resident,
+    "users".admin
+    FROM "users"
+    LEFT OUTER JOIN "goals" on "goals".user_id = "users".id
+    LEFT OUTER JOIN "initial_survey" ON "initial_survey".user_id = "users".id
+    WHERE users.id = $1;`, [req.params.id]
+    ).then(response => {
+      // console.log(response.rows[0]);
+      
+      res.send(response.rows[0])
+    }).catch( err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+    
+})
+
 /**
  * POST route template
  */
