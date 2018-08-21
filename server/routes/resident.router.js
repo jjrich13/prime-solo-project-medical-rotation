@@ -122,6 +122,22 @@ router.get('/initialDetails/:id', rejectUnauthenticated, (req,res) => {
     
 })
 
+router.get('/feedback', (req, res) => {
+    console.log('hit feedback');
+    
+    pool.query(`SELECT * FROM feedback
+        LEFT OUTER JOIN users ON feedback.user_id = users.id
+        ORDER BY date DESC;`
+    ).then(response => {
+        res.send(response.rows)
+        
+    }).catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+        
+    })
+})
+
 /**
  * POST route template
  */

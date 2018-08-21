@@ -28,8 +28,18 @@ const details = (state = {}, action) => {
     }
 };
 
+const feedback = (state = [], action) => {
+    switch (action.type) {
+      case 'SET_FEEDBACK_LIST':
+        return action.payload;
+      default:
+        return state;
+    }
+};
+
 export default combineReducers({
     students,
     progress,
-    details
+    details,
+    feedback
 });

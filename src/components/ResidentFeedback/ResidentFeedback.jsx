@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Nav from '../../components/Nav/Nav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+import moment from 'moment'
 
 
 class TableResidentStudentList extends Component {
@@ -13,12 +14,40 @@ class TableResidentStudentList extends Component {
 
     componentDidMount(){
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+        this.props.dispatch({
+            type: 'FETCH_FEEDBACK'
+        })
+
     }
+
+    // componentDidUpdate() {
+    //     //reroute back to login if not logged in user
+    //     if (!this.props.user.isLoading && !this.props.user.details.resident) {
+    //       this.props.history.push('home');
+    //     }
+    // }
 
     
     render(){
-        console.log(this.props.user);
+        console.log(this.props.feedback);
         
+        let tableRows = []
+        if (this.props.feedback){
+            tableRows = this.props.feedback.map((feedback,index) => {
+                return(
+                    <tr key={index}>
+                        <td>{feedback.first_name + ' ' + feedback.last_name}</td>
+                        <td>{moment(feedback.date).format('dddd, MMMM Do YYYY')}</td>
+                        <td>{feedback.discussion_topics.map((topic, index ) => {
+                                return(
+                                    <div><a href={topic}>Topic {index + 1}</a></div>
+                                )
+                            })}
+                        </td>
+                    </tr>
+                )
+            })
+        }
         return(
             <div>
                 <Nav />
@@ -30,10 +59,10 @@ class TableResidentStudentList extends Component {
                                 Student
                             </th>
                             <th>
-                                Year
+                                Date
                             </th>
                             <th>
-                                Progress
+                                Discussion Points
                             </th>
                             <th>
                                 Info
@@ -41,6 +70,7 @@ class TableResidentStudentList extends Component {
                         </tr>
                     </thead>
                     <tbody>
+                        {tableRows}
                     </tbody>
                 </table>
             </div>
@@ -52,7 +82,7 @@ class TableResidentStudentList extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
-    feedback: state.feedback,
+    feedback: state.resident.feedback,
     resident: state.resident
 });
 

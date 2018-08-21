@@ -65,11 +65,34 @@ function* fetchInitialDetails (action) {
     }
 }
 
+const getFeedback = () => {
+    return axios.get(`/api/resident/feedback`).then(response => {
+        console.log(response.data);
+    
+        return response.data;
+    }).catch( err => {
+        console.log(err);
+    
+    })
+}
+
+function* fetchFeedback (action) {
+    try {
+      const feedback = yield getFeedback();
+      yield put({type: 'SET_FEEDBACK_LIST', payload: feedback})
+    } catch (error) {
+      console.log(error);
+      
+    }
+}
+
 
 function* residentSaga () {
     yield takeLatest('FETCH_RESIDENT_STUDENT_LIST', fetchStudents);
     yield takeLatest('RESIDENT_FETCH_GOALS_PROGRESS', fetchGoalsProgress )
     yield takeLatest('RESIDENT_FETCH_INITIAL_DETAILS', fetchInitialDetails )
+    yield takeLatest('FETCH_FEEDBACK', fetchFeedback )
+
   }
   
   export default residentSaga;

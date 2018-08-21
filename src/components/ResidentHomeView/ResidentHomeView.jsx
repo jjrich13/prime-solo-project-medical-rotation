@@ -28,7 +28,7 @@ class ResidentHomeView extends Component {
         return(
             <div>
                 <h1>Resident Home</h1>
-                <button onClick={this.handleViewFeedback}>View Feedback</button>
+                <button onClick={this.handleViewFeedback}>View All Feedback</button>
                 <p>Resident Code: {this.state.residentCode}</p>
                 <TableResidentStudentList />
             </div>
