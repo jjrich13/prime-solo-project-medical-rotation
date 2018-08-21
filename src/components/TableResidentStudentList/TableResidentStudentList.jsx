@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-class TableBodyResidentStudentList extends Component {
+class TableResidentStudentList extends Component {
     constructor(props){
         super(props);
         
@@ -42,9 +42,28 @@ class TableBodyResidentStudentList extends Component {
             )
         })
         return(
-            <tbody>
-                {tableRowArray}
-            </tbody>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Student
+                        </th>
+                        <th>
+                            Year
+                        </th>
+                        <th>
+                            Progress
+                        </th>
+                        <th>
+                            Info
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tableRowArray}
+                </tbody>
+            </table>
+            
 
         )
     }
@@ -56,4 +75,4 @@ const mapStateToProps = state => ({
     resident: state.resident
 });
 
-export default connect(mapStateToProps)(TableBodyResidentStudentList);
+export default connect(mapStateToProps)(TableResidentStudentList);
