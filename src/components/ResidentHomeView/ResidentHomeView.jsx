@@ -20,11 +20,15 @@ class ResidentHomeView extends Component {
         })
     }
 
+    handleViewFeedback = () => {
+        window.location.href= `/#/feedback`;
+    }
     
     render(){
         return(
             <div>
                 <h1>Resident Home</h1>
+                <button onClick={this.handleViewFeedback}>View Feedback</button>
                 <p>Resident Code: {this.state.residentCode}</p>
                 <TableResidentStudentList />
             </div>
