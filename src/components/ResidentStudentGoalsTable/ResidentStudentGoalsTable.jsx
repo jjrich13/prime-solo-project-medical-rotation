@@ -8,14 +8,7 @@ class ResidentStudentGoalsTable extends Component {
     }
 
     componentDidMount(){
-        this.props.dispatch({
-            type:'RESIDENT_FETCH_GOALS_PROGRESS',
-            payload: this.props.studentId
-        })
-        this.props.dispatch({
-            type:'RESIDENT_FETCH_INITIAL_DETAILS',
-            payload: this.props.studentId
-        })
+        
     }
     
     render(){
@@ -47,7 +40,7 @@ class ResidentStudentGoalsTable extends Component {
 
         return(
                 <div>
-                    <h2>Your Goals</h2>
+                    <h2>{this.props.resident.details.first_name + ' ' + this.props.resident.details.last_name}</h2>
                     <table>
                         <thead>
                             <tr>

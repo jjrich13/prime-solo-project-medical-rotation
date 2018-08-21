@@ -91,6 +91,7 @@ router.get('/initialDetails/:id', rejectUnauthenticated, (req,res) => {
     initial_survey.iv, 
     initial_survey.mask_ventilated, 
     initial_survey.central_line, 
+    initial_survey.arterial_line,
     initial_survey.run_ventilator,
     goals.user_id, 
     goals.iv AS "goal_iv", 
