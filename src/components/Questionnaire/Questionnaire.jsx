@@ -92,7 +92,7 @@ class Questionnaire extends Component {
         return(
             <div>
                 <h2>Intro Questionnaire</h2>
-                <p>Answer a few queations about yourself</p>
+                <p>Answer a few questions about yourself</p>
                 <form>
                     <div>
                         1) As of Today I am in:
