@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import Nav from '../Nav/Nav';
 import TableResidentStudentList from '../TableResidentStudentList/TableResidentStudentList'
 import axios from 'axios';
+import StudentFeedbackHistory from '../StudentFeedbackHistory/StudentFeedbackHistory';
 
 const astyle = {
     color: 'blue'
@@ -22,14 +23,18 @@ class AdminView extends Component {
                 podcast: '',
                 podcast_link: '',
                 additional_material: ''
-            }
+            },
+            inactiveStudents: [],
+            inactiveResidents: []
         }
     }
     
     componentDidMount(){
         this.getAttendings();
-        this.getResidents();
+        this.getCurrentResidents();
         this.getDiscussionTopics();
+        this.getInactiveResidents();
+        this.getInactiveStudents();
         
     }
 
@@ -52,7 +57,7 @@ class AdminView extends Component {
         })
     }
 
-    getResidents = () => {
+    getCurrentResidents = () => {
         axios.get('/api/feedback/resident').then(response => {
             this.setState({
                 residents: response.data
@@ -64,8 +69,9 @@ class AdminView extends Component {
     }
 
     deactivateResident = (id) => {
-        axios.put(`/api/admin/deactivate/${id}`).then(response => {
-            this.getResidents();
+        axios.put(`/api/admin/toggleActive/${id}`).then(response => {
+            this.getCurrentResidents();
+            this.getInactiveResidents();
                 
         }).catch(err => {
                 console.log(err);
@@ -126,94 +132,156 @@ class AdminView extends Component {
         
     }
 
-  render(){
+    getInactiveResidents = () => {
+        axios.get('/api/admin/inactiveResident').then(response => {
+            this.setState({
+                inactiveResidents: response.data
+            })
+                
+        }).catch(err => {
+                console.log(err);
+        })
+    }
+    
+    getInactiveStudents = () => {
+        axios.get('/api/admin/inactiveStudent').then(response => {
+            this.setState({
+                inactiveStudents: response.data
+            })
+                
+        }).catch(err => {
+                console.log(err);
+        })
+    }
+
+    handleActivate = (id) => {
+        axios.put(`/api/admin/toggleActive/${id}`).then(response => {
+            this.getCurrentResidents();
+            this.getInactiveResidents();
+            this.getInactiveStudents();
+            this.props.dispatch({
+                type: 'FETCH_RESIDENT_STUDENT_LIST'
+            })
+                
+        }).catch(err => {
+                console.log(err);
+        })
+    }
+
+    render(){
       
-    const residentList = this.state.residents.map((resident,index) => {
-        return(
-            <li key={index} >
-                {resident.first_name + ' ' + resident.last_name}
-                <button onClick={() => this.deactivateResident(resident.id)}>Deactivate</button>
-            </li>
-        )
-    })
+        const residentList = this.state.residents.map((resident,index) => {
+            return(
+                <li key={index} >
+                    {resident.first_name + ' ' + resident.last_name}
+                    <button onClick={() => this.deactivateResident(resident.id)}>Deactivate</button>
+                </li>
+            )
+        })
 
-    const attendingList = this.state.attendings.map((attending,index) => {
-        return(
-            <li key={index} >
-                {attending.name}
-                <button onClick={()=> this.deleteAttending(attending.id)}>Delete</button>
-            </li>
-        )
-    })
+        const attendingList = this.state.attendings.map((attending,index) => {
+            return(
+                <li key={index} >
+                    {attending.name}
+                    <button onClick={()=> this.deleteAttending(attending.id)}>Delete</button>
+                </li>
+            )
+        })
 
-    const discussionTopicTableRows = this.state.discussionTopicsList.map((topic,index) => {
-        return(
-            <tr key={index} >
-                <td>
-                    {topic.topic}
-                </td>
-                <td>
-                    <a style={astyle} href={topic.podcast_link}>
-                        {topic.podcast}
-                    </a>
-                </td>
-                <td>
-                    {topic.additional_material}
-                </td>
-                <td>
-                    <button onClick={()=>this.handleDeleteTopic(topic.id)}>Delete</button>
-                </td>
-            </tr>
-        )
-    })
-
-    return(
-      <div>
-        <Nav />
-        <h1>Admin View</h1>
-        <h2>Current Students</h2>
-        <TableResidentStudentList />
-        <h2>Current Residents</h2>
-        <ul>
-            {residentList}
-        </ul>
-        <h2>Discussion Topics</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        Topic
-                    </th>
-                    <th>
-                        Podcast
-                    </th>
-                    <th>
-                        Additional Links
-                    </th>
-                    <th>
-                        Delete
-                    </th>
+        const discussionTopicTableRows = this.state.discussionTopicsList.map((topic,index) => {
+            return(
+                <tr key={index} >
+                    <td>
+                        {topic.topic}
+                    </td>
+                    <td>
+                        <a style={astyle} href={topic.podcast_link}>
+                            {topic.podcast}
+                        </a>
+                    </td>
+                    <td>
+                        {topic.additional_material}
+                    </td>
+                    <td>
+                        <button onClick={()=>this.handleDeleteTopic(topic.id)}>Delete</button>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                {discussionTopicTableRows}
-            </tbody>
-        </table>
-        <h3>Add New Discussion Topic</h3>
-        <form onSubmit={this.handleNewTopic}>
-            Topic:<input type="text" onChange={this.handleChangeFor('topic')} value={this.state.newTopic.topic}/>
-            Podcast Title:<input type="text" onChange={this.handleChangeFor('podcast')} value={this.state.newTopic.podcast}/>
-            Podcast Link: <input type="text" onChange={this.handleChangeFor('podcast_link')} value={this.state.newTopic.podcast_link}/>
-            Addtional Material:<input type="text" onChange={this.handleChangeFor('additional_material')} value={this.state.newTopic.addtional_material}/>
-            <button type='submit'>Add Topic</button>
-        </form>
-        <h2>Current Attending Physicians</h2>
-        <ul>
-            {attendingList}
-        </ul>
-      </div>
-    )
-  }
+            )
+        })
+
+        const inactiveStudentList = this.state.inactiveStudents.map((student, index) => {
+            return(
+                <li key={index}>
+                    {student.first_name + ' ' + student.last_name}
+                    <button onClick={()=> this.handleActivate(student.id)}>Activate</button>
+                </li>
+            )
+        })
+
+        const inactiveResidentList = this.state.inactiveResidents.map((resident, index) => {
+            return(
+                <li key={index}>
+                    {resident.first_name + ' ' + resident.last_name}
+                    <button onClick={()=> this.handleActivate(resident.id)}>Activate</button>
+                </li>
+            )
+        })
+
+        return(
+        <div>
+            <Nav />
+            <h1>Admin View</h1>
+            <h2>Current Students</h2>
+            <TableResidentStudentList getInactiveStudents = {this.getInactiveStudents} />
+            <h2>Current Residents</h2>
+            <ul>
+                {residentList}
+            </ul>
+            <h2>Discussion Topics</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Topic
+                        </th>
+                        <th>
+                            Podcast
+                        </th>
+                        <th>
+                            Additional Links
+                        </th>
+                        <th>
+                            Delete
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {discussionTopicTableRows}
+                </tbody>
+            </table>
+            <h3>Add New Discussion Topic</h3>
+            <form onSubmit={this.handleNewTopic}>
+                Topic:<input type="text" onChange={this.handleChangeFor('topic')} value={this.state.newTopic.topic}/>
+                Podcast Title:<input type="text" onChange={this.handleChangeFor('podcast')} value={this.state.newTopic.podcast}/>
+                Podcast Link: <input type="text" onChange={this.handleChangeFor('podcast_link')} value={this.state.newTopic.podcast_link}/>
+                Addtional Material:<input type="text" onChange={this.handleChangeFor('additional_material')} value={this.state.newTopic.addtional_material}/>
+                <button type='submit'>Add Topic</button>
+            </form>
+            <h2>Current Attending Physicians</h2>
+            <ul>
+                {attendingList}
+            </ul>
+            <h2>Inactive Students</h2>
+            <ul>
+                {inactiveStudentList}
+            </ul>
+            <h2>Inactive Residents</h2>
+            <ul>
+                {inactiveResidentList}
+            </ul>
+        </div>
+        )
+    }
 };
 
 const mapStateToProps = state => ({

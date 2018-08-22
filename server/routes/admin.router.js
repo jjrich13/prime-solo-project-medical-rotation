@@ -5,8 +5,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 
 
-router.put('/deactivate/:id', rejectUnauthenticated, (req, res) => {
-    pool.query(`UPDATE users SET active = false WHERE id = $1;`, [req.params.id]
+router.put('/toggleActive/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`UPDATE users SET active = NOT active WHERE id = $1;`, [req.params.id]
     ).then(response => {
         res.sendStatus(200);
         
@@ -61,6 +61,24 @@ router.delete('/topic/:id', rejectUnauthenticated, (req, res) => {
         
     })
 })
+
+router.get('/inactiveResident', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT * FROM users WHERE resident = true AND active = false;`).then( response => {
+      res.send(response.rows)
+    }).catch( err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+});
+
+router.get('/inactiveStudent', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT * FROM users WHERE resident = false AND active = false;`).then( response => {
+      res.send(response.rows)
+    }).catch( err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+});
 
 /**
  * POST route template

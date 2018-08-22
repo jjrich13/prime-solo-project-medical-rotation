@@ -20,10 +20,11 @@ class TableResidentStudentList extends Component {
     }
 
     deactivateStudent = (id) => {
-        axios.put(`/api/admin/deactivate/${id}`).then(response => {
+        axios.put(`/api/admin/toggleActive/${id}`).then(response => {
             this.props.dispatch({
                 type: 'FETCH_RESIDENT_STUDENT_LIST'
             })
+            this.props.getInactiveStudents();
                 
         }).catch(err => {
                 console.log(err);
