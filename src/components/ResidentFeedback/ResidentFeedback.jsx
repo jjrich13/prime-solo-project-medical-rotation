@@ -40,7 +40,7 @@ class TableResidentStudentList extends Component {
                         <td>{moment(feedback.date).format('dddd, MMMM Do YYYY')}</td>
                         <td>{feedback.discussion_topics.map((topic, i ) => {
                                 return(
-                                    <div key={i}><a href={topic}>Topic {index + 1}</a></div>
+                                    <div key={i}><a href={topic}>Topic {i + 1}</a></div>
                                 )
                             })}
                         </td>
