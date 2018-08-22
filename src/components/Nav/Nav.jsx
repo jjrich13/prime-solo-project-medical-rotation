@@ -1,23 +1,59 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import { USER_ACTIONS } from '../../redux/actions/userActions';
+import {connect} from 'react-redux';
 
-const Nav = () => (
-  <div className="navbar">
-    <div>
-      <ul>
-        <li>
-          <Link to="/user">
-            User Home
-          </Link>
-        </li>
-        <li>
-          <Link to="/info">
-            Info Page
-          </Link>
-        </li>
-      </ul>
-    </div>
-  </div>
-);
+class Nav extends Component {
 
-export default Nav;
+  componentDidMount(){
+    this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+  }
+
+  residentCheck = () => {
+    try { 
+      if(this.props.user.user.resident){
+        return(
+          <li>
+            <Link to="/admin">
+              Admin
+            </Link>
+          </li>
+        )
+      } else {
+        return null;
+      } 
+    } catch (error) {
+      return null;
+    }
+  }
+
+  render(){
+    console.log('USER.USER', this.props.user.user);  
+
+    return(
+      <div className="navbar">
+        <div>
+          <ul>
+            <li>
+              <Link to="/user">
+                User Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/info">
+                Info Page
+              </Link>
+            </li>
+            {this.residentCheck()}
+          </ul>
+        </div>
+      </div>
+    )
+  }
+};
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps)(Nav);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+import moment from 'moment'
 
 class TableRowStudentFeedbackHistory extends Component {
     constructor(props){
@@ -21,7 +22,8 @@ class TableRowStudentFeedbackHistory extends Component {
         return(
             <tr>
                 <td>
-                    {this.props.date}
+                    
+                    {moment(this.props.date).format('dddd, MMMM Do YYYY')}
                 </td>
                 <td>
                     {this.props.progress}

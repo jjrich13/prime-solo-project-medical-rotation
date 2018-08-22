@@ -35,20 +35,9 @@ class UserPage extends Component {
     // this.props.history.push('home');
   }
 
-
-  
-  // setContent = () => {
-  //   if(this.props.user.details.resident){
-  //     userContent = <ResidentHomeView />
-  //   } else if (typeof this.props.user.questionnaire[0] !== 'object' && !this.props.user.details.resident){
-  //     userContent = <Questionnaire setContent={this.setContent}/>
-  //   } else {
-  //     userContent = <StudentHomeView />
-  //   }
-  // }
-
   render() {
     // console.log('from render:', this.props.user.details.resident);
+    
     
     let content = null;
     // this.setContent();

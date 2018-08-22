@@ -15,6 +15,7 @@ import FeedbackForm from './components/FeedbackForm/FeedbackForm'
 import StudentFeedbackHistory from './components/StudentFeedbackHistory/StudentFeedbackHistory'
 import StudentProfile from './components/StudentProfile/StudentProfile'
 import ResidentFeedback from './components/ResidentFeedback/ResidentFeedback'
+import AdminView from './components/AdminView/AdminView'
 
 import './styles/main.css';
 
@@ -56,6 +57,10 @@ const App = () => (
         <Route
           path="/feedback"
           component={ResidentFeedback}
+        />
+        <Route
+          path="/admin"
+          component={AdminView}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />

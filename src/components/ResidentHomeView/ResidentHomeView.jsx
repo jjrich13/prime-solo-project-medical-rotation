@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import TableResidentStudentList from '../TableResidentStudentList/TableResidentStudentList'
+import { USER_ACTIONS } from '../../redux/actions/userActions';
 class ResidentHomeView extends Component {
     constructor(props){
         super(props);
@@ -18,6 +19,7 @@ class ResidentHomeView extends Component {
             })
             
         })
+        this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
     }
 
     handleViewFeedback = () => {
