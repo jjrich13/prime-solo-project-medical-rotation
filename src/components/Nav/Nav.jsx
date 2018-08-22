@@ -11,7 +11,7 @@ class Nav extends Component {
 
   residentCheck = () => {
     try { 
-      if(this.props.user.user.resident){
+      if(this.props.user.user.admin){
         return(
           <li>
             <Link to="/admin">

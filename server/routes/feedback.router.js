@@ -23,7 +23,7 @@ router.get('/attending', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/resident', rejectUnauthenticated, (req, res) => {
-  pool.query(`SELECT * FROM users WHERE resident = true;`).then( response => {
+  pool.query(`SELECT * FROM users WHERE resident = true AND active = true;`).then( response => {
     res.send(response.rows)
   }).catch( err => {
     console.log(err);

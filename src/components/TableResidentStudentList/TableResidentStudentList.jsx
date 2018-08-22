@@ -19,6 +19,17 @@ class TableResidentStudentList extends Component {
         window.location.href= `/#/profile/${id}`;
     }
 
+    deactivateStudent = (id) => {
+        axios.put(`/api/admin/deactivate/${id}`).then(response => {
+            this.props.dispatch({
+                type: 'FETCH_RESIDENT_STUDENT_LIST'
+            })
+                
+        }).catch(err => {
+                console.log(err);
+        })
+    }
+
     
     render(){
         console.log(this.props.resident);
@@ -37,6 +48,7 @@ class TableResidentStudentList extends Component {
                     <td>
                         {/* button */}
                         <button onClick={() => this.handleProfile(student.id)}>Profile</button>
+                        <button onClick={() => this.deactivateStudent(student.id)}>Deactivate</button>
                     </td>
                 </tr>
             )
