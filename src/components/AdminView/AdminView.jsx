@@ -16,7 +16,13 @@ class AdminView extends Component {
         this.state= {
             attendings: [],
             residents: [],
-            discussionTopicsList: []
+            discussionTopicsList: [],
+            newTopic: {
+                topic: '',
+                podcast: '',
+                podcast_link: '',
+                additional_material: ''
+            }
         }
     }
     
@@ -77,8 +83,50 @@ class AdminView extends Component {
         })
     }
 
+    handleChangeFor = (property) => (event) => {
+        this.setState({
+            newTopic: {
+                ...this.state.newTopic,
+                [property]: event.target.value
+            }
+        })
+    }
+
+    handleNewTopic = (event) => {
+        event.preventDefault();
+        console.log(this.state.newTopic);
+        
+        axios.post('/api/admin/topic', this.state.newTopic).then(response => {
+            this.getDiscussionTopics();
+            this.clearInputs();
+        }).catch(err => {
+            console.log(err);
+            
+        })
+    }
+
+    clearInputs = () => {
+        this.setState({
+            newTopic: {
+                topic: '',
+                podcast: '',
+                podcast_link: '',
+                additional_material: ''
+            }
+        })
+    }
+
+    handleDeleteTopic = (id) => {
+        console.log(id);
+        axios.delete(`/api/admin/topic/${id}`).then(response => {
+            this.getDiscussionTopics();
+        }).catch(err => {
+            console.log(err);
+        })
+        
+    }
+
   render(){
-    console.log(this.state);
       
     const residentList = this.state.residents.map((resident,index) => {
         return(
@@ -113,7 +161,7 @@ class AdminView extends Component {
                     {topic.additional_material}
                 </td>
                 <td>
-                    Delete
+                    <button onClick={()=>this.handleDeleteTopic(topic.id)}>Delete</button>
                 </td>
             </tr>
         )
@@ -151,6 +199,14 @@ class AdminView extends Component {
                 {discussionTopicTableRows}
             </tbody>
         </table>
+        <h3>Add New Discussion Topic</h3>
+        <form onSubmit={this.handleNewTopic}>
+            Topic:<input type="text" onChange={this.handleChangeFor('topic')} value={this.state.newTopic.topic}/>
+            Podcast Title:<input type="text" onChange={this.handleChangeFor('podcast')} value={this.state.newTopic.podcast}/>
+            Podcast Link: <input type="text" onChange={this.handleChangeFor('podcast_link')} value={this.state.newTopic.podcast_link}/>
+            Addtional Material:<input type="text" onChange={this.handleChangeFor('additional_material')} value={this.state.newTopic.addtional_material}/>
+            <button type='submit'>Add Topic</button>
+        </form>
         <h2>Current Attending Physicians</h2>
         <ul>
             {attendingList}
