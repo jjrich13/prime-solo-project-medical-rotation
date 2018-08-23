@@ -28,7 +28,6 @@ class Nav extends Component {
   }
 
   render(){
-    console.log('USER.USER', this.props.user.user);  
 
     return(
       <div className="navbar">

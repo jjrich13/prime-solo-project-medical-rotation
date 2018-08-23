@@ -3,6 +3,17 @@ import { connect } from 'react-redux';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 
 
+import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
+import FormGroup from '@material-ui/core/FormGroup';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+
+
 class Questionnaire extends Component {
     constructor(props){
         super(props);
@@ -96,31 +107,95 @@ class Questionnaire extends Component {
                 <form>
                     <div>
                         1) As of Today I am in:
-                        <select onChange={this.handleChangeFor('year')}>
-                            <option disabled selected="selected">-Year-</option>
-                            <option value="2">MS2</option>
-                            <option value="3">MS3</option>
-                            <option value="4">MS4</option>
-                        </select>
+                        <FormControl>
+                            <InputLabel>Year</InputLabel>
+                            <Select onChange={this.handleChangeFor('year')}>
+                                <MenuItem value="2">MS2</MenuItem>
+                                <MenuItem value="3">MS3</MenuItem>
+                                <MenuItem value="4">MS4</MenuItem>
+                            </Select>
+                        </FormControl>
                     </div>
                     <div>
                         2a) If MS2/3, I am interested in:
-                        <div>
-                            <input type="checkbox" value="Anesthesia" onChange={this.handleCheckboxChange} /> Anesthesia<br/>
-                            <input type="checkbox" value="Internal Medicine" onChange={this.handleCheckboxChange} /> Internal Medicine <br/>
-                            <input type="checkbox" value="Emergency Medicine" onChange={this.handleCheckboxChange} /> Emergency Medicine<br/>
-                            <input type="checkbox" value="OB/GYN" onChange={this.handleCheckboxChange} /> OB/GYN <br/>
-                            <input type="checkbox" value="General Surgery" onChange={this.handleCheckboxChange} /> General Surgery <br/>
-                            <input type="checkbox" value="Subspecialty Surgery" onChange={this.handleCheckboxChange} /> Subspecialty Surgery <br/>
-                            <input type="checkbox" /> Other <i>(currently non-functional)</i> <input type="text"/> 
-                        </div>
+                        <FormGroup>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox 
+                                        type="checkbox" 
+                                        value="Anesthesia" 
+                                        onChange={this.handleCheckboxChange} 
+                                    />
+                                }
+                                label="Anesthesia"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox 
+                                        type="checkbox" 
+                                        value="Internal Medicine" 
+                                        onChange={this.handleCheckboxChange} 
+                                    />
+                                }
+                                label="Internal Medicine"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox 
+                                        type="checkbox" 
+                                        value="Emergency Medicine" 
+                                        onChange={this.handleCheckboxChange} 
+                                    />
+                                }
+                                label="Emergency Medicine"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox 
+                                        type="checkbox" 
+                                        value="OB/GYN" 
+                                        onChange={this.handleCheckboxChange} 
+                                    />
+                                }
+                                label="OB/GYN"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox 
+                                        type="checkbox" 
+                                        value="General Surgery" 
+                                        onChange={this.handleCheckboxChange} 
+                                    />
+                                }
+                                label="General Surgery"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox 
+                                        type="checkbox" 
+                                        value="Subspecialty Surgery" 
+                                        onChange={this.handleCheckboxChange} 
+                                    />
+                                }
+                                label="Subspecialty Surgery"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox 
+                                        type="checkbox"
+                                        onChange={this.handleCheckboxChange} 
+                                    />
+                                }
+                                label="Other"
+                            />
+                        </FormGroup>
                     </div>
                     <div>
                         2b) If MS4, I am interested in:
                         <div>
-                            Applying to: <input type="text" onChange={this.handleChangeFor('applyingTo')} /> <br/>
-                            Applied to: <input type="text" onChange={this.handleChangeFor('appliedTo')} /> <br/>
-                            Matched in: <input type="text" onChange={this.handleChangeFor('matchedIn')} /> <br/>
+                            <TextField label="Applying to:" type="text" onChange={this.handleChangeFor('applyingTo')} /> <br/>
+                            <TextField label="Applied to:" type="text" onChange={this.handleChangeFor('appliedTo')} /> <br/>
+                            <TextField label="Matched in:" type="text" onChange={this.handleChangeFor('matchedIn')} /> <br/>
                         </div>
                     </div>
                     <div>

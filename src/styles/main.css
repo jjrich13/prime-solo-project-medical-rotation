@@ -14,9 +14,9 @@ body {
 }
 
 .form {
-    background-color: #dbd5d5;
-    width: 30%;
-    height: 250px;
+    /* background-color: #dbd5d5; */
+    /* width: 30%; */
+    /* height: 250px; */
     margin: 20px auto;
     padding: 25px;
     border-radius: 2px;
@@ -82,3 +82,4 @@ li a:hover {
 tr {
     text-align: center;
 }
+

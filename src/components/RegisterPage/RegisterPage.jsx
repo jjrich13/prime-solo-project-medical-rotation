@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -76,7 +84,7 @@ class RegisterPage extends Component {
   }
 
   render() {
-    console.log(this.state);
+    console.log('RESIDENT',this.state.resident);
     
     return (
       <div>
@@ -84,43 +92,39 @@ class RegisterPage extends Component {
         <form  className="form" onSubmit={this.registerUser}>
           <h1>Register User</h1>
           <div>
-            <label htmlFor="username">
-              Username:
-              <input
+            {/* <label htmlFor="username"> */}
+              <TextField
                 type="text"
-                name="username"
+                label="Username"
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
               />
-            </label>
+            {/* </label> */}
           </div>
           <div>
-            <label htmlFor="password">
-              Password:
-              <input
+            {/* <label htmlFor="password"> */}
+              <TextField
                 type="password"
-                name="password"
+                label="Password"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
               />
-            </label>
+            {/* </label> */}
           </div>
           <div>
             <label htmlFor="firstName">
-              First Name:
-              <input
+              <TextField
                 type="text"
-                name="firstName"
+                label="First Name"
                 value={this.state.firstName}
                 onChange={this.handleInputChangeFor('firstName')}
               />
             </label>
           </div><div>
             <label htmlFor="lastName">
-              Last Name:
-              <input
+              <TextField
                 type="text"
-                name="lastName"
+                label="Last Name"
                 value={this.state.lastName}
                 onChange={this.handleInputChangeFor('lastName')}
               />
@@ -128,26 +132,34 @@ class RegisterPage extends Component {
           </div>
           <div>
             <label htmlFor="email">
-              email:
-              <input
+              <TextField
                 type="text"
-                name="email"
+                label="email"
                 value={this.state.email}
                 onChange={this.handleInputChangeFor('email')}
               />
             </label>
             <div>
-                        User Type: <br />
-                        Student <input name="userType" value="false" type="radio" onChange={this.handleInputChangeFor('resident')} />
-                        Resident <input name="userType" value="true" type="radio" onChange={this.handleInputChangeFor('resident')} />
-                    </div>
+              <FormControl>
+                <FormLabel component="legend">User Type</FormLabel>
+                <RadioGroup
+                  aria-label="User Type"
+                  value={this.state.resident}
+                  onChange={this.handleInputChangeFor('resident')}
+                >
+                  <FormControlLabel value="false" control={<Radio />} label="Student" />
+                  <FormControlLabel value="true" control={<Radio />} label="Resident" />
+                </RadioGroup>
+              </FormControl>
+            </div>
           </div>
           <div>
-            <input
+            <Button
               type="submit"
               name="submit"
-              value="Register"
-            />
+            >
+              Register
+            </Button>
             <Link to="/home">Cancel</Link>
           </div>
         </form>

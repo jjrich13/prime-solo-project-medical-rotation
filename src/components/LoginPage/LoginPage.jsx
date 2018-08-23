@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 
 
 const mapStateToProps = state => ({
@@ -68,33 +71,34 @@ class LoginPage extends Component {
         <form className="form" onSubmit={this.login}>
           <h1>Login</h1>
           <div>
-            <label htmlFor="username">
-              Username:
-              <input
+            {/* <label htmlFor="username"> */}
+              <TextField
+                label="Username"
                 type="text"
-                name="username"
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
               />
-            </label>
+            {/* </label> */}
           </div>
           <div>
-            <label htmlFor="password">
-              Password:
-              <input
+            {/* <label htmlFor="password"> */}
+              <TextField
+                label="Password"
                 type="password"
-                name="password"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
               />
-            </label>
+            {/* </label> */}
           </div>
           <div>
-            <input
+            <Button
+              variant="contained"
+              color="primary"
               type="submit"
               name="submit"
-              value="Log In"
-            />
+            >
+              Log in
+            </Button>
             <Link to="/register">Register</Link>
           </div>
         </form>

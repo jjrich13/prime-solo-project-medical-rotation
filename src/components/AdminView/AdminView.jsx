@@ -7,6 +7,12 @@ import TableResidentStudentList from '../TableResidentStudentList/TableResidentS
 import axios from 'axios';
 import StudentFeedbackHistory from '../StudentFeedbackHistory/StudentFeedbackHistory';
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
 const astyle = {
     color: 'blue'
 }
@@ -190,22 +196,22 @@ class AdminView extends Component {
 
         const discussionTopicTableRows = this.state.discussionTopicsList.map((topic,index) => {
             return(
-                <tr key={index} >
-                    <td>
+                <TableRow key={index} >
+                    <TableCell>
                         {topic.topic}
-                    </td>
-                    <td>
+                    </TableCell>
+                    <TableCell>
                         <a style={astyle} href={topic.podcast_link}>
                             {topic.podcast}
                         </a>
-                    </td>
-                    <td>
+                    </TableCell>
+                    <TableCell>
                         {topic.additional_material}
-                    </td>
-                    <td>
+                    </TableCell>
+                    <TableCell>
                         <button onClick={()=>this.handleDeleteTopic(topic.id)}>Delete</button>
-                    </td>
-                </tr>
+                    </TableCell>
+                </TableRow>
             )
         })
 
@@ -238,27 +244,27 @@ class AdminView extends Component {
                 {residentList}
             </ul>
             <h2>Discussion Topics</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>
                             Topic
-                        </th>
-                        <th>
+                        </TableCell>
+                        <TableCell>
                             Podcast
-                        </th>
-                        <th>
+                        </TableCell>
+                        <TableCell>
                             Additional Links
-                        </th>
-                        <th>
+                        </TableCell>
+                        <TableCell>
                             Delete
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
+                        </TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
                     {discussionTopicTableRows}
-                </tbody>
-            </table>
+                </TableBody>
+            </Table>
             <h3>Add New Discussion Topic</h3>
             <form onSubmit={this.handleNewTopic}>
                 Topic:<input type="text" onChange={this.handleChangeFor('topic')} value={this.state.newTopic.topic}/>

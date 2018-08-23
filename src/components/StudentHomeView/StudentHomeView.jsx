@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import StudentGoalsTable from '../StudentGoalsTable/StudentGoalsTable'
+import Button from '@material-ui/core/Button';
 
 class StudentHomeView extends Component {
     constructor(props){
@@ -25,8 +26,8 @@ class StudentHomeView extends Component {
             <div>
                 <h1>STUDENT HOME</h1>
                 <div>
-                    <button onClick={this.handleSubmitDailyFeedbackButton}>Submit Daily Feedback</button>
-                    <button onClick={this.handleFeedbackHistoryButton}>Feedback History</button>
+                    <Button variant="outlined" size="large" onClick={this.handleSubmitDailyFeedbackButton}>Submit Daily Feedback</Button>
+                    <Button variant="outlined" size="large" onClick={this.handleFeedbackHistoryButton}>Feedback History</Button>
                 </div>
                 <StudentGoalsTable />
             </div>

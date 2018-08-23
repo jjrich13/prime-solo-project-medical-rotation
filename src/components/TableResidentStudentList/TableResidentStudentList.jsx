@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
 class TableResidentStudentList extends Component {
     constructor(props){
         super(props);
@@ -36,46 +42,46 @@ class TableResidentStudentList extends Component {
         console.log(this.props.resident);
         const tableRowArray = this.props.resident.students.map((student, index) => {
             return(
-                <tr key={index}>
-                    <td>
+                <TableRow key={index}>
+                    <TableCell>
                         {student.first_name + ' ' + student.last_name}
-                    </td>
-                    <td>
+                    </TableCell>
+                    <TableCell>
                         MS{student.year}
-                    </td>
-                    <td>
+                    </TableCell>
+                    <TableCell>
                         {Math.round(Number(student.progress_sum) / Number(student.goal_sum)*100)}%
-                    </td>
-                    <td>
+                    </TableCell>
+                    <TableCell>
                         {/* button */}
                         <button onClick={() => this.handleProfile(student.id)}>Profile</button>
                         <button onClick={() => this.deactivateStudent(student.id)}>Deactivate</button>
-                    </td>
-                </tr>
+                    </TableCell>
+                </TableRow>
             )
         })
         return(
-            <table>
-                <thead>
-                    <tr>
-                        <th>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>
                             Student
-                        </th>
-                        <th>
+                        </TableCell>
+                        <TableCell>
                             Year
-                        </th>
-                        <th>
+                        </TableCell>
+                        <TableCell>
                             Progress
-                        </th>
-                        <th>
+                        </TableCell>
+                        <TableCell>
                             Info
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
+                        </TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
                     {tableRowArray}
-                </tbody>
-            </table>
+                </TableBody>
+            </Table>
             
 
         )

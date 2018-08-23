@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 
 class ResidentPastExperienceTable extends Component {
@@ -8,54 +13,54 @@ class ResidentPastExperienceTable extends Component {
   render() {
       
     return (
-      <table>
-          <tbody>
-              <tr>
-                  <td>
+      <Table>
+          <TableBody>
+              <TableRow>
+                  <TableCell>
                       IVs
-                  </td>
-                  <td>
+                  </TableCell>
+                  <TableCell>
                       {this.props.details.iv}
-                  </td>
-                  <td>
+                  </TableCell>
+                  <TableCell>
                       Intubations
-                  </td>
-                  <td>
+                  </TableCell>
+                  <TableCell>
                     {this.props.details.intubations}
-                  </td>
-              </tr>
-              <tr>
-                  <td>
+                  </TableCell>
+              </TableRow>
+              <TableRow>
+                  <TableCell>
                       Arterial Lines
-                  </td>
-                  <td>
+                  </TableCell>
+                  <TableCell>
                     {this.props.details.arterial_line}
-                  </td>
-                  <td>
+                  </TableCell>
+                  <TableCell>
                       Central Lines   
-                  </td>
-                  <td>
+                  </TableCell>
+                  <TableCell>
                     {this.props.details.central_line}
-                  </td>
-              </tr>
-              <tr>
-                  <td>
+                  </TableCell>
+              </TableRow>
+              <TableRow>
+                  <TableCell>
                       Mask Ventilations
-                  </td>
-                  <td>
+                  </TableCell>
+                  <TableCell>
                     {this.props.details.mask_ventilated}
-                  </td>
-                  <td>
+                  </TableCell>
+                  <TableCell>
                       
-                  </td>
-                  <td>
+                  </TableCell>
+                  <TableCell>
                       
-                  </td>
-              </tr>
+                  </TableCell>
+              </TableRow>
               
 
-          </tbody>
-      </table>
+          </TableBody>
+      </Table>
     );
   }
 }
