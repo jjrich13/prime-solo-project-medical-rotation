@@ -12,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import { RadioGroup, Radio, Button } from '../../../node_modules/@material-ui/core';
 
 
 class Questionnaire extends Component {
@@ -193,42 +194,58 @@ class Questionnaire extends Component {
                     <div>
                         2b) If MS4, I am interested in:
                         <div>
-                            <TextField label="Applying to:" type="text" onChange={this.handleChangeFor('applyingTo')} /> <br/>
-                            <TextField label="Applied to:" type="text" onChange={this.handleChangeFor('appliedTo')} /> <br/>
-                            <TextField label="Matched in:" type="text" onChange={this.handleChangeFor('matchedIn')} /> <br/>
+                            <TextField multiline="true" label="Applying to:" type="text" onChange={this.handleChangeFor('applyingTo')} /> <br/>
+                            <TextField multiline="true" label="Applied to:" type="text" onChange={this.handleChangeFor('appliedTo')} /> <br/>
+                            <TextField multiline="true" label="Matched in:" type="text" onChange={this.handleChangeFor('matchedIn')} /> <br/>
                         </div>
                     </div>
                     <div>
                         3) I am interested in a letter of recommendation <br />
-                        Yes <input name="letter" value="Yes" type="radio" onChange={this.handleChangeFor('letter')} />
-                        No <input name="letter" value="No" type="radio" onChange={this.handleChangeFor('letter')} />
-                        Maybe <input name="letter" value="Maybe" type="radio" onChange={this.handleChangeFor('letter')} />
+                        <RadioGroup
+                            onChange={this.handleChangeFor('letter')}
+                            value={this.state.letter}
+                        >
+                            <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+                            <FormControlLabel value="No" control={<Radio />} label="No" />
+                            <FormControlLabel value="Maybe" control={<Radio />} label="Maybe" />
+                        </RadioGroup>
                     </div>
                     <div>
                         4) Prior to this rotation how many of the following have you performed on LIVE patients? <br />
-                        Intubations <input type="number" onChange={this.handleExperienceChange('intubations')} /> 
-                        IVs <input type="number" onChange={this.handleExperienceChange('ivs')} />
-                        Mask Ventilations <input type="number" onChange={this.handleExperienceChange('maskVentilations')} />
-                        Central Lines <input type="number" onChange={this.handleExperienceChange('centralLines')} />
-                        Arterial Lines <input type="number" onChange={this.handleExperienceChange('arterialLines')} />
+                        <FormGroup>
+                            <TextField label="Intubations" type="number" onChange={this.handleExperienceChange('intubations')} /> 
+                            <TextField label="IVs" type="number" onChange={this.handleExperienceChange('ivs')} />
+                            <TextField label="Mask Ventilations" type="number" onChange={this.handleExperienceChange('maskVentilations')} />
+                            <TextField label="Central Lines" type="number" onChange={this.handleExperienceChange('centralLines')} />
+                            <TextField label="Arterial Lines" type="number" onChange={this.handleExperienceChange('arterialLines')} />
+                        </FormGroup>
                     </div>
                     <div>
-                        5) Prior to this rotation I have run a ventialtor. <br />
-                        Yes <input name="ventilator" type="radio" value="Yes" onChange={this.handleChangeFor('ventilator')}/>
-                        No <input name="ventilator" type="radio" value="No" onChange={this.handleChangeFor('ventilator')}/>
+                        5) Prior to this rotation I have run a ventilator. <br />
+                        {/* Yes <input name="ventilator" type="radio" value="Yes" onChange={this.handleChangeFor('ventilator')}/>
+                        No <input name="ventilator" type="radio" value="No" onChange={this.handleChangeFor('ventilator')}/> */}
+                        <RadioGroup
+                            onChange={this.handleChangeFor('runVentilator')}
+                            value={this.state.runVentilator}
+                        >
+                            <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                            <FormControlLabel value="false" control={<Radio />} label="No" />
+                        </RadioGroup>
                     </div>
                     <div>
                         6) Set some goals for you rotation. How many of each of the folowing would you like to do before you finish?  <br />
-                        IVs <input type="number" onChange={this.handleGoalChange('ivs')} /> 
-                        Arterial Lines <input type="number" onChange={this.handleGoalChange('arterialLines')} />
-                        Mask Ventilations <input type="number" onChange={this.handleGoalChange('maskVentilations')} />
-                        LMA insertions <input type="number" onChange={this.handleGoalChange('lmaInsertions')} />
-                        Intubations <input type="number" onChange={this.handleGoalChange('intubations')} />
-                        Planned Airway Management <input type="number" onChange={this.handleGoalChange('plannedAirwayMgmt')} />
-                        Airway Assessments <input type="number" onChange={this.handleGoalChange('airwayAssessments')} />
-                        ASA Assessment Scorings <input type="number" onChange={this.handleGoalChange('asaScorings')} />
+                        <FormGroup>
+                            <TextField label="IVs" type="number" onChange={this.handleGoalChange('ivs')} /> 
+                            <TextField label="Arterial Lines" type="number" onChange={this.handleGoalChange('arterialLines')} />
+                            <TextField label="Mask Ventilations" type="number" onChange={this.handleGoalChange('maskVentilations')} />
+                            <TextField label="LMA insertions" type="number" onChange={this.handleGoalChange('lmaInsertions')} />
+                            <TextField label="Intubations" type="number" onChange={this.handleGoalChange('intubations')} />
+                            <TextField label="Planned Airway Management" type="number" onChange={this.handleGoalChange('plannedAirwayMgmt')} />
+                            <TextField label="Airway Assessments" type="number" onChange={this.handleGoalChange('airwayAssessments')} />
+                            <TextField label="ASA Assessment Scorings" type="number" onChange={this.handleGoalChange('asaScorings')} />
+                        </FormGroup>
                     </div>
-                    <button type="submit" onClick={this.handleSubmit}>Submit</button>
+                    <Button variant="outlined" type="submit" onClick={this.handleSubmit}>Submit</Button>
                 </form>
             </div>
 
