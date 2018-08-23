@@ -4,6 +4,8 @@ import Nav from '../../components/Nav/Nav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import TableRowStudentFeedbackHistory from '../TableRowStudentFeedbackHistory/TableRowStudentFeedbackHistory'
 
+import {Table, TableBody, TableCell, TableHead, TableRow}  from '@material-ui/core';
+
 
 
 class StudentFeedbackHistory extends Component {
@@ -47,27 +49,27 @@ class StudentFeedbackHistory extends Component {
                 <Nav />
                 <h1>Feedback History</h1>
                 <div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>
                                     Date
-                                </th>
-                                <th>
+                                </TableCell>
+                                <TableCell>
                                     Tasks Completed towards Goal
-                                </th>
-                                <th>
+                                </TableCell>
+                                <TableCell>
                                     Discussion Points
-                                </th>
-                                <th>
+                                </TableCell>
+                                <TableCell>
                                     Info
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
                             {tableRows}
-                        </tbody>
-                    </table>
+                        </TableBody>
+                    </Table>
                 </div>
             </div>
 

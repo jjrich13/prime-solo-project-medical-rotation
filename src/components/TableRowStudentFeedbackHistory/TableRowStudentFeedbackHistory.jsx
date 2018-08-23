@@ -21,7 +21,7 @@ class TableRowStudentFeedbackHistory extends Component {
         
         const discussion_topics = this.props.discussion_topics.map((topic, index ) => {
             return(
-                <div><a href={topic}>Topic {index + 1}</a></div>
+                <div key={index}><a href={topic}>Topic {index + 1}</a></div>
             )
         })
         

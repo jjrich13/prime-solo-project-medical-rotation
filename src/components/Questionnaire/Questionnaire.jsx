@@ -110,7 +110,10 @@ class Questionnaire extends Component {
                         1) As of Today I am in:
                         <FormControl>
                             <InputLabel>Year</InputLabel>
-                            <Select onChange={this.handleChangeFor('year')}>
+                            <Select 
+                                onChange={this.handleChangeFor('year')}
+                                value={this.state.year}
+                            >
                                 <MenuItem value="2">MS2</MenuItem>
                                 <MenuItem value="3">MS3</MenuItem>
                                 <MenuItem value="4">MS4</MenuItem>
