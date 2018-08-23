@@ -1,4 +1,4 @@
-# Express/Passport with React
+# Medical Rotations App
 ## Technologies Used
 - ReactJS
 - PostgreSQL
