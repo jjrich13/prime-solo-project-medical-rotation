@@ -9,4 +9,4 @@
 - Redux-Saga
 - Material-UI
 
-https://guarded-mesa-47011.herokuapp.com/#/user
+https://guarded-mesa-47011.herokuapp.com/#/home
