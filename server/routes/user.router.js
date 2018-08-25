@@ -161,6 +161,18 @@ router.post('/intro/questionnaire', rejectUnauthenticated, (req, res) => {
   })
 })
 
+router.put('/intro/active', rejectUnauthenticated, (req, res) => {
+  console.log('ACTIVE HIT');
+  pool.query(`UPDATE users SET active = true WHERE id=$1`,[req.user.id]).then(response => {
+    res.sendStatus(200);
+
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500);
+    
+  })
+})
+
 // router.post('/intro/goals', rejectUnauthenticated, (req, res) => {
 //   console.log('posting goals', req.body);
 //   const {airwayAssessments,

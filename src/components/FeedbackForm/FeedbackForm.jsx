@@ -358,7 +358,7 @@ class FeedbackForm extends Component {
                                                         <Select
                                                             className={this.props.classes.Select}
                                                             onChange={this.handleInputChangeFor('preparingMedication')}
-                                                            value={this.state.setupRoom}
+                                                            value={this.state.preparingMedication}
                                                         >
                                                             <MenuItem value="NA">NA</MenuItem>
                                                             <MenuItem value="With Supervision">With Supervision</MenuItem>

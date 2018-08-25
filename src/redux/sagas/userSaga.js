@@ -80,7 +80,7 @@ function* checkIntro() {
 function* postQuestionnaire (action) {
   try {
     yield call(axios.post, `/api/user/intro/questionnaire`, action.payload);
-    // yield call(axios.post, `/api/user/intro/goals`, action.payload);
+    yield call(axios.put, `/api/user/intro/active`);
     yield put({type: USER_ACTIONS.FETCH_USER_DETAILS});
   } catch (error) {
     console.log(error);
