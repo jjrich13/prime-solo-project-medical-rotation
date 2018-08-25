@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import { Paper, Typography, Grid, Button, withStyles } from '@material-ui/core'
+import { Paper, Typography, Grid, Button, withStyles, FormControlLabel, Checkbox } from '@material-ui/core'
 
 const astyle = {
     color: 'blue'
@@ -45,12 +45,22 @@ class DiscussionTopicsList extends Component {
                     key={index}
                 >
                     <Paper className={this.props.classes.Paper}>
-                        <input
+                        {/* <input
                             type="checkbox"
                             value={topic.podcast_link}
                             onChange={this.props.handleCheckboxChange}
                         />
-                        {topic.topic}
+                        {topic.topic} */}
+                        <FormControlLabel
+                                control={
+                                    <Checkbox 
+                                        type="checkbox" 
+                                        value={topic.podcast_link}
+                                        onChange={this.props.handleCheckboxChange} 
+                                    />
+                                }
+                                label={topic.topic}
+                            />
                         <br />
                         Podcast:
                     <a style={astyle} href={topic.podcast_link}>

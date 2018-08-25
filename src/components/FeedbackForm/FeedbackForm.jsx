@@ -28,6 +28,9 @@ let styles = {
     },
     gridItem: {
         margin: 7
+    },
+    Select: {
+        width: '180px'
     }
 }
 class FeedbackForm extends Component {
@@ -229,15 +232,15 @@ class FeedbackForm extends Component {
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    IVs<br />
-                                                    <input
+                                                    <TextField
+                                                        label="IVs"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('iv')}
                                                     />
                                                 </td>
                                                 <td>
-                                                    Intubations<br />
-                                                    <input
+                                                    <TextField
+                                                        label="Intubations"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('intubation')}
                                                     />
@@ -245,15 +248,15 @@ class FeedbackForm extends Component {
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Arterial Lines<br />
-                                                    <input
+                                                    <TextField
+                                                        label="Arterial Lines"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('aLine')}
                                                     />
                                                 </td>
                                                 <td>
-                                                    Planned Airway Management<br />
-                                                    <input
+                                                    <TextField
+                                                        label="Planned Airway Mgmt"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('plannedAirwayManagement')}
                                                     />
@@ -261,15 +264,15 @@ class FeedbackForm extends Component {
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Mask Ventilations<br />
-                                                    <input
+                                                    <TextField
+                                                        label="Mask Ventilations"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('maskVentilation')}
                                                     />
                                                 </td>
                                                 <td>
-                                                    Airway Assessments<br />
-                                                    <input
+                                                    <TextField
+                                                        label="Airway Assessments"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('airwayAssessment')}
                                                     />
@@ -277,15 +280,15 @@ class FeedbackForm extends Component {
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Insert LMAs<br />
-                                                    <input
+                                                    <TextField
+                                                        label="Insert LMAs"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('insertLMA')}
                                                     />
                                                 </td>
                                                 <td>
-                                                    Assess ASA Score <br />
-                                                    <input
+                                                    <TextField
+                                                        label="Assess ASA Score"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('assessASAScore')}
                                                     />
@@ -306,39 +309,62 @@ class FeedbackForm extends Component {
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    Applied Monitors <br />
-                                                    <select onChange={this.handleInputChangeFor('appliedMonitors')}>
-                                                        <option disabled selected="selected">-Select-</option>
-                                                        <option value="None">None</option>
-                                                        <option value="Some">Some</option>
-                                                        <option value="Most">Most</option>
-                                                        <option value="All">All</option>
-                                                    </select>
+                                                    <FormControl>
+                                                        <InputLabel>Applied Monitors</InputLabel>
+                                                        <Select
+                                                            className={this.props.classes.Select}
+                                                            onChange={this.handleInputChangeFor('appliedMonitors')}
+                                                            value={this.state.appliedMonitors}
+                                                        >
+                                                            <MenuItem value="None">None</MenuItem>
+                                                            <MenuItem value="Some">Some</MenuItem>
+                                                            <MenuItem value="Most">Most</MenuItem>
+                                                            <MenuItem value="All">All</MenuItem>
+                                                        </Select>
+                                                    </FormControl>
                                                 </td>
                                                 <td>
-                                                    Setup Room<br />
-                                                    <select onChange={this.handleInputChangeFor('setupRoom')}>
-                                                        <option disabled selected="selected">-Select-</option>
-                                                        <option value="None">None</option>
-                                                        <option value="Some">Some</option>
-                                                        <option value="Most">Most</option>
-                                                        <option value="All">All</option>
-                                                    </select>
+                                                    <FormControl>
+                                                        <InputLabel>Setup Rooms</InputLabel>
+                                                        <Select
+                                                            className={this.props.classes.Select}
+                                                            onChange={this.handleInputChangeFor('setupRoom')}
+                                                            value={this.state.setupRoom}
+                                                        >
+                                                            <MenuItem value="None">None</MenuItem>
+                                                            <MenuItem value="Some">Some</MenuItem>
+                                                            <MenuItem value="Most">Most</MenuItem>
+                                                            <MenuItem value="All">All</MenuItem>
+                                                        </Select>
+                                                    </FormControl>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    Planned Induction<br />
-                                                    Yes <input name="ventilator" type="radio" value="true" onChange={this.handleInputChangeFor('plannedInduction')} />
-                                                    No <input name="ventilator" type="radio" value="false" onChange={this.handleInputChangeFor('plannedInduction')} />
+                                                    <Typography variant="subheading">Planned Induction</Typography>
+                                                    <FormControl>
+                                                        <RadioGroup
+                                                            onChange={this.handleInputChangeFor('plannedInduction')}
+                                                            value={this.state.plannedInduction}
+                                                        >
+                                                            <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                                                            <FormControlLabel value="false" control={<Radio />} label="No" />
+                                                        </RadioGroup>
+                                                    </FormControl>
                                                 </td>
                                                 <td>
-                                                    Preparing Medication<br />
-                                                    <select onChange={this.handleInputChangeFor('preparingMedication')} >
-                                                        <option value="NA">NA</option>
-                                                        <option value="With Supervision">With Supervision</option>
-                                                        <option value="Entrustable">Entrustable</option>
-                                                    </select>
+                                                    <FormControl>
+                                                        <InputLabel>Preparing Medication</InputLabel>
+                                                        <Select
+                                                            className={this.props.classes.Select}
+                                                            onChange={this.handleInputChangeFor('preparingMedication')}
+                                                            value={this.state.setupRoom}
+                                                        >
+                                                            <MenuItem value="NA">NA</MenuItem>
+                                                            <MenuItem value="With Supervision">With Supervision</MenuItem>
+                                                            <MenuItem value="Entrustable">Entrustable</MenuItem>
+                                                        </Select>
+                                                    </FormControl>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -358,14 +384,22 @@ class FeedbackForm extends Component {
                                 <Typography variant="display1">For Resident</Typography>
                                 <div>
                                     <Typography variant="subheading">Was it evident that this student read/listen to the required materials for today's assigned topic?</Typography>
-                                    Yes <input name="ventilator" type="radio" value="true" onChange={this.handleInputChangeFor('readListened')} />
-                                    No <input name="ventilator" type="radio" value="false" onChange={this.handleInputChangeFor('readListened')} />
+                                    <FormControl>
+                                        <RadioGroup
+                                            onChange={this.handleInputChangeFor('readListened')}
+                                            value={this.state.readListened}
+                                        >
+                                            <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                                            <FormControlLabel value="false" control={<Radio />} label="No" />
+                                        </RadioGroup>
+                                    </FormControl>
+
                                 </div>
                                 <div>
                                     <Typography variant="subheading">
                                         Resident Signature
-                            </Typography>
-                                    <input type="password" onChange={this.handleInputChangeFor('residentSignature')} />
+                                    </Typography>
+                                    <Input type="password" onChange={this.handleInputChangeFor('residentSignature')} />
                                 </div>
                             </Paper>
                         </Grid>

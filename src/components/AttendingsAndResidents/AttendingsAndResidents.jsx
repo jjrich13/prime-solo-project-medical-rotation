@@ -7,6 +7,9 @@ import { Paper, Typography, Grid, Button, Select, withStyles, FormControl, MenuI
 const styles = {
     select: {
         margin: 0
+    },
+    Select: {
+        width: '180px'
     }
 }
 
@@ -69,6 +72,7 @@ class AttendingsAndResidents extends Component {
                         <Select
                             onChange={this.props.handleInputChangeFor('resident')}
                             value={this.props.selectedResident}
+                            className={this.props.classes.Select}
                         >
                             {/* <option disabled selected="selected">-Resident-</option> */}
                             {residentList}
@@ -82,6 +86,7 @@ class AttendingsAndResidents extends Component {
                         <Select
                             onChange={this.props.handleInputChangeFor('attendingPhysician')}
                             value={this.props.selectedAttending}
+                            className={this.props.classes.Select}
                         >
                             {/* <option disabled selected="selected">-Attending-</option> */}
                             {attendingList}

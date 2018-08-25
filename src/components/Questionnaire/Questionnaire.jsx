@@ -217,11 +217,31 @@ class Questionnaire extends Component {
                     <div>
                         4) Prior to this rotation how many of the following have you performed on LIVE patients? <br />
                         <FormGroup>
-                            <TextField label="Intubations" type="number" onChange={this.handleExperienceChange('intubations')} /> 
-                            <TextField label="IVs" type="number" onChange={this.handleExperienceChange('ivs')} />
-                            <TextField label="Mask Ventilations" type="number" onChange={this.handleExperienceChange('maskVentilations')} />
-                            <TextField label="Central Lines" type="number" onChange={this.handleExperienceChange('centralLines')} />
-                            <TextField label="Arterial Lines" type="number" onChange={this.handleExperienceChange('arterialLines')} />
+                            <TextField 
+                                label="Intubations" 
+                                type="number" 
+                                onChange={this.handleExperienceChange('intubations')} 
+                            /> 
+                            <TextField 
+                                label="IVs" 
+                                type="number" 
+                                onChange={this.handleExperienceChange('ivs')} 
+                            />
+                            <TextField 
+                                label="Mask Ventilations" 
+                                type="number" 
+                                onChange={this.handleExperienceChange('maskVentilations')} 
+                            />
+                            <TextField 
+                                label="Central Lines" 
+                                type="number" 
+                                onChange={this.handleExperienceChange('centralLines')} 
+                            />
+                            <TextField 
+                                label="Arterial Lines" 
+                                type="number" 
+                                onChange={this.handleExperienceChange('arterialLines')} 
+                            />
                         </FormGroup>
                     </div>
                     <div>
