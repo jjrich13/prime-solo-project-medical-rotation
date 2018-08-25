@@ -2,21 +2,31 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+import { Paper, Typography, Grid, Button, withStyles } from '@material-ui/core'
+
 const astyle = {
     color: 'blue'
 }
 
-class DiscussionTopicsList extends Component{
-    constructor(props){
+let styles = {
+    Paper: {
+        padding: 10
+    },
+    gridItem: {
+        margin: 7
+    }
+}
+class DiscussionTopicsList extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             discussionTopicsList: []
         };
     }
-    
 
-    componentDidMount(){
-        axios.get('/api/feedback/discussion').then(response =>{
+
+    componentDidMount() {
+        axios.get('/api/feedback/discussion').then(response => {
             this.setState({
                 discussionTopicsList: response.data
             })
@@ -24,39 +34,45 @@ class DiscussionTopicsList extends Component{
     }
 
 
-    render(){
+    render() {
         console.log(this.state.discussionTopicsList);
-        
+
         const list = this.state.discussionTopicsList.map((topic, index) => {
-            return(
-                <li key={index}>
-                    <input 
-                        type="checkbox" 
-                        value={topic.podcast_link}
-                        onChange={this.props.handleCheckboxChange}
-                    />
-                    {topic.topic} 
-                    <br/> 
-                    Podcast: 
+            return (
+                <Grid
+                    className={this.props.classes.gridItem}
+                    item xs
+                    key={index}
+                >
+                    <Paper className={this.props.classes.Paper}>
+                        <input
+                            type="checkbox"
+                            value={topic.podcast_link}
+                            onChange={this.props.handleCheckboxChange}
+                        />
+                        {topic.topic}
+                        <br />
+                        Podcast:
                     <a style={astyle} href={topic.podcast_link}>
-                        {topic.podcast}
-                    </a>
-                </li>
+                            {topic.podcast}
+                        </a>
+                    </Paper>
+                </Grid>
             )
         })
 
-        
-        return(
+
+        return (
             <div>
                 {list}
             </div>
-                
+
         )
     }
 }
 
 const mapStateToProps = state => ({
     user: state.user
-  });
+});
 
-export default connect(mapStateToProps)(DiscussionTopicsList)
+export default connect(mapStateToProps)(withStyles(styles)(DiscussionTopicsList));

@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+// import TextField from '@material-ui/core/TextField';
+// import Button from '@material-ui/core/Button';
+// import Radio from '@material-ui/core/Radio';
+// import RadioGroup from '@material-ui/core/RadioGroup';
+// import FormHelperText from '@material-ui/core/FormHelperText';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import FormControl from '@material-ui/core/FormControl';
+// import FormLabel from '@material-ui/core/FormLabel';
+import {
+  TextField, 
+  Button, 
+  Radio, 
+  RadioGroup, 
+  FormHelperText, 
+  FormControlLabel, 
+  FormControl, 
+  FormLabel,
+  Paper 
+} from '@material-ui/core';
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -88,6 +99,7 @@ class RegisterPage extends Component {
     
     return (
       <div>
+        <Paper>
         {this.renderAlert()}
         <form  className="form" onSubmit={this.registerUser}>
           <h1>Register User</h1>
@@ -156,13 +168,15 @@ class RegisterPage extends Component {
           <div>
             <Button
               type="submit"
-              name="submit"
+              variant="contained"
+              color="primary"
             >
               Register
             </Button>
             <Link to="/home">Cancel</Link>
           </div>
         </form>
+        </Paper>
       </div>
     );
   }

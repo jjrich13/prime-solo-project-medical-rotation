@@ -3,9 +3,35 @@ import { connect } from 'react-redux';
 import Nav from '../../components/Nav/Nav';
 import DiscussionTopics from '../DiscussionTopics/DiscussionTopics'
 import AttendingsAndResidents from '../AttendingsAndResidents/AttendingsAndResidents'
+import {
+    Paper,
+    Typography,
+    Grid,
+    Button,
+    withStyles,
+    RadioGroup,
+    Radio,
+    FormControl,
+    TextField,
+    FormGroup,
+    Checkbox,
+    FormControlLabel,
+    Select,
+    Input,
+    InputLabel,
+    MenuItem
+} from '@material-ui/core'
 
+let styles = {
+    Paper: {
+        padding: 10
+    },
+    gridItem: {
+        margin: 7
+    }
+}
 class FeedbackForm extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             discussionTopics: [],
@@ -33,7 +59,7 @@ class FeedbackForm extends Component {
             readListened: true,
             residentSignature: ''
         };
-        
+
     }
 
     handleInputChangeFor = (property) => (event) => {
@@ -43,7 +69,7 @@ class FeedbackForm extends Component {
     }
 
     handleCheckboxBooleanToggle = (property) => (event) => {
-        if(event.target.checked) {
+        if (event.target.checked) {
             this.setState({
                 [property]: true
             })
@@ -58,232 +84,296 @@ class FeedbackForm extends Component {
         // current array of options
         const discussionTopics = this.state.discussionTopics
         let index
-    
+
         // check if the check box is checked or unchecked
         if (event.target.checked) {
-          // add the numerical value of the checkbox to options array
-          discussionTopics.push(event.target.value)
+            // add the numerical value of the checkbox to options array
+            discussionTopics.push(event.target.value)
         } else {
-          // or remove the value from the unchecked checkbox from the array
-          index = discussionTopics.indexOf(event.target.value)
-          discussionTopics.splice(index, 1)
+            // or remove the value from the unchecked checkbox from the array
+            index = discussionTopics.indexOf(event.target.value)
+            discussionTopics.splice(index, 1)
         }
-    
+
         // update the state with the new array of options
         this.setState({ discussionTopics: discussionTopics })
     }
 
     handleSubmit = () => {
-        this.props.dispatch({type: 'POST_FEEDBACK', payload: this.state})
-        window.location.href= `/#/user`;
+        this.props.dispatch({ type: 'POST_FEEDBACK', payload: this.state })
+        window.location.href = `/#/user`;
     }
 
-    
-    render(){
+
+    render() {
         console.log(this.state);
-        
-        return(
+
+        return (
+
             <div>
                 <Nav />
-                <h1>Daily Feedback</h1>
-                <div>
+                <Typography variant="display3">Daily Feedback</Typography>
+                <Grid
+                    container
+                    justify="flex-start"
+                    spacing={8}
+                    direction="row"
+                >
                     <div>
-                        Date For which you are filling out feedback <br/>
-                        <input onChange={this.handleInputChangeFor('date')} type="date"/>
+                        <Grid className={this.props.classes.gridItem} item xs={12}>
+                            <Paper className={this.props.classes.Paper}>
+                                <div>
+                                    <Typography variant="display1">Today</Typography>
+                                    <Typography>Date For which you are filling out feedback </Typography>
+                                    <Input onChange={this.handleInputChangeFor('date')} type="date" />
+                                </div>
+                                <AttendingsAndResidents
+                                    handleInputChangeFor={this.handleInputChangeFor}
+                                    selectedResident={this.state.resident}
+                                    selectedAttending={this.state.attendingPhysician}
+                                />
+                            </Paper>
+                        </Grid>
+                        <Grid className={this.props.classes.gridItem} item xs={12}>
+                            <Paper className={this.props.classes.Paper}>
+                                <div>
+                                    {/* <h2>Discussion Points</h2> */}
+                                    <Typography variant="display1">Discussion Points</Typography>
+                                    <Typography>Check the box if discussed</Typography>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Checkbox
+                                                                type="checkbox"
+                                                                onChange={this.handleCheckboxBooleanToggle('ventilatorSettings')}
+                                                            />
+                                                        }
+                                                        label="Ventilator Settings"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Checkbox
+                                                                type="checkbox"
+                                                                onChange={this.handleCheckboxBooleanToggle('inhaledAgents')}
+                                                            />
+                                                        }
+                                                        label="Inhaled Agents"
+                                                    />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Checkbox
+                                                                type="checkbox"
+                                                                onChange={this.handleCheckboxBooleanToggle('inductionDrugs')}
+                                                            />
+                                                        }
+                                                        label="Induction Drugs"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Checkbox
+                                                                type="checkbox"
+                                                                onChange={this.handleCheckboxBooleanToggle('vasopressors')}
+                                                            />
+                                                        }
+                                                        label="Vasopressors"
+                                                    />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Checkbox
+                                                                type="checkbox"
+                                                                onChange={this.handleCheckboxBooleanToggle('monitors')}
+                                                            />
+                                                        }
+                                                        label="Monitors"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Checkbox
+                                                                type="checkbox"
+                                                                onChange={this.handleCheckboxBooleanToggle('airwayManagement')}
+                                                            />
+                                                        }
+                                                        label="Airway Management"
+                                                    />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </Paper>
+                        </Grid>
+
+                        <Grid className={this.props.classes.gridItem} item xs={12}>
+                            <Paper className={this.props.classes.Paper}>
+                                <div>
+                                    <Typography variant="display1">Performed</Typography>
+                                    <Typography>How many times did you do each of these today?</Typography>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    IVs<br />
+                                                    <input
+                                                        type="number"
+                                                        onChange={this.handleInputChangeFor('iv')}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    Intubations<br />
+                                                    <input
+                                                        type="number"
+                                                        onChange={this.handleInputChangeFor('intubation')}
+                                                    />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Arterial Lines<br />
+                                                    <input
+                                                        type="number"
+                                                        onChange={this.handleInputChangeFor('aLine')}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    Planned Airway Management<br />
+                                                    <input
+                                                        type="number"
+                                                        onChange={this.handleInputChangeFor('plannedAirwayManagement')}
+                                                    />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Mask Ventilations<br />
+                                                    <input
+                                                        type="number"
+                                                        onChange={this.handleInputChangeFor('maskVentilation')}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    Airway Assessments<br />
+                                                    <input
+                                                        type="number"
+                                                        onChange={this.handleInputChangeFor('airwayAssessment')}
+                                                    />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Insert LMAs<br />
+                                                    <input
+                                                        type="number"
+                                                        onChange={this.handleInputChangeFor('insertLMA')}
+                                                    />
+                                                </td>
+                                                <td>
+                                                    Assess ASA Score <br />
+                                                    <input
+                                                        type="number"
+                                                        onChange={this.handleInputChangeFor('assessASAScore')}
+                                                    />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </Paper>
+                        </Grid>
+                        <Grid className={this.props.classes.gridItem} item xs>
+                            <Paper className={this.props.classes.Paper}>
+                                <div>
+                                    <Typography variant="display1">Did you...</Typography>
+                                    <Typography>Did you do the following, today?</Typography>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Applied Monitors <br />
+                                                    <select onChange={this.handleInputChangeFor('appliedMonitors')}>
+                                                        <option disabled selected="selected">-Select-</option>
+                                                        <option value="None">None</option>
+                                                        <option value="Some">Some</option>
+                                                        <option value="Most">Most</option>
+                                                        <option value="All">All</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    Setup Room<br />
+                                                    <select onChange={this.handleInputChangeFor('setupRoom')}>
+                                                        <option disabled selected="selected">-Select-</option>
+                                                        <option value="None">None</option>
+                                                        <option value="Some">Some</option>
+                                                        <option value="Most">Most</option>
+                                                        <option value="All">All</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Planned Induction<br />
+                                                    Yes <input name="ventilator" type="radio" value="true" onChange={this.handleInputChangeFor('plannedInduction')} />
+                                                    No <input name="ventilator" type="radio" value="false" onChange={this.handleInputChangeFor('plannedInduction')} />
+                                                </td>
+                                                <td>
+                                                    Preparing Medication<br />
+                                                    <select onChange={this.handleInputChangeFor('preparingMedication')} >
+                                                        <option value="NA">NA</option>
+                                                        <option value="With Supervision">With Supervision</option>
+                                                        <option value="Entrustable">Entrustable</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </Paper>
+                        </Grid>
+                        <Grid className={this.props.classes.gridItem} item xs>
+                            <Paper className={this.props.classes.Paper}>
+                                <DiscussionTopics
+                                    handleCheckboxChange={this.handleCheckboxChange}
+                                />
+                            </Paper>
+                        </Grid>
+                        <Grid className={this.props.classes.gridItem} item xs>
+                            <Paper className={this.props.classes.Paper}>
+                                <Typography variant="display1">For Resident</Typography>
+                                <div>
+                                    <Typography variant="subheading">Was it evident that this student read/listen to the required materials for today's assigned topic?</Typography>
+                                    Yes <input name="ventilator" type="radio" value="true" onChange={this.handleInputChangeFor('readListened')} />
+                                    No <input name="ventilator" type="radio" value="false" onChange={this.handleInputChangeFor('readListened')} />
+                                </div>
+                                <div>
+                                    <Typography variant="subheading">
+                                        Resident Signature
+                            </Typography>
+                                    <input type="password" onChange={this.handleInputChangeFor('residentSignature')} />
+                                </div>
+                            </Paper>
+                        </Grid>
+
                     </div>
-                    <AttendingsAndResidents 
-                        handleInputChangeFor={this.handleInputChangeFor}
-                    />
-                    <div>
-                        <h2>Discussion Points</h2>
-                        <p>Check the box if discussed</p>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <input 
-                                            type="checkbox"  
-                                            onChange={this.handleCheckboxBooleanToggle('ventilatorSettings')}
-                                        />
-                                        Ventilator Settings
-                                    </td>
-                                    <td>
-                                        <input 
-                                            type="checkbox" 
-                                            onChange={this.handleCheckboxBooleanToggle('inhaledAgents')}
-                                        />
-                                        Inhaled Agents
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input 
-                                            type="checkbox" 
-                                            onChange={this.handleCheckboxBooleanToggle('inductionDrugs')}
-                                        />
-                                        Induction Drugs
-                                    </td>
-                                    <td>
-                                        <input 
-                                            type="checkbox" 
-                                            onChange={this.handleCheckboxBooleanToggle('vasopressors')}
-                                        />
-                                        Vasopressors
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input 
-                                            type="checkbox" 
-                                            onChange={this.handleCheckboxBooleanToggle('monitors')}
-                                        />
-                                        Monitors
-                                    </td>
-                                    <td>
-                                        <input 
-                                            type="checkbox" 
-                                            onChange={this.handleCheckboxBooleanToggle('airwayManagement')}
-                                        />
-                                        Airway Management
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                        <h2>Performed</h2>
-                        <p>How many times did you do each of these today?</p>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        IVs<br/>
-                                        <input 
-                                            type="number" 
-                                            onChange={this.handleInputChangeFor('iv')}
-                                        />
-                                    </td>
-                                    <td>
-                                        Intubations<br/>
-                                        <input 
-                                            type="number" 
-                                            onChange={this.handleInputChangeFor('intubation')}
-                                        />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Arterial Lines<br/>
-                                        <input 
-                                            type="number" 
-                                            onChange={this.handleInputChangeFor('aLine')}
-                                        />
-                                    </td>
-                                    <td>
-                                        Planned Airway Management<br/>
-                                        <input 
-                                            type="number" 
-                                            onChange={this.handleInputChangeFor('plannedAirwayManagement')}
-                                        />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Mask Ventilations<br/>
-                                        <input 
-                                            type="number" 
-                                            onChange={this.handleInputChangeFor('maskVentilation')}
-                                        />
-                                    </td>
-                                    <td>
-                                        Airway Assessments<br/>
-                                        <input 
-                                            type="number" 
-                                            onChange={this.handleInputChangeFor('airwayAssessment')}
-                                        />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Insert LMAs<br/>
-                                        <input 
-                                            type="number" 
-                                            onChange={this.handleInputChangeFor('insertLMA')}
-                                        />
-                                    </td>
-                                    <td>
-                                        Assess ASA Score <br/>
-                                        <input 
-                                            type="number" 
-                                            onChange={this.handleInputChangeFor('assessASAScore')}
-                                        />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                        <h2>Did you...</h2>
-                        <p>Did you do the following, today?</p>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        Applied Monitors <br/>
-                                        <select onChange={this.handleInputChangeFor('appliedMonitors')}>
-                                            <option disabled selected="selected">-Select-</option>
-                                            <option value="None">None</option>
-                                            <option value="Some">Some</option>
-                                            <option value="Most">Most</option>
-                                            <option value="All">All</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        Setup Room<br/>
-                                        <select onChange={this.handleInputChangeFor('setupRoom')}>
-                                            <option disabled selected="selected">-Select-</option>
-                                            <option value="None">None</option>
-                                            <option value="Some">Some</option>
-                                            <option value="Most">Most</option>
-                                            <option value="All">All</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Planned Induction<br/>
-                                        Yes <input name="ventilator" type="radio" value="true" onChange={this.handleInputChangeFor('plannedInduction')} />
-                                        No <input name="ventilator" type="radio" value="false" onChange={this.handleInputChangeFor('plannedInduction')} />
-                                    </td>
-                                    <td>
-                                        Preparing Medication<br/>
-                                        <select onChange={this.handleInputChangeFor('preparingMedication')} >
-                                            <option value="NA">NA</option>
-                                            <option value="With Supervision">With Supervision</option>
-                                            <option value="Entrustable">Entrustable</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <br/>
-                    <DiscussionTopics
-                        handleCheckboxChange={this.handleCheckboxChange}
-                     />
-                    <div>
-                        <h4>Was it evident that this student read/listen to the required materials for today's assigned topic?</h4>
-                        Yes <input name="ventilator" type="radio" value="true" onChange={this.handleInputChangeFor('readListened')} />
-                        No <input name="ventilator" type="radio" value="false" onChange={this.handleInputChangeFor('readListened')} />
-                    </div>
-                    <div>
-                        <h3>
-                            Resident Signature
-                        </h3>
-                        <input type="password" onChange={this.handleInputChangeFor('residentSignature')} />
-                    </div>
-                </div>
-                <button onClick={this.handleSubmit}>Submit</button>
+
+                </Grid>
+                <Button variant="contained" onClick={this.handleSubmit}>Submit</Button>
             </div>
 
         )
@@ -292,6 +382,7 @@ class FeedbackForm extends Component {
 
 const mapStateToProps = state => ({
     user: state.user
-  });
+});
 
-export default connect(mapStateToProps)(FeedbackForm);
+// export default connect(mapStateToProps)(FeedbackForm);
+export default connect(mapStateToProps)(withStyles(styles)(FeedbackForm));

@@ -7,11 +7,8 @@ import TableResidentStudentList from '../TableResidentStudentList/TableResidentS
 import axios from 'axios';
 import StudentFeedbackHistory from '../StudentFeedbackHistory/StudentFeedbackHistory';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import {Table, TableBody, TableCell, TableHead, TableRow, Button}  from '@material-ui/core';
+
 
 const astyle = {
     color: 'blue'
@@ -180,7 +177,7 @@ class AdminView extends Component {
             return(
                 <li key={index} >
                     {resident.first_name + ' ' + resident.last_name}
-                    <button onClick={() => this.deactivateResident(resident.id)}>Deactivate</button>
+                    <Button variant="outlined" onClick={() => this.deactivateResident(resident.id)}>Deactivate</Button>
                 </li>
             )
         })
@@ -189,7 +186,7 @@ class AdminView extends Component {
             return(
                 <li key={index} >
                     {attending.name}
-                    <button onClick={()=> this.deleteAttending(attending.id)}>Delete</button>
+                    <Button variant="outlined" onClick={()=> this.deleteAttending(attending.id)}>Delete</Button>
                 </li>
             )
         })
@@ -209,7 +206,7 @@ class AdminView extends Component {
                         {topic.additional_material}
                     </TableCell>
                     <TableCell>
-                        <button onClick={()=>this.handleDeleteTopic(topic.id)}>Delete</button>
+                        <Button variant="outlined"  onClick={()=>this.handleDeleteTopic(topic.id)}>Delete</Button>
                     </TableCell>
                 </TableRow>
             )
@@ -219,7 +216,7 @@ class AdminView extends Component {
             return(
                 <li key={index}>
                     {student.first_name + ' ' + student.last_name}
-                    <button onClick={()=> this.handleActivate(student.id)}>Activate</button>
+                    <Button variant="outlined"  onClick={()=> this.handleActivate(student.id)}>Activate</Button>
                 </li>
             )
         })
@@ -228,7 +225,7 @@ class AdminView extends Component {
             return(
                 <li key={index}>
                     {resident.first_name + ' ' + resident.last_name}
-                    <button onClick={()=> this.handleActivate(resident.id)}>Activate</button>
+                    <Button variant="outlined"  onClick={()=> this.handleActivate(resident.id)}>Activate</Button>
                 </li>
             )
         })
@@ -271,7 +268,7 @@ class AdminView extends Component {
                 Podcast Title:<input type="text" onChange={this.handleChangeFor('podcast')} value={this.state.newTopic.podcast}/>
                 Podcast Link: <input type="text" onChange={this.handleChangeFor('podcast_link')} value={this.state.newTopic.podcast_link}/>
                 Additional Material:<input type="text" onChange={this.handleChangeFor('additional_material')} value={this.state.newTopic.addtional_material}/>
-                <button type='submit'>Add Topic</button>
+                <Button variant="contained"  type='submit'>Add Topic</Button>
             </form>
             <h2>Current Attending Physicians</h2>
             <ul>

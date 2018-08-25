@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import TableResidentStudentList from '../TableResidentStudentList/TableResidentStudentList'
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+
+import Button from '@material-ui/core/Button'
 class ResidentHomeView extends Component {
     constructor(props){
         super(props);
@@ -30,7 +32,7 @@ class ResidentHomeView extends Component {
         return(
             <div>
                 <h1>Resident Home</h1>
-                <button onClick={this.handleViewFeedback}>View All Feedback</button>
+                <Button variant="outlined" size="large" onClick={this.handleViewFeedback}>View All Feedback</Button>
                 <p>Resident Code: {this.state.residentCode}</p>
                 <TableResidentStudentList />
             </div>

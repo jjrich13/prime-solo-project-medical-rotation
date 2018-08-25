@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import {Table, TableBody, TableCell, TableHead, TableRow, Button}  from '@material-ui/core';
 
 class TableResidentStudentList extends Component {
     constructor(props){
@@ -54,8 +50,8 @@ class TableResidentStudentList extends Component {
                     </TableCell>
                     <TableCell>
                         {/* button */}
-                        <button onClick={() => this.handleProfile(student.id)}>Profile</button>
-                        <button onClick={() => this.deactivateStudent(student.id)}>Deactivate</button>
+                        <Button variant="outlined"  onClick={() => this.handleProfile(student.id)}>Profile</Button>
+                        <Button variant="outlined"  onClick={() => this.deactivateStudent(student.id)}>Deactivate</Button>
                     </TableCell>
                 </TableRow>
             )

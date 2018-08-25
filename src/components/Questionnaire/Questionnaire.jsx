@@ -113,6 +113,7 @@ class Questionnaire extends Component {
                             <Select 
                                 onChange={this.handleChangeFor('year')}
                                 value={this.state.year}
+                                placeholder="resident"
                             >
                                 <MenuItem value="2">MS2</MenuItem>
                                 <MenuItem value="3">MS3</MenuItem>
