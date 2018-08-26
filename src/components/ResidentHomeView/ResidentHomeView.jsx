@@ -33,8 +33,10 @@ class ResidentHomeView extends Component {
         return(
             <div>
                 <Typography variant="display3">Resident Home</Typography>
+                <Typography variant="headline">Resident Code: {this.state.residentCode}</Typography>
+                <Typography variant="caption">For signing your students' feedback forms</Typography>
+                <br/>
                 <Button variant="outlined" size="large" onClick={this.handleViewFeedback}>View All Feedback</Button>
-                <Typography>Resident Code: {this.state.residentCode}</Typography>
                 <TableResidentStudentList />
             </div>
         )

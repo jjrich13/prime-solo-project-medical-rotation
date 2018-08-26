@@ -6,6 +6,8 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import ResidentStudentGoalsTable from '../ResidentStudentGoalsTable/ResidentStudentGoalsTable'
 import InterestsList from '../InterestsList/InterestsList'
 import ResidentPastExperienceTable from '../ResidentPastExperienceTable/ResidentPastExperienceTable'
+import { Typography } from '@material-ui/core';
+
 
 
 class StudentProfile extends Component {
@@ -34,13 +36,17 @@ class StudentProfile extends Component {
       <div>
         <Nav />
         <ResidentStudentGoalsTable studentId={this.props.match.params.id} />
-        <h3>Details</h3>
-        <p>Year: MS{this.props.details.year}</p>
-        <p>Interests: <InterestsList /></p>
-        <p>Interested in a Letter of Recommendation: {this.props.details.letter_interest}</p>
-        <p>Past Experience with live patients:</p>
+        <br/>
+        <Typography variant="display1">Details</Typography>
+        <Typography>Year: <Typography variant="caption">MS{this.props.details.year}</Typography></Typography>
+        <Typography>Email Address: <Typography variant="caption">{this.props.details.email}</Typography></Typography>
+        <Typography>Interests: <InterestsList /></Typography>
+        <Typography>Interested in a Letter of Recommendation: <Typography variant="caption">{this.props.details.letter_interest}</Typography></Typography>
+        <br/>
+        <Typography variant="headline">Past Experience with live patients:</Typography>
         <ResidentPastExperienceTable />
-        <p>This student {vent} previously run a ventilator</p>
+        <br/>
+        <Typography>This student {vent} previously run a ventilator</Typography>
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Typography } from '@material-ui/core';
 
 
 class InterestsList extends Component {
@@ -12,7 +13,7 @@ class InterestsList extends Component {
           interests = this.props.details.interested_in.map((interest, index) => {
             return (
                 <li key={index}>
-                    {interest}
+                    <Typography variant="caption">{interest}</Typography>
                 </li>
             )
         })} 

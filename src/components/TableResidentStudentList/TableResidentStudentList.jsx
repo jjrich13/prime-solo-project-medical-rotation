@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import {Table, TableBody, TableCell, TableHead, TableRow, Button}  from '@material-ui/core';
+import {Table, TableBody, TableCell, TableHead, TableRow, Button, withStyles, Typography}  from '@material-ui/core';
 
+const styles = {
+    cell: {
+        width: '8%'
+    },
+    table: {
+        width: '70%'
+    }
+}
 class TableResidentStudentList extends Component {
     constructor(props){
         super(props);
@@ -39,13 +47,13 @@ class TableResidentStudentList extends Component {
         const tableRowArray = this.props.resident.students.map((student, index) => {
             return(
                 <TableRow key={index}>
-                    <TableCell>
-                        {student.first_name + ' ' + student.last_name}
+                    <TableCell className={this.props.classes.cell}>
+                        <Typography onClick={() => this.handleProfile(student.id)}>{student.first_name + ' ' + student.last_name}</Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className={this.props.classes.cell}>
                         MS{student.year}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className={this.props.classes.cell}>
                         {Math.round(Number(student.progress_sum) / Number(student.goal_sum)*100)}%
                     </TableCell>
                     <TableCell>
@@ -57,7 +65,7 @@ class TableResidentStudentList extends Component {
             )
         })
         return(
-            <Table>
+            <Table className={this.props.classes.table}>
                 <TableHead>
                     <TableRow>
                         <TableCell>
@@ -90,4 +98,4 @@ const mapStateToProps = state => ({
     resident: state.resident
 });
 
-export default connect(mapStateToProps)(TableResidentStudentList);
+export default connect(mapStateToProps)(withStyles(styles)(TableResidentStudentList));

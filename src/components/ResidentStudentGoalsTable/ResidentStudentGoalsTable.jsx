@@ -5,6 +5,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Typography } from '@material-ui/core';
 
 class ResidentStudentGoalsTable extends Component {
     constructor(props){
@@ -45,7 +46,7 @@ class ResidentStudentGoalsTable extends Component {
 
         return(
                 <div>
-                    <h2>{this.props.resident.details.first_name + ' ' + this.props.resident.details.last_name}</h2>
+                    <Typography variant="display2">{this.props.resident.details.first_name + ' ' + this.props.resident.details.last_name}</Typography>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -56,35 +57,35 @@ class ResidentStudentGoalsTable extends Component {
                         <TableBody>
                             <TableRow>
                                 <TableCell>IVs</TableCell>
-                                <TableCell>{iv}/{goal_iv}</TableCell>
+                                <TableCell>{iv || 0}/{goal_iv}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Arterial Lines</TableCell>
-                                <TableCell>{a_line}/{goal_a_line}</TableCell>
+                                <TableCell>{a_line || 0}/{goal_a_line}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Masks Ventilations</TableCell>
-                                <TableCell>{mask_ventilation}/{goal_mask_ventilation}</TableCell>
+                                <TableCell>{mask_ventilation || 0}/{goal_mask_ventilation}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>LMA Insertions</TableCell>
-                                <TableCell>{insert_lma}/{goal_insert_lma}</TableCell>
+                                <TableCell>{insert_lma || 0}/{goal_insert_lma}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Intubations</TableCell>
-                                <TableCell>{intubation}/{goal_intubation}</TableCell>
+                                <TableCell>{intubation || 0}/{goal_intubation}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Planned Airway Management</TableCell>
-                                <TableCell>{planned_airway_management}/{goal_planned_airway_management}</TableCell>
+                                <TableCell>{planned_airway_management || 0}/{goal_planned_airway_management}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Airway Assessments</TableCell>
-                                <TableCell>{airway_assessment}/{goal_airway_assessment}</TableCell>
+                                <TableCell>{airway_assessment || 0}/{goal_airway_assessment}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>ASA Assesment Scorings</TableCell>
-                                <TableCell>{assess_asa_score}/{goal_assess_asa_score}</TableCell>
+                                <TableCell>{assess_asa_score || 0}/{goal_assess_asa_score}</TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>

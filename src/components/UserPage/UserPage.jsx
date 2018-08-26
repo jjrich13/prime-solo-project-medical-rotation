@@ -53,7 +53,7 @@ class UserPage extends Component {
       content = (
         <div>
           <Typography
-            variant="display2"
+            variant="display1"
           >
             Welcome, { this.props.user.user.first_name }
           </Typography>
