@@ -5,9 +5,9 @@ import {connect} from 'react-redux';
 import Nav from '../Nav/Nav';
 import TableResidentStudentList from '../TableResidentStudentList/TableResidentStudentList'
 import axios from 'axios';
-import StudentFeedbackHistory from '../StudentFeedbackHistory/StudentFeedbackHistory';
+import DialogDeleteDeactivate from '../DialogDeleteDeactivate/DialogDeleteDeactivate'
 
-import {Table, TableBody, TableCell, TableHead, TableRow, Button}  from '@material-ui/core';
+import {Table, TableBody, TableCell, TableHead, TableRow, Button, Typography, List, ListItem}  from '@material-ui/core';
 
 
 const astyle = {
@@ -28,7 +28,8 @@ class AdminView extends Component {
                 additional_material: ''
             },
             inactiveStudents: [],
-            inactiveResidents: []
+            inactiveResidents: [],
+            dialogOpen: false
         }
     }
     
@@ -175,19 +176,19 @@ class AdminView extends Component {
       
         const residentList = this.state.residents.map((resident,index) => {
             return(
-                <li key={index} >
+                <ListItem key={index} >
                     {resident.first_name + ' ' + resident.last_name}
                     <Button variant="outlined" onClick={() => this.deactivateResident(resident.id)}>Deactivate</Button>
-                </li>
+                </ListItem>
             )
         })
 
         const attendingList = this.state.attendings.map((attending,index) => {
             return(
-                <li key={index} >
+                <ListItem key={index} >
                     {attending.name}
                     <Button variant="outlined" onClick={()=> this.deleteAttending(attending.id)}>Delete</Button>
-                </li>
+                </ListItem>
             )
         })
 
@@ -214,33 +215,33 @@ class AdminView extends Component {
 
         const inactiveStudentList = this.state.inactiveStudents.map((student, index) => {
             return(
-                <li key={index}>
+                <ListItem key={index}>
                     {student.first_name + ' ' + student.last_name}
                     <Button variant="outlined"  onClick={()=> this.handleActivate(student.id)}>Activate</Button>
-                </li>
+                </ListItem>
             )
         })
 
         const inactiveResidentList = this.state.inactiveResidents.map((resident, index) => {
             return(
-                <li key={index}>
+                <ListItem key={index}>
                     {resident.first_name + ' ' + resident.last_name}
                     <Button variant="outlined"  onClick={()=> this.handleActivate(resident.id)}>Activate</Button>
-                </li>
+                </ListItem>
             )
         })
 
         return(
         <div>
             <Nav />
-            <h1>Admin View</h1>
-            <h2>Current Students</h2>
+            <Typography variant="display3">Admin View</Typography>
+            <Typography variant="display2">Current Students</Typography>
             <TableResidentStudentList getInactiveStudents = {this.getInactiveStudents} />
-            <h2>Current Residents</h2>
+            <Typography variant="display2">Current Residents</Typography>
             <ul>
                 {residentList}
             </ul>
-            <h2>Discussion Topics</h2>
+            <Typography variant="display2">Discussion Topics</Typography>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -262,7 +263,7 @@ class AdminView extends Component {
                     {discussionTopicTableRows}
                 </TableBody>
             </Table>
-            <h3>Add New Discussion Topic</h3>
+            <Typography variant="headline">Add New Discussion Topic</Typography>
             <form onSubmit={this.handleNewTopic}>
                 Topic:<input type="text" onChange={this.handleChangeFor('topic')} value={this.state.newTopic.topic}/>
                 Podcast Title:<input type="text" onChange={this.handleChangeFor('podcast')} value={this.state.newTopic.podcast}/>
@@ -270,18 +271,22 @@ class AdminView extends Component {
                 Additional Material:<input type="text" onChange={this.handleChangeFor('additional_material')} value={this.state.newTopic.addtional_material}/>
                 <Button variant="contained"  type='submit'>Add Topic</Button>
             </form>
-            <h2>Current Attending Physicians</h2>
-            <ul>
+            <Typography variant="display2">Current Attending Physicians</Typography>
+            <List>
                 {attendingList}
-            </ul>
-            <h2>Inactive Students</h2>
-            <ul>
+            </List>
+            <Typography variant="headline">Inactive Students</Typography>
+            <List>
                 {inactiveStudentList}
-            </ul>
-            <h2>Inactive Residents</h2>
-            <ul>
+            </List>
+            <Typography variant="headline">Inactive Residents</Typography>
+            <List>
                 {inactiveResidentList}
-            </ul>
+            </List>
+            {/* <DialogDeleteDeactivate
+                action={this.state.dialogAction}
+                function={this.state.}
+            /> */}
         </div>
         )
     }

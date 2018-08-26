@@ -8,10 +8,9 @@ import ResidentHomeView from '../ResidentHomeView/ResidentHomeView'
 
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-import { triggerLogout } from '../../redux/actions/loginActions';
 
 
-import Button from '@material-ui/core/Button';
+import {Button, Typography} from '@material-ui/core';
 
 
 const mapStateToProps = state => ({
@@ -31,11 +30,6 @@ class UserPage extends Component {
     if (!this.props.user.isLoading && this.props.user.userName === null) {
       this.props.history.push('home');
     }
-  }
-
-  logout = () => {
-    this.props.dispatch(triggerLogout());
-    // this.props.history.push('home');
   }
 
   render() {
@@ -58,17 +52,11 @@ class UserPage extends Component {
     if (this.props.user.userName) {
       content = (
         <div>
-          <h1
-            id="welcome"
+          <Typography
+            variant="display2"
           >
-            Welcome, { this.props.user.user.first_name }!
-          </h1>
-          <Button
-            onClick={this.logout}
-            variant="contained"
-          >
-            Log Out
-          </Button>
+            Welcome, { this.props.user.user.first_name }
+          </Typography>
 
           {userContent}
         </div>

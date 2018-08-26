@@ -18,7 +18,8 @@ import {
   FormControlLabel, 
   FormControl, 
   FormLabel,
-  Paper 
+  Paper, 
+  Typography
 } from '@material-ui/core';
 
 class RegisterPage extends Component {
@@ -102,7 +103,7 @@ class RegisterPage extends Component {
         <Paper>
         {this.renderAlert()}
         <form  className="form" onSubmit={this.registerUser}>
-          <h1>Register User</h1>
+          <Typography variant="display3">Register User</Typography>
           <div>
             {/* <label htmlFor="username"> */}
               <TextField

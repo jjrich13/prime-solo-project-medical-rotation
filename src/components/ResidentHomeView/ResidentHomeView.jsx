@@ -5,6 +5,7 @@ import TableResidentStudentList from '../TableResidentStudentList/TableResidentS
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 
 import Button from '@material-ui/core/Button'
+import { Typography } from '@material-ui/core';
 class ResidentHomeView extends Component {
     constructor(props){
         super(props);
@@ -31,9 +32,9 @@ class ResidentHomeView extends Component {
     render(){
         return(
             <div>
-                <h1>Resident Home</h1>
+                <Typography variant="display3">Resident Home</Typography>
                 <Button variant="outlined" size="large" onClick={this.handleViewFeedback}>View All Feedback</Button>
-                <p>Resident Code: {this.state.residentCode}</p>
+                <Typography>Resident Code: {this.state.residentCode}</Typography>
                 <TableResidentStudentList />
             </div>
         )

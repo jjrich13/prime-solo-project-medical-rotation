@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import {Button, Typography} from '@material-ui/core';
 
 
 
@@ -69,7 +69,7 @@ class LoginPage extends Component {
       <div>
         { this.renderAlert() }
         <form className="form" onSubmit={this.login}>
-          <h1>Login</h1>
+          <Typography variant="display3">Login</Typography>
           <div>
             {/* <label htmlFor="username"> */}
               <TextField

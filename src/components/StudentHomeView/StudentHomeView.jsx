@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import StudentGoalsTable from '../StudentGoalsTable/StudentGoalsTable'
 import Button from '@material-ui/core/Button';
+import { Typography } from '@material-ui/core';
 
 class StudentHomeView extends Component {
     constructor(props){
@@ -24,10 +25,9 @@ class StudentHomeView extends Component {
         
         return(
             <div>
-                <h1>STUDENT HOME</h1>
+                <Typography variant="display3">Home</Typography>
                 <div>
                     <Button variant="outlined" size="large" onClick={this.handleSubmitDailyFeedbackButton}>Submit Daily Feedback</Button>
-                    <Button variant="outlined" size="large" onClick={this.handleFeedbackHistoryButton}>Feedback History</Button>
                 </div>
                 <StudentGoalsTable />
             </div>

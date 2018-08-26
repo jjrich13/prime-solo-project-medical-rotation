@@ -4,7 +4,7 @@ import Nav from '../../components/Nav/Nav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import TableRowStudentFeedbackHistory from '../TableRowStudentFeedbackHistory/TableRowStudentFeedbackHistory'
 
-import {Table, TableBody, TableCell, TableHead, TableRow}  from '@material-ui/core';
+import {Table, TableBody, TableCell, TableHead, TableRow, Typography}  from '@material-ui/core';
 
 
 
@@ -47,7 +47,7 @@ class StudentFeedbackHistory extends Component {
         return(
             <div>
                 <Nav />
-                <h1>Feedback History</h1>
+                <Typography variant="display3">Feedback History</Typography>
                 <div>
                     <Table>
                         <TableHead>
