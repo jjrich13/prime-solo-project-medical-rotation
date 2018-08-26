@@ -98,12 +98,41 @@ class Questionnaire extends Component {
         this.setState({ interestedIn: interestedIn })
     }
 
+    fill = () => {
+        this.setState({
+            year: "2",
+            applyingTo: 'Anesthesia',
+            appliedTo: 'None',
+            matchedIn: 'None',
+            letter: 'Yes',
+            experience: {
+                intubations: 2,
+                ivs: 12,
+                maskVentilations: 5,
+                centralLines: 1,
+                arterialLines: 0
+            },
+            runVentilator: false,
+            goals: {
+                ivs: 5,
+                arterialLines: 2,
+                maskVentilations: 3,
+                lmaInsertions: 2,
+                intubations: 4,
+                plannedAirwayMgmt: 4,
+                airwayAssessments: 3,
+                asaScorings: 3
+            }
+        })
+    }
+
 
     render(){
         console.log(this.state);
         return(
             <div>
-                <h2>Intro Questionnaire</h2>
+                <Button >Fill</Button>
+                <h2 onClick={this.fill}>Intro Questionnaire</h2>
                 <p>Answer a few questions about yourself</p>
                 <form>
                     <div>
@@ -198,9 +227,9 @@ class Questionnaire extends Component {
                     <div>
                         2b) If MS4, I am interested in:
                         <div>
-                            <TextField multiline="true" label="Applying to:" type="text" onChange={this.handleChangeFor('applyingTo')} /> <br/>
-                            <TextField multiline="true" label="Applied to:" type="text" onChange={this.handleChangeFor('appliedTo')} /> <br/>
-                            <TextField multiline="true" label="Matched in:" type="text" onChange={this.handleChangeFor('matchedIn')} /> <br/>
+                            <TextField multiline="true" label="Applying to:" value={this.state.applyingTo} type="text" onChange={this.handleChangeFor('applyingTo')} /> <br/>
+                            <TextField multiline="true" label="Applied to:" value={this.state.appliedTo} type="text" onChange={this.handleChangeFor('appliedTo')} /> <br/>
+                            <TextField multiline="true" label="Matched in:" value={this.state.matchedIn} type="text" onChange={this.handleChangeFor('matchedIn')} /> <br/>
                         </div>
                     </div>
                     <div>
@@ -220,26 +249,31 @@ class Questionnaire extends Component {
                             <TextField 
                                 label="Intubations" 
                                 type="number" 
+                                value={this.state.experience.intubations}
                                 onChange={this.handleExperienceChange('intubations')} 
                             /> 
                             <TextField 
                                 label="IVs" 
                                 type="number" 
+                                value={this.state.experience.ivs}
                                 onChange={this.handleExperienceChange('ivs')} 
                             />
                             <TextField 
                                 label="Mask Ventilations" 
                                 type="number" 
+                                value={this.state.experience.maskVentilations}
                                 onChange={this.handleExperienceChange('maskVentilations')} 
                             />
                             <TextField 
                                 label="Central Lines" 
                                 type="number" 
+                                value={this.state.experience.centralLines}
                                 onChange={this.handleExperienceChange('centralLines')} 
                             />
                             <TextField 
                                 label="Arterial Lines" 
                                 type="number" 
+                                value={this.state.experience.arterialLines}
                                 onChange={this.handleExperienceChange('arterialLines')} 
                             />
                         </FormGroup>
@@ -259,14 +293,14 @@ class Questionnaire extends Component {
                     <div>
                         6) Set some goals for you rotation. How many of each of the folowing would you like to do before you finish?  <br />
                         <FormGroup>
-                            <TextField label="IVs" type="number" onChange={this.handleGoalChange('ivs')} /> 
-                            <TextField label="Arterial Lines" type="number" onChange={this.handleGoalChange('arterialLines')} />
-                            <TextField label="Mask Ventilations" type="number" onChange={this.handleGoalChange('maskVentilations')} />
-                            <TextField label="LMA insertions" type="number" onChange={this.handleGoalChange('lmaInsertions')} />
-                            <TextField label="Intubations" type="number" onChange={this.handleGoalChange('intubations')} />
-                            <TextField label="Planned Airway Management" type="number" onChange={this.handleGoalChange('plannedAirwayMgmt')} />
-                            <TextField label="Airway Assessments" type="number" onChange={this.handleGoalChange('airwayAssessments')} />
-                            <TextField label="ASA Assessment Scorings" type="number" onChange={this.handleGoalChange('asaScorings')} />
+                            <TextField label="IVs" type="number" value={this.state.goals.ivs} onChange={this.handleGoalChange('ivs')} /> 
+                            <TextField label="Arterial Lines" type="number" value={this.state.goals.arterialLines} onChange={this.handleGoalChange('arterialLines')} />
+                            <TextField label="Mask Ventilations" type="number" value={this.state.goals.maskVentilations} onChange={this.handleGoalChange('maskVentilations')} />
+                            <TextField label="LMA insertions" type="number" value={this.state.goals.lmaInsertions} onChange={this.handleGoalChange('lmaInsertions')} />
+                            <TextField label="Intubations" type="number" value={this.state.goals.intubations} onChange={this.handleGoalChange('intubations')} />
+                            <TextField label="Planned Airway Management" type="number" value={this.state.goals.plannedAirwayMgmt} onChange={this.handleGoalChange('plannedAirwayMgmt')} />
+                            <TextField label="Airway Assessments" type="number" value={this.state.goals.airwayAssessments} onChange={this.handleGoalChange('airwayAssessments')} />
+                            <TextField label="ASA Assessment Scorings" type="number" value={this.state.goals.asaScorings} onChange={this.handleGoalChange('asaScorings')} />
                         </FormGroup>
                     </div>
                     <Button variant="outlined" type="submit" onClick={this.handleSubmit}>Submit</Button>

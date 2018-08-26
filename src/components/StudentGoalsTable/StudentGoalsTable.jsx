@@ -62,35 +62,35 @@ const {
                         <TableBody>
                             <TableRow>
                                 <TableCell>IVs</TableCell>
-                                <TableCell>Completed {iv} of {goal_iv}</TableCell>
+                                <TableCell>Completed {iv || 0} of {goal_iv}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Arterial Lines</TableCell>
-                                <TableCell>Completed {a_line} of {goal_a_line}</TableCell>
+                                <TableCell>Completed {a_line || 0} of {goal_a_line}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Masks Ventilations</TableCell>
-                                <TableCell>Completed {mask_ventilation} of {goal_mask_ventilation}</TableCell>
+                                <TableCell>Completed {mask_ventilation || 0} of {goal_mask_ventilation}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>LMA Insertions</TableCell>
-                                <TableCell>Completed {insert_lma} of {goal_insert_lma}</TableCell>
+                                <TableCell>Completed {insert_lma || 0} of {goal_insert_lma}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Intubations</TableCell>
-                                <TableCell>Completed {intubation} of {goal_intubation}</TableCell>
+                                <TableCell>Completed {intubation || 0} of {goal_intubation}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Planned Airway Management</TableCell>
-                                <TableCell>Completed {planned_airway_management} of {goal_planned_airway_management}</TableCell>
+                                <TableCell>Completed {planned_airway_management || 0} of {goal_planned_airway_management}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Airway Assessments</TableCell>
-                                <TableCell>Completed {airway_assessment} of {goal_airway_assessment}</TableCell>
+                                <TableCell>Completed {airway_assessment || 0} of {goal_airway_assessment}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>ASA Assesment Scorings</TableCell>
-                                <TableCell>Completed {assess_asa_score} of {goal_assess_asa_score}</TableCell>
+                                <TableCell>Completed {assess_asa_score || 0} of {goal_assess_asa_score}</TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>
