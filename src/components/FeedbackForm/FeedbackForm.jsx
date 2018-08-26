@@ -65,6 +65,28 @@ class FeedbackForm extends Component {
 
     }
 
+    fill = () => {
+        this.setState({
+            date: '',
+            resident: 5,
+            attendingPhysician: '',
+            iv: 2,
+            aLine: 1,
+            maskVentilation: 2,
+            insertLMA: 0,
+            intubation: 3,
+            plannedAirwayManagement: 0,
+            airwayAssessment: 0,
+            assessASAScore: 1,
+            appliedMonitors: 'Some',
+            setupRoom: 'Most',
+            plannedInduction: false,
+            preparingMedication: 'Entrustable',
+            readListened: true,
+            residentSignature: 12345
+        })
+    }
+
     handleInputChangeFor = (property) => (event) => {
         this.setState({
             [property]: event.target.value
@@ -115,7 +137,7 @@ class FeedbackForm extends Component {
 
             <div>
                 <Nav />
-                <Typography variant="display3">Daily Feedback</Typography>
+                <Typography onClick={this.fill} variant="display3">Daily Feedback</Typography>
                 <Grid
                     container
                     justify="flex-start"
@@ -151,7 +173,8 @@ class FeedbackForm extends Component {
                                                         control={
                                                             <Checkbox
                                                                 type="checkbox"
-                                                                onChange={this.handleCheckboxBooleanToggle('ventilatorSettings')}
+                                                                // onChange={this.handleCheckboxBooleanToggle('ventilatorSettings')}
+                                                                // value={this.state.ventilatorSettings}
                                                             />
                                                         }
                                                         label="Ventilator Settings"
@@ -163,6 +186,7 @@ class FeedbackForm extends Component {
                                                             <Checkbox
                                                                 type="checkbox"
                                                                 onChange={this.handleCheckboxBooleanToggle('inhaledAgents')}
+                                                                // value={this.state.inhaledAgents}
                                                             />
                                                         }
                                                         label="Inhaled Agents"
@@ -176,6 +200,7 @@ class FeedbackForm extends Component {
                                                             <Checkbox
                                                                 type="checkbox"
                                                                 onChange={this.handleCheckboxBooleanToggle('inductionDrugs')}
+                                                                // value={this.state.inductionDrugs}
                                                             />
                                                         }
                                                         label="Induction Drugs"
@@ -187,6 +212,7 @@ class FeedbackForm extends Component {
                                                             <Checkbox
                                                                 type="checkbox"
                                                                 onChange={this.handleCheckboxBooleanToggle('vasopressors')}
+                                                                // value={this.state.vasopressors}
                                                             />
                                                         }
                                                         label="Vasopressors"
@@ -200,6 +226,7 @@ class FeedbackForm extends Component {
                                                             <Checkbox
                                                                 type="checkbox"
                                                                 onChange={this.handleCheckboxBooleanToggle('monitors')}
+                                                                // value={this.state.monitors}
                                                             />
                                                         }
                                                         label="Monitors"
@@ -211,6 +238,7 @@ class FeedbackForm extends Component {
                                                             <Checkbox
                                                                 type="checkbox"
                                                                 onChange={this.handleCheckboxBooleanToggle('airwayManagement')}
+                                                                // value={this.state.airwayManagement}
                                                             />
                                                         }
                                                         label="Airway Management"
@@ -236,6 +264,7 @@ class FeedbackForm extends Component {
                                                         label="IVs"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('iv')}
+                                                        value={this.state.iv}
                                                     />
                                                 </td>
                                                 <td>
@@ -243,6 +272,7 @@ class FeedbackForm extends Component {
                                                         label="Intubations"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('intubation')}
+                                                        value={this.state.intubation}
                                                     />
                                                 </td>
                                             </tr>
@@ -252,6 +282,7 @@ class FeedbackForm extends Component {
                                                         label="Arterial Lines"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('aLine')}
+                                                        value={this.state.aLine}
                                                     />
                                                 </td>
                                                 <td>
@@ -259,6 +290,7 @@ class FeedbackForm extends Component {
                                                         label="Planned Airway Mgmt"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('plannedAirwayManagement')}
+                                                        value={this.state.plannedAirwayManagement}
                                                     />
                                                 </td>
                                             </tr>
@@ -268,6 +300,7 @@ class FeedbackForm extends Component {
                                                         label="Mask Ventilations"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('maskVentilation')}
+                                                        value={this.state.maskVentilation}
                                                     />
                                                 </td>
                                                 <td>
@@ -275,6 +308,7 @@ class FeedbackForm extends Component {
                                                         label="Airway Assessments"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('airwayAssessment')}
+                                                        value={this.state.airwayAssessment}
                                                     />
                                                 </td>
                                             </tr>
@@ -284,6 +318,7 @@ class FeedbackForm extends Component {
                                                         label="Insert LMAs"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('insertLMA')}
+                                                        value={this.state.insertLMA}
                                                     />
                                                 </td>
                                                 <td>
@@ -291,6 +326,7 @@ class FeedbackForm extends Component {
                                                         label="Assess ASA Score"
                                                         type="number"
                                                         onChange={this.handleInputChangeFor('assessASAScore')}
+                                                        value={this.state.assessASAScore}
                                                     />
                                                 </td>
                                             </tr>
@@ -399,7 +435,11 @@ class FeedbackForm extends Component {
                                     <Typography variant="subheading">
                                         Resident Signature
                                     </Typography>
-                                    <Input type="password" onChange={this.handleInputChangeFor('residentSignature')} />
+                                    <Input 
+                                        type="password" 
+                                        onChange={this.handleInputChangeFor('residentSignature')} 
+                                        value={this.state.residentSignature}
+                                    />
                                 </div>
                             </Paper>
                         </Grid>
