@@ -82,3 +82,7 @@ li a:hover {
 tr {
     text-align: center;
 }
+
+button {
+    padding: 400px;
+}

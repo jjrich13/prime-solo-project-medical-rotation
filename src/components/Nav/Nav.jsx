@@ -87,12 +87,13 @@ class Nav extends Component {
         {this.residentCheck()}
         {this.adminCheck()}
 
-          <Button
+          <BottomNavigationAction
             onClick={this.logout}
-            className={this.props.classes.logout}
-          >
-            Log Out
-          </Button>
+            // className={this.props.classes.logout}
+            label="Log Out"
+          />
+            {/* Log Out
+          </BottomNavigationAction> */}
         
       </BottomNavigation>
       </div>

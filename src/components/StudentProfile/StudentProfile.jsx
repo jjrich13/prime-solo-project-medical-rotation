@@ -42,11 +42,10 @@ class StudentProfile extends Component {
         <Typography>Email Address: <Typography variant="caption">{this.props.details.email}</Typography></Typography>
         <Typography>Interests: <InterestsList /></Typography>
         <Typography>Interested in a Letter of Recommendation: <Typography variant="caption">{this.props.details.letter_interest}</Typography></Typography>
+        <Typography>This student {vent} previously run a ventilator</Typography>
         <br/>
         <Typography variant="headline">Past Experience with live patients:</Typography>
         <ResidentPastExperienceTable />
-        <br/>
-        <Typography>This student {vent} previously run a ventilator</Typography>
       </div>
     );
   }
