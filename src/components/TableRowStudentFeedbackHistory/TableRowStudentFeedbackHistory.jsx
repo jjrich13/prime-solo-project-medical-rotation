@@ -34,9 +34,9 @@ class TableRowStudentFeedbackHistory extends Component {
                 <TableCell>
                     {discussion_topics}
                 </TableCell>
-                <TableCell>
+                {/* <TableCell>
                     Info
-                </TableCell>
+                </TableCell> */}
             </TableRow>
 
         )

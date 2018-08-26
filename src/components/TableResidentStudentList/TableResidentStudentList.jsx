@@ -10,6 +10,9 @@ const styles = {
     },
     table: {
         width: '70%'
+    },
+    name :{
+        color: 'blue'
     }
 }
 class TableResidentStudentList extends Component {
@@ -43,12 +46,15 @@ class TableResidentStudentList extends Component {
 
     
     render(){
-        console.log(this.props.resident);
         const tableRowArray = this.props.resident.students.map((student, index) => {
             return(
-                <TableRow key={index}>
+                <TableRow 
+                    key={index}
+                    onClick={() => this.handleProfile(student.id)}
+                    hover={true}
+                >
                     <TableCell className={this.props.classes.cell}>
-                        <Typography onClick={() => this.handleProfile(student.id)}>{student.first_name + ' ' + student.last_name}</Typography>
+                        <Typography >{student.first_name + ' ' + student.last_name}</Typography>
                     </TableCell>
                     <TableCell className={this.props.classes.cell}>
                         MS{student.year}
@@ -58,8 +64,8 @@ class TableResidentStudentList extends Component {
                     </TableCell>
                     <TableCell>
                         {/* button */}
-                        <Button variant="outlined"  onClick={() => this.handleProfile(student.id)}>Profile</Button>
-                        <Button variant="outlined"  onClick={() => this.deactivateStudent(student.id)}>Deactivate</Button>
+                        {/* <Button variant="outlined"  onClick={() => this.handleProfile(student.id)}>Profile</Button> */}
+                        <Button  onClick={() => this.deactivateStudent(student.id)}>Deactivate</Button>
                     </TableCell>
                 </TableRow>
             )

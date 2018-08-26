@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Table, TableBody, TableCell, TableHead, TableRow, Typography}  from '@material-ui/core';
+import {Table, TableBody, TableCell, TableHead, TableRow, Typography, withStyles}  from '@material-ui/core';
 // import TableBody from '@material-ui/core/TableBody';
 // import TableCell from '@material-ui/core/TableCell';
 // import TableHead from '@material-ui/core/TableHead';
 // import TableRow from '@material-ui/core/TableRow';
 
-
+const styles = {
+    cell: {
+        width: '15%'
+    },
+    table: {
+        width: '70%'
+    }
+}
 
 class StudentGoalsTable extends Component {
     constructor(props){
@@ -45,45 +52,45 @@ const {
         return(
                 <div>
                     <Typography variant="display2">Your Goals</Typography>
-                    <Table>
+                    <Table className={this.props.classes.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Procedure</TableCell>
-                                <TableCell>Progress</TableCell>
+                                <TableCell className={this.props.classes.cell}>Procedure</TableCell>
+                                <TableCell className={this.props.classes.cell}>Progress</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             <TableRow>
                                 <TableCell>IVs</TableCell>
-                                <TableCell>{iv}/{goal_iv}</TableCell>
+                                <TableCell>Completed {iv} of {goal_iv}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Arterial Lines</TableCell>
-                                <TableCell>{a_line}/{goal_a_line}</TableCell>
+                                <TableCell>Completed {a_line} of {goal_a_line}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Masks Ventilations</TableCell>
-                                <TableCell>{mask_ventilation}/{goal_mask_ventilation}</TableCell>
+                                <TableCell>Completed {mask_ventilation} of {goal_mask_ventilation}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>LMA Insertions</TableCell>
-                                <TableCell>{insert_lma}/{goal_insert_lma}</TableCell>
+                                <TableCell>Completed {insert_lma} of {goal_insert_lma}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Intubations</TableCell>
-                                <TableCell>{intubation}/{goal_intubation}</TableCell>
+                                <TableCell>Completed {intubation} of {goal_intubation}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Planned Airway Management</TableCell>
-                                <TableCell>{planned_airway_management}/{goal_planned_airway_management}</TableCell>
+                                <TableCell>Completed {planned_airway_management} of {goal_planned_airway_management}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>Airway Assessments</TableCell>
-                                <TableCell>{airway_assessment}/{goal_airway_assessment}</TableCell>
+                                <TableCell>Completed {airway_assessment} of {goal_airway_assessment}</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>ASA Assesment Scorings</TableCell>
-                                <TableCell>{assess_asa_score}/{goal_assess_asa_score}</TableCell>
+                                <TableCell>Completed {assess_asa_score} of {goal_assess_asa_score}</TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>
@@ -97,4 +104,4 @@ const mapStateToProps = state => ({
     feedback: state.feedback,
 });
 
-export default connect(mapStateToProps)(StudentGoalsTable);
+export default connect(mapStateToProps)(withStyles(styles)(StudentGoalsTable));

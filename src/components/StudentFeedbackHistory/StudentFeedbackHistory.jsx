@@ -22,6 +22,13 @@ class StudentFeedbackHistory extends Component {
         })
     }
 
+    componentDidUpdate() {
+        //reroute back to login if not logged in user
+        if (!this.props.user.isLoading && this.props.user.userName === null) {
+          this.props.history.push('home');
+        }
+      }
+
     
     render(){
         console.log(this.props.state.feedback.history);
@@ -61,9 +68,9 @@ class StudentFeedbackHistory extends Component {
                                 <TableCell>
                                     Discussion Points
                                 </TableCell>
-                                <TableCell>
+                                {/* <TableCell>
                                     Info
-                                </TableCell>
+                                </TableCell> */}
                             </TableRow>
                         </TableHead>
                         <TableBody>
