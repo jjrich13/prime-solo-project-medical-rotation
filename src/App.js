@@ -21,7 +21,7 @@ import './styles/main.css';
 
 const App = () => (
   <div>
-    <Header title="Medical Rotation" />
+    <Header title="Rotations" />
     <Router>
       <Switch>
         <Redirect exact from="/" to="/home" />

@@ -33,7 +33,7 @@ router.get('/resident', rejectUnauthenticated, (req, res) => {
 
 router.get('/history', rejectUnauthenticated, (req, res) => {
   
-  pool.query(`SELECT * FROM feedback WHERE user_id = $1;`,[req.user.id]).then( response => {
+  pool.query(`SELECT * FROM feedback WHERE user_id = $1 ORDER BY date DESC;`,[req.user.id]).then( response => {
     res.send(response.rows)
   }).catch( err => {
     console.log(err);

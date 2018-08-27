@@ -131,7 +131,6 @@ class Questionnaire extends Component {
         console.log(this.state);
         return(
             <div>
-                <Button >Fill</Button>
                 <h2 onClick={this.fill}>Intro Questionnaire</h2>
                 <p>Answer a few questions about yourself</p>
                 <form>

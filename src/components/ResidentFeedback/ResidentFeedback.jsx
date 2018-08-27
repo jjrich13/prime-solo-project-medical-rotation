@@ -10,6 +10,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import {Typography} from '@material-ui/core';
 
 class TableResidentStudentList extends Component {
     constructor(props){
@@ -56,7 +57,7 @@ class TableResidentStudentList extends Component {
         return(
             <div>
                 <Nav />
-                <h1>All Feedback</h1>
+                <Typography variant="display3">All Feedback</Typography>
                 <Table>
                     <TableHead>
                         <TableRow>
@@ -69,9 +70,9 @@ class TableResidentStudentList extends Component {
                             <TableCell>
                                 Discussion Points
                             </TableCell>
-                            <TableCell>
+                            {/* <TableCell>
                                 Info
-                            </TableCell>
+                            </TableCell> */}
                         </TableRow>
                     </TableHead>
                     <TableBody>

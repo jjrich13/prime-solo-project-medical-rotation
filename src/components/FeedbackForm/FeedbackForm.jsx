@@ -67,7 +67,6 @@ class FeedbackForm extends Component {
 
     fill = () => {
         this.setState({
-            date: '',
             resident: 5,
             attendingPhysician: '',
             iv: 2,
