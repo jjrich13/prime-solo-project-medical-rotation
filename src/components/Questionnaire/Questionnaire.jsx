@@ -133,7 +133,7 @@ class Questionnaire extends Component {
             <div>
                 <h2 onClick={this.fill}>Intro Questionnaire</h2>
                 <p>Answer a few questions about yourself</p>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <div>
                         1) As of Today I am in:
                         <FormControl>
@@ -141,7 +141,8 @@ class Questionnaire extends Component {
                             <Select 
                                 onChange={this.handleChangeFor('year')}
                                 value={this.state.year}
-                                placeholder="resident"
+                                placeholder="Year"
+                                required
                             >
                                 <MenuItem value="2">MS2</MenuItem>
                                 <MenuItem value="3">MS3</MenuItem>
@@ -224,7 +225,7 @@ class Questionnaire extends Component {
                         </FormGroup>
                     </div>
                     <div>
-                        2b) If MS4, I am interested in:
+                        2b) If MS4, I am/have:
                         <div>
                             <TextField multiline="true" label="Applying to:" value={this.state.applyingTo} type="text" onChange={this.handleChangeFor('applyingTo')} /> <br/>
                             <TextField multiline="true" label="Applied to:" value={this.state.appliedTo} type="text" onChange={this.handleChangeFor('appliedTo')} /> <br/>
@@ -236,6 +237,7 @@ class Questionnaire extends Component {
                         <RadioGroup
                             onChange={this.handleChangeFor('letter')}
                             value={this.state.letter}
+                            required
                         >
                             <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
                             <FormControlLabel value="No" control={<Radio />} label="No" />
@@ -250,30 +252,35 @@ class Questionnaire extends Component {
                                 type="number" 
                                 value={this.state.experience.intubations}
                                 onChange={this.handleExperienceChange('intubations')} 
+                                required
                             /> 
                             <TextField 
                                 label="IVs" 
                                 type="number" 
                                 value={this.state.experience.ivs}
                                 onChange={this.handleExperienceChange('ivs')} 
+                                required
                             />
                             <TextField 
                                 label="Mask Ventilations" 
                                 type="number" 
                                 value={this.state.experience.maskVentilations}
                                 onChange={this.handleExperienceChange('maskVentilations')} 
+                                required
                             />
                             <TextField 
                                 label="Central Lines" 
                                 type="number" 
                                 value={this.state.experience.centralLines}
                                 onChange={this.handleExperienceChange('centralLines')} 
+                                required
                             />
                             <TextField 
                                 label="Arterial Lines" 
                                 type="number" 
                                 value={this.state.experience.arterialLines}
                                 onChange={this.handleExperienceChange('arterialLines')} 
+                                required
                             />
                         </FormGroup>
                     </div>
@@ -284,6 +291,7 @@ class Questionnaire extends Component {
                         <RadioGroup
                             onChange={this.handleChangeFor('runVentilator')}
                             value={this.state.runVentilator}
+                            required
                         >
                             <FormControlLabel value="true" control={<Radio />} label="Yes" />
                             <FormControlLabel value="false" control={<Radio />} label="No" />
@@ -292,17 +300,65 @@ class Questionnaire extends Component {
                     <div>
                         6) Set some goals for you rotation. How many of each of the folowing would you like to do before you finish?  <br />
                         <FormGroup>
-                            <TextField label="IVs" type="number" value={this.state.goals.ivs} onChange={this.handleGoalChange('ivs')} /> 
-                            <TextField label="Arterial Lines" type="number" value={this.state.goals.arterialLines} onChange={this.handleGoalChange('arterialLines')} />
-                            <TextField label="Mask Ventilations" type="number" value={this.state.goals.maskVentilations} onChange={this.handleGoalChange('maskVentilations')} />
-                            <TextField label="LMA insertions" type="number" value={this.state.goals.lmaInsertions} onChange={this.handleGoalChange('lmaInsertions')} />
-                            <TextField label="Intubations" type="number" value={this.state.goals.intubations} onChange={this.handleGoalChange('intubations')} />
-                            <TextField label="Planned Airway Management" type="number" value={this.state.goals.plannedAirwayMgmt} onChange={this.handleGoalChange('plannedAirwayMgmt')} />
-                            <TextField label="Airway Assessments" type="number" value={this.state.goals.airwayAssessments} onChange={this.handleGoalChange('airwayAssessments')} />
-                            <TextField label="ASA Assessment Scorings" type="number" value={this.state.goals.asaScorings} onChange={this.handleGoalChange('asaScorings')} />
+                            <TextField
+                                label="IVs" 
+                                type="number" 
+                                value={this.state.goals.ivs} 
+                                onChange={this.handleGoalChange('ivs')} 
+                                required
+                            /> 
+                            <TextField 
+                                label="Arterial Lines" 
+                                type="number" 
+                                value={this.state.goals.arterialLines} 
+                                onChange={this.handleGoalChange('arterialLines')} 
+                                required
+                            />
+                            <TextField 
+                                label="Mask Ventilations" 
+                                type="number" 
+                                value={this.state.goals.maskVentilations} 
+                                onChange={this.handleGoalChange('maskVentilations')} 
+                                required
+                            />
+                            <TextField 
+                                label="LMA insertions" 
+                                type="number" 
+                                value={this.state.goals.lmaInsertions} 
+                                onChange={this.handleGoalChange('lmaInsertions')} 
+                                required
+                            />
+                            <TextField 
+                                label="Intubations" 
+                                type="number" 
+                                value={this.state.goals.intubations} 
+                                onChange={this.handleGoalChange('intubations')} 
+                                required
+                            />
+                            <TextField 
+                                label="Planned Airway Management" 
+                                type="number" 
+                                value={this.state.goals.plannedAirwayMgmt} 
+                                onChange={this.handleGoalChange('plannedAirwayMgmt')} 
+                                required
+                            />
+                            <TextField 
+                                label="Airway Assessments" 
+                                type="number" 
+                                value={this.state.goals.airwayAssessments} 
+                                onChange={this.handleGoalChange('airwayAssessments')} 
+                                required
+                            />
+                            <TextField 
+                                label="ASA Assessment Scorings" 
+                                type="number" 
+                                value={this.state.goals.asaScorings} 
+                                onChange={this.handleGoalChange('asaScorings')}
+                                required 
+                            />
                         </FormGroup>
                     </div>
-                    <Button variant="outlined" type="submit" onClick={this.handleSubmit}>Submit</Button>
+                    <Button variant="outlined" type="submit" value="submit">Submit</Button>
                 </form>
             </div>
 
