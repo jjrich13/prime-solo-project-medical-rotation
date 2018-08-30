@@ -51,7 +51,9 @@ class DiscussionTopicsList extends Component {
                             onChange={this.props.handleCheckboxChange}
                         />
                         {topic.topic} */}
+                        
                         <FormControlLabel
+                                
                                 control={
                                     <Checkbox 
                                         type="checkbox" 
@@ -59,13 +61,14 @@ class DiscussionTopicsList extends Component {
                                         onChange={this.props.handleCheckboxChange} 
                                     />
                                 }
-                                label={topic.topic}
+                                // label={topic.topic}
                             />
+                            <a href={topic.podcast_link}>{topic.topic}</a>
                         <br />
-                        Podcast:
+                        {/* Podcast:
                     <a style={astyle} href={topic.podcast_link}>
                             {topic.podcast}
-                        </a>
+                        </a> */}
                     </Paper>
                 </Grid>
             )
