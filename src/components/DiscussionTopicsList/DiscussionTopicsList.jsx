@@ -57,7 +57,7 @@ class DiscussionTopicsList extends Component {
                                 control={
                                     <Checkbox 
                                         type="checkbox" 
-                                        value={topic.podcast_link}
+                                        value={topic.id}
                                         onChange={this.props.handleCheckboxChange} 
                                     />
                                 }

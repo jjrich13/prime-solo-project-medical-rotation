@@ -16,9 +16,9 @@ class TableRowStudentFeedbackHistory extends Component {
     render(){
         console.log(this.props.progress);
         
-        const discussion_topics = this.props.discussion_topics.map((topic, index ) => {
+        const discussion_topics_list = this.props.discussion_topics_list.map((topic, index ) => {
             return(
-                <div key={index}><a href={topic}>Topic {index + 1}</a></div>
+                <div key={index}><a href={topic.podcast_link}>{topic.topic_name}</a></div>
             )
         })
         
@@ -32,7 +32,7 @@ class TableRowStudentFeedbackHistory extends Component {
                     {this.props.progress}
                 </TableCell>
                 <TableCell>
-                    {discussion_topics}
+                    {discussion_topics_list}
                 </TableCell>
                 {/* <TableCell>
                     Info

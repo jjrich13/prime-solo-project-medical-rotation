@@ -125,9 +125,19 @@ router.get('/initialDetails/:id', rejectUnauthenticated, (req,res) => {
 router.get('/feedback', (req, res) => {
     console.log('hit feedback');
     
-    pool.query(`SELECT * FROM feedback
-        LEFT OUTER JOIN users ON feedback.user_id = users.id
-        ORDER BY date DESC;`
+    pool.query(`SELECT array_agg(
+        json_build_object(
+          'topic_id', discussion_topics.id, 'topic_name', discussion_topics.topic, 'podcast', discussion_topics.podcast, 'podcast_link', discussion_topics.podcast_link
+        )
+      ) AS discussion_topics_list,
+      feedback.*,
+      users.*
+    FROM feedback
+    LEFT OUTER JOIN feedback_discussion_topics ON feedback.id = feedback_discussion_topics.feedback_id
+    LEFT OUTER JOIN discussion_topics ON discussion_topics.id = feedback_discussion_topics.discussion_topic_id
+    LEFT OUTER JOIN users ON users.id = feedback.user_id
+    GROUP BY feedback.id, users.id
+    ORDER BY feedback.date DESC;`
     ).then(response => {
         res.send(response.rows)
         

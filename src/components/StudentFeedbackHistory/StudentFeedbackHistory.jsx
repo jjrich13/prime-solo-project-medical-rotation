@@ -38,7 +38,7 @@ class StudentFeedbackHistory extends Component {
                 <TableRowStudentFeedbackHistory
                     key={index}
                     date={row.date}
-                    discussion_topics={row.discussion_topics}
+                    discussion_topics_list={row.discussion_topics_list}
                     progress = {
                         row.iv +
                         row.a_line +
