@@ -44,9 +44,9 @@ class TableResidentStudentList extends Component {
                     <TableRow key={index}>
                         <TableCell>{feedback.first_name + ' ' + feedback.last_name}</TableCell>
                         <TableCell>{moment(feedback.date).format('dddd, MMMM Do YYYY')}</TableCell>
-                        <TableCell>{feedback.discussion_topics.map((topic, i ) => {
+                        <TableCell>{feedback.discussion_topics_list.map((topic, i ) => {
                                 return(
-                                    <div key={i}><a href={topic}>Topic {i + 1}</a></div>
+                                    <div key={i}><a href={topic.podcast_link}>{topic.topic_name}</a></div>
                                 )
                             })}
                         </TableCell>
