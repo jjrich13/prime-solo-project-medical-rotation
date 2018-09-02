@@ -42,6 +42,16 @@ class AdminView extends Component {
         
     }
 
+    componentDidUpdate() {
+        //reroute back to login if not logged in user
+        if (!this.props.user.isLoading && !this.props.user.details.admin) {
+          this.props.history.push('home');
+        }
+        if (!this.props.user.isLoading && this.props.user.userName === null) {
+            this.props.history.push('home');
+        }
+    }
+
     getAttendings = () => {
         axios.get('/api/feedback/attending').then(response => {
             this.setState({

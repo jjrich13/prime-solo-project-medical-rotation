@@ -7,8 +7,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 /**
  * GET route template
  */
-router.get('/code', (req, res) => {
-    console.log('hit resident');
+router.get('/code',  rejectUnauthenticated, (req, res) => {
+    console.log('hit resident, REQ.USER', req.user);
     pool.query(`SELECT * FROM resident_code WHERE id = 1`).then(response => {
         res.send(`${response.rows[0].resident_code}`)
     }).catch(err => {
@@ -18,7 +18,7 @@ router.get('/code', (req, res) => {
     })
 });
 
-router.get('/students', (req, res) => {
+router.get('/students',  rejectUnauthenticated, (req, res) => {
     console.log('getting students');
     
     pool.query(`SELECT users."id", users."first_name", users."last_name", initial_survey."year", 
@@ -122,7 +122,7 @@ router.get('/initialDetails/:id', rejectUnauthenticated, (req,res) => {
     
 })
 
-router.get('/feedback', (req, res) => {
+router.get('/feedback',  rejectUnauthenticated, (req, res) => {
     console.log('hit feedback');
     
     pool.query(`SELECT array_agg(

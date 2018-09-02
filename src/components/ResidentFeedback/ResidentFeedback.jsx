@@ -26,13 +26,15 @@ class TableResidentStudentList extends Component {
 
     }
 
-    // componentDidUpdate() {
-    //     //reroute back to login if not logged in user
-    //     if (!this.props.user.isLoading && !this.props.user.details.resident) {
-    //       this.props.history.push('home');
-    //     }
-    // }
-
+    componentDidUpdate() {
+        //reroute back to login if not logged in user
+        if (!this.props.user.isLoading && !this.props.user.details.resident) {
+          this.props.history.push('home');
+        }
+        if (!this.props.user.isLoading && this.props.user.userName === null) {
+            this.props.history.push('home');
+        }
+    }
     
     render(){
         console.log(this.props.feedback);

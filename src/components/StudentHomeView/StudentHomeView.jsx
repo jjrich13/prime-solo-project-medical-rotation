@@ -19,6 +19,13 @@ class StudentHomeView extends Component {
 
     }
 
+    componentDidUpdate() {
+        //reroute back to login if not logged in user
+        if (!this.props.user.isLoading && this.props.user.userName === null) {
+          this.props.history.push('home');
+        }
+      }
+
     
     render(){
         console.log('feedback:', this.props.feedback);
