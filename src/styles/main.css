@@ -3,8 +3,13 @@ body {
 }
 
 .instructions h1 {
-    font-size: 24px;
-    font-weight: 700;
+    /* font-size: 24px;
+    font-weight: 700; */
+}
+
+.beta{
+    font-size: 18px;
+    font-style: italic;
 }
 
 .instructions {

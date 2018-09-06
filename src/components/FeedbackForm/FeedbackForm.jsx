@@ -173,8 +173,8 @@ class FeedbackForm extends Component {
                                                         control={
                                                             <Checkbox
                                                                 type="checkbox"
-                                                            // onChange={this.handleCheckboxBooleanToggle('ventilatorSettings')}
-                                                            // value={this.state.ventilatorSettings}
+                                                            onChange={this.handleCheckboxBooleanToggle('ventilatorSettings')}
+                                                            checked={this.state.ventilatorSettings}
                                                             />
                                                         }
                                                         label="Ventilator Settings"
@@ -186,7 +186,7 @@ class FeedbackForm extends Component {
                                                             <Checkbox
                                                                 type="checkbox"
                                                                 onChange={this.handleCheckboxBooleanToggle('inhaledAgents')}
-                                                            // value={this.state.inhaledAgents}
+                                                                checked={this.state.inhaledAgents}
                                                             />
                                                         }
                                                         label="Inhaled Agents"
@@ -200,7 +200,7 @@ class FeedbackForm extends Component {
                                                             <Checkbox
                                                                 type="checkbox"
                                                                 onChange={this.handleCheckboxBooleanToggle('inductionDrugs')}
-                                                            // value={this.state.inductionDrugs}
+                                                                checked={this.state.inductionDrugs}
                                                             />
                                                         }
                                                         label="Induction Drugs"
@@ -212,7 +212,7 @@ class FeedbackForm extends Component {
                                                             <Checkbox
                                                                 type="checkbox"
                                                                 onChange={this.handleCheckboxBooleanToggle('vasopressors')}
-                                                            // value={this.state.vasopressors}
+                                                                checked={this.state.vasopressors}
                                                             />
                                                         }
                                                         label="Vasopressors"
@@ -226,7 +226,7 @@ class FeedbackForm extends Component {
                                                             <Checkbox
                                                                 type="checkbox"
                                                                 onChange={this.handleCheckboxBooleanToggle('monitors')}
-                                                            // value={this.state.monitors}
+                                                                checked ={this.state.monitors}
                                                             />
                                                         }
                                                         label="Monitors"
@@ -238,7 +238,7 @@ class FeedbackForm extends Component {
                                                             <Checkbox
                                                                 type="checkbox"
                                                                 onChange={this.handleCheckboxBooleanToggle('airwayManagement')}
-                                                            // value={this.state.airwayManagement}
+                                                                checked={this.state.airwayManagement}
                                                             />
                                                         }
                                                         label="Airway Management"
