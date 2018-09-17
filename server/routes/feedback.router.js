@@ -145,13 +145,14 @@ router.post('/', rejectUnauthenticated, (req, res) => {
       signed = false;
     }
     pool.query(query, [...valuesArray, signed]).then(response => {
-      console.log('REPONSE ID', response.rows[0].id);
+      console.log('RESPONSE ID:', response.rows[0].id);
       const feedbackID = response.rows[0].id
       
       let junctionQuery = 'INSERT INTO feedback_discussion_topics (discussion_topic_id, feedback_id) VALUES';
 
       //making the QUERY but make sure there is no comma on the end
-      for (let i = 0; i < discussionTopics.length; i++) {
+      if(discussionTopics.length > 0){
+        for (let i = 0; i < discussionTopics.length; i++) {
         //check for the last thing in the array, don't put a comma
         if(i == (discussionTopics.length - 1)){
           junctionQuery = junctionQuery + `(${discussionTopics[i]}, ${feedbackID})`
@@ -159,19 +160,22 @@ router.post('/', rejectUnauthenticated, (req, res) => {
           junctionQuery = junctionQuery + `(${discussionTopics[i]}, ${feedbackID}),`
         }
         
-      }
-      // for(topic of discussionTopics){
-      //   junctionQuery = junctionQuery + `(${topic}, ${feedbackID}),`;
-      // }
-      console.log('JCT QUERY JCT QUERY', junctionQuery);
-      pool.query(junctionQuery).then(response => {
-        res.sendStatus(201);
+        }
+        // for(topic of discussionTopics){
+        //   junctionQuery = junctionQuery + `(${topic}, ${feedbackID}),`;
+        // }
+        console.log('JCT QUERY JCT QUERY', junctionQuery);
+        pool.query(junctionQuery).then(response => {
+          res.sendStatus(201);
 
-      }).catch(err => {
-        res.sendStatus(500);
-        console.log(err);
-        
-      })
+        }).catch(err => {
+          res.sendStatus(500);
+          console.log(err);
+          
+        })
+      } else{
+        res.sendStatus(201);
+      }
     }).catch(err => {
       console.log(err);
       res.sendStatus(500);
