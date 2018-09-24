@@ -85,7 +85,6 @@ router.post('/sendEmail', (req, res) => {
 
 //             transporter.sendMail(sample, (error, info) => {
 //                 if (error) {
-//                     res.sendStatus(500);
 //                     return console.log(error);
 //                 }
 //                 console.log('Message sent: %s', info.messageId);
@@ -96,24 +95,20 @@ router.post('/sendEmail', (req, res) => {
 
 //         }
         
-//         res.sendStatus(200)
 //     }).catch( err => {
 //       console.log(err);
-//       res.sendStatus(500);
 //     })
 // });
 
 cron.schedule('06 22 * * 1-5', () => {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            res.sendStatus(500);
             return console.log(error);
         }
         console.log('Message sent: %s', info.messageId);
         console.log('info rawL ', info);
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
         console.log('email has been sent');
-        res.sendStatus(200);
     });
 });
 
