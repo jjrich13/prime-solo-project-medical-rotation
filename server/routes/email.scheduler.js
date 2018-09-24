@@ -54,8 +54,9 @@ router.post('/sendEmail', (req, res) => {
 });
 
 //this will run monday-friday at 17:00 or 5pm
-//'0 17 * * 1-5', i.e.: the 0th minute of the 17th hour, everyday of the month, every month, but only monday through friday
-// cron.schedule('0 17 * * 1-5', () => {
+//'0 22 * * 1-5', i.e.: the 0th minute of the 22nd hour, everyday of the month, every month, but only monday through friday,
+// this results in an email going out at 5pm central time
+// cron.schedule('0 22 * * 1-5', () => {
 //     pool.query(
 //         `SELECT * FROM users LEFT OUTER JOIN feedback on feedback.id = (SELECT id from feedback
 //             WHERE feedback.user_id = users.id
@@ -100,7 +101,7 @@ router.post('/sendEmail', (req, res) => {
 //     })
 // });
 
-cron.schedule('06 22 * * 1-5', () => {
+cron.schedule('11 22 * * 1-5', () => {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             return console.log(error);
