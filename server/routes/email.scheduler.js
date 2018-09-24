@@ -101,7 +101,7 @@ router.post('/sendEmail', (req, res) => {
 //     })
 // });
 
-cron.schedule('15 22 * * 1-5', () => {
+cron.schedule('21 22 * * 1-5', () => {
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             return console.log(error);
