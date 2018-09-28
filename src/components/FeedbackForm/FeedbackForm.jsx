@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Nav from '../../components/Nav/Nav';
 import DiscussionTopics from '../DiscussionTopics/DiscussionTopics'
+import PrevDiscussionTopics from '../PrevDiscussionTopics/PrevDiscussionTopics'
 import AttendingsAndResidents from '../AttendingsAndResidents/AttendingsAndResidents'
 import {
     Paper,
@@ -38,6 +39,7 @@ class FeedbackForm extends Component {
         super(props);
         this.state = {
             discussionTopics: [],
+            discussionTopicsPrev:[],
             date: '',
             resident: '',
             attendingPhysician: '',
@@ -123,6 +125,28 @@ class FeedbackForm extends Component {
         this.setState({ discussionTopics: discussionTopics })
     }
 
+    handleCheckboxChangePrev = (event) => {
+        
+        console.log('hit PREV');
+        // current array of options
+        const discussionTopics = this.state.discussionTopicsPrev
+        let index
+
+        // check if the check box is checked or unchecked
+        if (event.target.checked) {
+            // add the numerical value of the checkbox to options array
+            discussionTopics.push(event.target.value)
+        } else {
+            // or remove the value from the unchecked checkbox from the array
+            index = discussionTopics.indexOf(event.target.value)
+            discussionTopics.splice(index, 1)
+        }
+
+        // update the state with the new array of options
+        this.setState({ discussionTopicsPrev: discussionTopics })
+        
+    }
+
     handleSubmit = () => {
         this.props.dispatch({ type: 'POST_FEEDBACK', payload: this.state })
         window.location.href = `/#/user`;
@@ -162,91 +186,9 @@ class FeedbackForm extends Component {
                         <Grid className={this.props.classes.gridItem} item xs={12}>
                             <Paper className={this.props.classes.Paper}>
                                 <div>
-                                    {/* <h2>Discussion Points</h2> */}
-                                    <Typography variant="display1">Discussion Points</Typography>
-                                    <Typography>Check the box if discussed</Typography>
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <FormControlLabel
-                                                        control={
-                                                            <Checkbox
-                                                                type="checkbox"
-                                                            // onChange={this.handleCheckboxBooleanToggle('ventilatorSettings')}
-                                                            // value={this.state.ventilatorSettings}
-                                                            />
-                                                        }
-                                                        label="Ventilator Settings"
-                                                    />
-                                                </td>
-                                                <td>
-                                                    <FormControlLabel
-                                                        control={
-                                                            <Checkbox
-                                                                type="checkbox"
-                                                                onChange={this.handleCheckboxBooleanToggle('inhaledAgents')}
-                                                            // value={this.state.inhaledAgents}
-                                                            />
-                                                        }
-                                                        label="Inhaled Agents"
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <FormControlLabel
-                                                        control={
-                                                            <Checkbox
-                                                                type="checkbox"
-                                                                onChange={this.handleCheckboxBooleanToggle('inductionDrugs')}
-                                                            // value={this.state.inductionDrugs}
-                                                            />
-                                                        }
-                                                        label="Induction Drugs"
-                                                    />
-                                                </td>
-                                                <td>
-                                                    <FormControlLabel
-                                                        control={
-                                                            <Checkbox
-                                                                type="checkbox"
-                                                                onChange={this.handleCheckboxBooleanToggle('vasopressors')}
-                                                            // value={this.state.vasopressors}
-                                                            />
-                                                        }
-                                                        label="Vasopressors"
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <FormControlLabel
-                                                        control={
-                                                            <Checkbox
-                                                                type="checkbox"
-                                                                onChange={this.handleCheckboxBooleanToggle('monitors')}
-                                                            // value={this.state.monitors}
-                                                            />
-                                                        }
-                                                        label="Monitors"
-                                                    />
-                                                </td>
-                                                <td>
-                                                    <FormControlLabel
-                                                        control={
-                                                            <Checkbox
-                                                                type="checkbox"
-                                                                onChange={this.handleCheckboxBooleanToggle('airwayManagement')}
-                                                            // value={this.state.airwayManagement}
-                                                            />
-                                                        }
-                                                        label="Airway Management"
-                                                    />
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <PrevDiscussionTopics
+                                        handleCheckboxChange={this.handleCheckboxChangePrev}
+                                    />
                                 </div>
                             </Paper>
                         </Grid>
