@@ -147,6 +147,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     }
     pool.query(query, [...valuesArray, signed]).then(response => {
       console.log('REPONSE ID', response.rows[0].id);
+      //Creating A query that will add as many entries as needed into the SQL database for the discussion topics
       const feedbackID = response.rows[0].id
       
       let junctionQuery = 'INSERT INTO feedback_discussion_topics (discussion_topic_id, feedback_id) VALUES';
