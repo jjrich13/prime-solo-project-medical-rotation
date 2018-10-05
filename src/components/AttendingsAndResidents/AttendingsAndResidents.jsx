@@ -73,7 +73,6 @@ class AttendingsAndResidents extends Component {
                             onChange={this.props.handleInputChangeFor('resident')}
                             value={this.props.selectedResident}
                             className={this.props.classes.Select}
-                            required
                         >
                             {/* <option disabled selected="selected">-Resident-</option> */}
                             {residentList}
@@ -88,7 +87,6 @@ class AttendingsAndResidents extends Component {
                             onChange={this.props.handleInputChangeFor('attendingPhysician')}
                             value={this.props.selectedAttending}
                             className={this.props.classes.Select}
-                            required
                         >
                             {/* <option disabled selected="selected">-Attending-</option> */}
                             {attendingList}

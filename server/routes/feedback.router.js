@@ -152,12 +152,14 @@ router.post('/', rejectUnauthenticated, (req, res) => {
       let tomorrowDiscussionInsertQuery = 'INSERT INTO feedback_discussion_topics (discussion_topic_id, feedback_id) VALUES';
 
       //making the QUERY but make sure there is no comma on the end
-      for (let i = 0; i < discussionTopics.length; i++) {
+      if(discussionTopics.length > 0){
+        for (let i = 0; i < discussionTopics.length; i++) {
         //check for the last thing in the array, don't put a comma
-        if(i == (discussionTopics.length - 1)){
-          tomorrowDiscussionInsertQuery = tomorrowDiscussionInsertQuery + `(${discussionTopics[i]}, ${feedbackID})`
-        } else {
-          tomorrowDiscussionInsertQuery = tomorrowDiscussionInsertQuery + `(${discussionTopics[i]}, ${feedbackID}),`
+          if(i == (discussionTopics.length - 1)){
+            tomorrowDiscussionInsertQuery = tomorrowDiscussionInsertQuery + `(${discussionTopics[i]}, ${feedbackID})`
+          } else {
+            tomorrowDiscussionInsertQuery = tomorrowDiscussionInsertQuery + `(${discussionTopics[i]}, ${feedbackID}),`
+          }
         }
       }
       console.log('JCT QUERY JCT QUERY', tomorrowDiscussionInsertQuery);
@@ -191,8 +193,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
           res.sendStatus(500);
           console.log(err);
         })
-      } else{
-        
       }
     }).catch(err => {
       console.log(err);

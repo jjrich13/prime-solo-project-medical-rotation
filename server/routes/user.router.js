@@ -56,7 +56,8 @@ router.get('/details', rejectUnauthenticated, (req, res) => {
     "users".last_name,
     "users".email,
     "users".resident,
-    "users".admin
+    "users".admin,
+    "users".active
     FROM "users"
     LEFT OUTER JOIN "goals" on "goals".user_id = "users".id
     LEFT OUTER JOIN "initial_survey" ON "initial_survey".user_id = "users".id
@@ -147,7 +148,13 @@ router.post('/intro/questionnaire', rejectUnauthenticated, (req, res) => {
   //two nested queries
   pool.query(queryString, queryValues).then(response => {
       pool.query(queryString2, queryValues2).then(response => {
-        res.sendStatus(201);
+        pool.query(`UPDATE users SET active = true WHERE id=$1`,[req.user.id]).then(response => {
+          res.sendStatus(201);
+      
+        }).catch(err => {
+          console.log(err);
+          res.sendStatus(500);
+        })
       }).catch(err => {
         console.log(err);
         res.sendStatus(500);

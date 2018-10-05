@@ -43,7 +43,7 @@ class UserPage extends Component {
     // SQL returns an empty array if there is no match for the questionnaire, this is checking for that
     if(this.props.user.details.resident){
       userContent = <ResidentHomeView />
-    } else if (!this.props.user.details.intubations && !this.props.user.details.resident){
+    } else if (!this.props.user.details.active && !this.props.user.details.resident){
       userContent = <Questionnaire fetchDetails={this.fetchDetails}/>
     } else {
       userContent = <StudentHomeView />

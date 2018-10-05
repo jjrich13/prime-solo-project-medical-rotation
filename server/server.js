@@ -13,6 +13,7 @@ const userRouter = require('./routes/user.router');
 const feedbackRouter = require('./routes/feedback.router');
 const residentRouter = require('./routes/resident.router');
 const adminRouter = require('./routes/admin.router');
+const emailScheduler = require('./routes/email.scheduler');
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,6 +30,7 @@ app.use('/api/user', userRouter);
 app.use('/api/feedback', feedbackRouter);
 app.use('/api/resident', residentRouter);
 app.use('/api/admin', adminRouter)
+app.use(emailScheduler)
 
 // Serve static files
 app.use(express.static('build'));

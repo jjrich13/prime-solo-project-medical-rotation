@@ -41,7 +41,7 @@ class FeedbackForm extends Component {
             discussionTopics: [],
             discussionTopicsPrev:[],
             date: '',
-            resident: '',
+            resident: null,
             attendingPhysician: '',
             ventilatorSettings: false,
             inductionDrugs: false,
@@ -69,7 +69,7 @@ class FeedbackForm extends Component {
 
     fill = () => {
         this.setState({
-            resident: 5,
+            resident: null,
             attendingPhysician: '',
             iv: 2,
             aLine: 1,
