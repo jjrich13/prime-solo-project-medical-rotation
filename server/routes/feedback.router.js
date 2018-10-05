@@ -161,9 +161,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         }
         
         }
-        // for(topic of discussionTopics){
-        //   junctionQuery = junctionQuery + `(${topic}, ${feedbackID}),`;
-        // }
         console.log('JCT QUERY JCT QUERY', junctionQuery);
         pool.query(junctionQuery).then(response => {
           res.sendStatus(201);
