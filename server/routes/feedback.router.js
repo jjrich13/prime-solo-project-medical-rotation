@@ -5,8 +5,6 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get('/entry/:id', rejectUnauthenticated, (req, res) => {
-  console.log(req.params.id);
-  
   pool.query(`SELECT * FROM feedback
     LEFT OUTER JOIN feedback_discussion_topics ON feedback.id = feedback_discussion_topics.feedback_id
     LEFT OUTER JOIN feedback_previous_discussion_topics ON feedback.id = feedback_previous_discussion_topics.feedback_id

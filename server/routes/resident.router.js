@@ -131,7 +131,8 @@ router.get('/feedback',  rejectUnauthenticated, (req, res) => {
         )
       ) AS discussion_topics_list,
       feedback.*,
-      users.*
+      users.*,
+      feedback.id AS feedback_id
     FROM feedback
     LEFT OUTER JOIN feedback_discussion_topics ON feedback.id = feedback_discussion_topics.feedback_id
     LEFT OUTER JOIN discussion_topics ON discussion_topics.id = feedback_discussion_topics.discussion_topic_id

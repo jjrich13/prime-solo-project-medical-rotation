@@ -67,18 +67,16 @@ function* fetchInitialDetails (action) {
 
 const getFeedback = () => {
     return axios.get(`/api/resident/feedback`).then(response => {
-        console.log(response.data);
-    
         return response.data;
     }).catch( err => {
         console.log(err);
-    
     })
 }
 
 function* fetchFeedback (action) {
     try {
       const feedback = yield getFeedback();
+        console.log(feedback);
       yield put({type: 'SET_FEEDBACK_LIST', payload: feedback})
     } catch (error) {
       console.log(error);

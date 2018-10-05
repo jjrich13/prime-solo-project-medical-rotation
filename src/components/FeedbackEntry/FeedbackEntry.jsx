@@ -14,11 +14,13 @@ import axios from 'axios';
 class FeedbackEntry extends Component {
     constructor(props) {
         super(props)
-        this.state = []
+        this.state = {
+            feedback: []
+        }
     }
     componentDidMount() {
         axios.get(`/api/feedback/entry/${this.props.match.params.id}`).then(response => {
-            this.setState(response.data)
+            this.setState({feedback: response.data})
         }).catch(err => {
             console.log(err);
             
@@ -28,7 +30,6 @@ class FeedbackEntry extends Component {
     render() {
         console.log(this.state);
     
-      
         return (
             <div>
                 <Nav />

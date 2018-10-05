@@ -26,6 +26,11 @@ class TableResidentStudentList extends Component {
 
     }
 
+    handleClickFeedback = (id) => {
+        console.log(id);
+        window.location.href= `/#/entry/${id}`;
+    }
+
     componentDidUpdate() {
         //reroute back to login if not logged in user
         if (!this.props.user.isLoading && !this.props.user.details.resident) {
@@ -43,7 +48,10 @@ class TableResidentStudentList extends Component {
         if (this.props.feedback){
             tableRows = this.props.feedback.map((feedback,index) => {
                 return(
-                    <TableRow key={index}>
+                    <TableRow 
+                        key={index}
+                        onClick={()=>this.handleClickFeedback(feedback.feedback_id)}
+                    >
                         <TableCell>{feedback.first_name + ' ' + feedback.last_name}</TableCell>
                         <TableCell>{moment(feedback.date).format('dddd, MMMM Do YYYY')}</TableCell>
                         <TableCell>{feedback.discussion_topics_list.map((topic, i ) => {
@@ -52,6 +60,7 @@ class TableResidentStudentList extends Component {
                                 )
                             })}
                         </TableCell>
+                        
                     </TableRow>
                 )
             })
