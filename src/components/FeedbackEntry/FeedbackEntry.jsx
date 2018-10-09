@@ -106,12 +106,12 @@ class FeedbackEntry extends Component {
                     <Typography>Attending Physician: {this.state.feedback.attending_physician || 'No Attending Selected'}</Typography>
                     <br/>
                     <Typography variant="title">Discussion Topics</Typography>
-                    <Typography variant="subheading">Discussed from last time:</Typography>
+                    <Typography variant="subheading">Discussed today:</Typography>
                     <div>
                         {yesterdayDiscussionTopicsListItems}
                     </div>
                     <br/>
-                    <Typography variant="subheading">For next time:</Typography>
+                    <Typography variant="subheading">Topics for next time:</Typography>
                     <div>
                         {tomorrowDiscussionTopicsListItems}
                     </div>

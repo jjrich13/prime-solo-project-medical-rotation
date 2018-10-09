@@ -173,7 +173,7 @@ class FeedbackForm extends Component {
                             <Paper className={this.props.classes.Paper}>
                                 <div>
                                     <Typography variant="display1">Today</Typography>
-                                    <Typography>Date For which you are filling out feedback </Typography>
+                                    <Typography>Date for which you are filling out feedback </Typography>
                                     <TextField required placeholder="mm/dd/yyyy" onChange={this.handleInputChangeFor('date')} type="date" />
                                 </div>
                                 <AttendingsAndResidents
