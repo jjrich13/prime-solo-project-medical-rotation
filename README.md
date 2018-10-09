@@ -54,13 +54,9 @@ EMAIL=functioningEmailAccount
 PASSWORD=functioningEmailAccountPassword
 ```
 
-4. In one command line window `npm run client`
+4. Create the SQL database `CREATE DATABASE medical_rotations_1`
 
-5. In another command line window `npm run server`
-
-6. Create the SQL database `CREATE DATABASE medical_rotations_1`
-
-7. Then setup the structure in the following way:
+5. Then setup the structure in the following way:
 
 
 ```
@@ -166,3 +162,6 @@ CREATE TABLE attending_physicians (
 );
 ```
 
+6. In one command line window `npm run client`
+
+7. In another command line window `npm run server`
