@@ -74,7 +74,6 @@ class AttendingsAndResidents extends Component {
                             value={this.props.selectedResident}
                             className={this.props.classes.Select}
                         >
-                            {/* <option disabled selected="selected">-Resident-</option> */}
                             {residentList}
                         </Select>
                     </FormControl>
@@ -88,9 +87,8 @@ class AttendingsAndResidents extends Component {
                             value={this.props.selectedAttending}
                             className={this.props.classes.Select}
                         >
-                            {/* <option disabled selected="selected">-Attending-</option> */}
                             {attendingList}
-                            <MenuItem value="NONE">I worked with a resident</MenuItem>
+                            <MenuItem value={null}>I worked with a resident</MenuItem>
                         </Select>
                     </FormControl>
                 </div>

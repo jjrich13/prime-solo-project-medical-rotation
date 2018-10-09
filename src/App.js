@@ -16,6 +16,7 @@ import StudentFeedbackHistory from './components/StudentFeedbackHistory/StudentF
 import StudentProfile from './components/StudentProfile/StudentProfile'
 import ResidentFeedback from './components/ResidentFeedback/ResidentFeedback'
 import AdminView from './components/AdminView/AdminView'
+import FeedbackEntry from './components/FeedbackEntry/FeedbackEntry'
 
 import './styles/main.css';
 
@@ -53,6 +54,10 @@ const App = () => (
         <Route
           path="/profile/:id"
           component={StudentProfile}
+        />
+        <Route
+          path="/entry/:id"
+          component={FeedbackEntry}
         />
         <Route
           path="/feedback"
