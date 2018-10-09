@@ -5,10 +5,11 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get('/entry/:id', rejectUnauthenticated, (req, res) => {
-  pool.query(`SELECT * FROM feedback
-    LEFT OUTER JOIN feedback_discussion_topics ON feedback.id = feedback_discussion_topics.feedback_id
-    LEFT OUTER JOIN discussion_topics ON feedback_discussion_topics.discussion_topic_id = discussion_topics.id
-    LEFT OUTER JOIN users ON users.id = feedback.user_id
+  pool.query(`SELECT feedback.*, students.first_name AS student_first_name, students.last_name AS student_last_name, residents.first_name AS resident_first_name, residents.last_name AS resident_last_name, discussion_topics.* FROM feedback
+  LEFT OUTER JOIN feedback_discussion_topics ON feedback.id = feedback_discussion_topics.feedback_id
+  LEFT OUTER JOIN discussion_topics ON feedback_discussion_topics.discussion_topic_id = discussion_topics.id
+  LEFT OUTER JOIN users AS students ON students.id = feedback.user_id
+  LEFT OUTER JOIN users AS residents ON residents.id = feedback.resident
     WHERE feedback.id = $1;`, [req.params.id]
     ).then( response => {
     res.send(response.rows)

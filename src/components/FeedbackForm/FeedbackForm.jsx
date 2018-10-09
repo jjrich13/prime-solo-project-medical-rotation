@@ -42,7 +42,7 @@ class FeedbackForm extends Component {
             discussionTopicsPrev:[],
             date: '',
             resident: null,
-            attendingPhysician: '',
+            attendingPhysician: null,
             ventilatorSettings: false,
             inductionDrugs: false,
             inhaledAgents: false,
