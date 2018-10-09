@@ -15,8 +15,53 @@ import moment from 'moment'
 class FeedbackEntry extends Component {
     constructor(props) {
         super(props)
+        //Here state is intialized with empty nulls and empty arrays
+        //so nothing breaks in the render before the axios call comes back with data
         this.state = {
-            feedback: []
+            feedback: {
+                a_line: null,
+                airway_assessment: null,
+                airway_management: null,
+                applied_monitors: null,
+                inhaled_agents: null,
+                assess_asa_score: 1,
+                inhaled_agents: null,
+                attending_physician: null,
+                inhaled_agents: null,
+                date: null,
+                inhaled_agents: null,
+                discussion_topics: null,
+                inhaled_agents: null,
+                edited: false,
+                inhaled_agents: null,
+                feedback_id: null,
+                inhaled_agents: null,
+                id: null,
+                inhaled_agents: null,
+                induction_drugs: null,
+                inhaled_agents: null,
+                insert_lma: null,
+                intubation: null,
+                iv: null,
+                mask_ventilation: null,
+                monitors: null,
+                planned_airway_management: null,
+                planned_induction: null,
+                preparing_medication: null,
+                read_listened: null,
+                resident: null,
+                resident_first_name: null,
+                resident_last_name: null,
+                setup_room: null,
+                signed_by_resident: null,
+                student_first_name: null,
+                student_last_name: null,
+                tomorrow_discussion_topics_list: [],
+                user_id: null,
+                vasopressors: null,
+                ventilator_settings: null,
+                yesterday_discussion_topics_list: []
+            }
         }
     }
     componentDidMount() {
@@ -31,52 +76,60 @@ class FeedbackEntry extends Component {
     render() {
         console.log(this.state);
         
-        let discussionTopicsListItems = this.state.feedback.map((feedback, index) => {
+        let yesterdayDiscussionTopicsListItems = this.state.feedback.yesterday_discussion_topics_list.map((topic, index) => {
             return(
                 <div key={index}>
-                    <a href={feedback.podcast_link}>{feedback.topic}</a>
+                    <a href={topic.podcast_link}>{topic.topic_name}</a>
+                </div>
+            )
+        })
+
+        let tomorrowDiscussionTopicsListItems = this.state.feedback.tomorrow_discussion_topics_list.map((topic, index) => {
+            return(
+                <div key={index}>
+                    <a href={topic.podcast_link}>{topic.topic_name}</a>
                 </div>
             )
         })
 
         let content = null;
-        if(this.state.feedback[0]){
+        if(this.state.feedback.student_first_name){
             content = (
                 <div>
                     <Typography variant="display2">Feedback Entry</Typography>
-                    <Typography variant="headline">{this.state.feedback[0].student_first_name + ' ' + this.state.feedback[0].student_last_name}</Typography>
-                    <Typography>{moment(this.state.feedback[0].date).format('dddd, MMMM Do YYYY')}</Typography>
+                    <Typography variant="headline">{this.state.feedback.student_first_name + ' ' + this.state.feedback.student_last_name}</Typography>
+                    <Typography>{moment(this.state.feedback.date).format('dddd, MMMM Do YYYY')}</Typography>
                     <br/>
                     <Typography variant="title">Staff Details</Typography>
-                    <Typography>Resident: {this.state.feedback[0].resident_first_name + ' ' + this.state.feedback[0].resident_last_name|| 'No Resident Selected'}</Typography>
-                    <Typography>Signed by resident: {this.state.feedback[0].signed_by_resident ? 'Yes':'No'}</Typography>
-                    <Typography>Attending Physician: {this.state.feedback[0].attending_physician || 'No Attending Selected'}</Typography>
+                    <Typography>Resident: {this.state.feedback.resident_first_name + ' ' + this.state.feedback.resident_last_name|| 'No Resident Selected'}</Typography>
+                    <Typography>Signed by resident: {this.state.feedback.signed_by_resident ? 'Yes':'No'}</Typography>
+                    <Typography>Attending Physician: {this.state.feedback.attending_physician || 'No Attending Selected'}</Typography>
                     <br/>
                     <Typography variant="title">Discussion Topics</Typography>
                     <Typography variant="subheading">Discussed from last time:</Typography>
                     <div>
-                        <i>upcoming</i>
+                        {yesterdayDiscussionTopicsListItems}
                     </div>
                     <br/>
                     <Typography variant="subheading">For next time:</Typography>
                     <div>
-                        {discussionTopicsListItems}
+                        {tomorrowDiscussionTopicsListItems}
                     </div>
                     <br/>
                     <Typography variant="title">Daily Progress Towards Goals</Typography>
-                    <Typography>IVs: {this.state.feedback[0].iv}</Typography>
-                    <Typography>Intubations: {this.state.feedback[0].intubation}</Typography>
-                    <Typography>Arterial Lines: {this.state.feedback[0].a_line}</Typography>
-                    <Typography>Planned Airway Mgmt: {this.state.feedback[0].planned_airway_management}</Typography>
-                    <Typography>Mask Ventilations: {this.state.feedback[0].mask_ventilation}</Typography>
-                    <Typography>Airway Assessments: {this.state.feedback[0].airway_assessment}</Typography>
-                    <Typography>Insert LMAs: {this.state.feedback[0].insert_lma}</Typography>
-                    <Typography>Assess ASA Score: {this.state.feedback[0].assess_asa_score}</Typography>
+                    <Typography>IVs: {this.state.feedback.iv}</Typography>
+                    <Typography>Intubations: {this.state.feedback.intubation}</Typography>
+                    <Typography>Arterial Lines: {this.state.feedback.a_line}</Typography>
+                    <Typography>Planned Airway Mgmt: {this.state.feedback.planned_airway_management}</Typography>
+                    <Typography>Mask Ventilations: {this.state.feedback.mask_ventilation}</Typography>
+                    <Typography>Airway Assessments: {this.state.feedback.airway_assessment}</Typography>
+                    <Typography>Insert LMAs: {this.state.feedback.insert_lma}</Typography>
+                    <Typography>Assess ASA Score: {this.state.feedback.assess_asa_score}</Typography>
                     <br/>
-                    <Typography variant="title">Applied Monitors: {this.state.feedback[0].applied_monitors}</Typography>
-                    <Typography>Setup Rooms: {this.state.feedback[0].setup_room}</Typography>
-                    <Typography>Planned Induction: {this.state.feedback[0].planned_induction ? 'Yes':'No'}</Typography>
-                    <Typography>Preparing Medication: {this.state.feedback[0].preparing_medication}</Typography>
+                    <Typography variant="title">Applied Monitors: {this.state.feedback.applied_monitors}</Typography>
+                    <Typography>Setup Rooms: {this.state.feedback.setup_room}</Typography>
+                    <Typography>Planned Induction: {this.state.feedback.planned_induction ? 'Yes':'No'}</Typography>
+                    <Typography>Preparing Medication: {this.state.feedback.preparing_medication}</Typography>
                 </div>
             )
         }
