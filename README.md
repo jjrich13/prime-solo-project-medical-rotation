@@ -56,7 +56,7 @@ PASSWORD=functioningEmailAccountPassword
 
 4. Create the SQL database `CREATE DATABASE medical_rotations_1`
 
-5. Then setup the structure in the following way:
+5. Setup the structure in the following way:
 
 
 ```
