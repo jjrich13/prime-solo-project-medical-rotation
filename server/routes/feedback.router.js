@@ -7,46 +7,58 @@ const router = express.Router();
 router.get('/entry/:id', rejectUnauthenticated, (req, res) => {
   //Query the database to return a complete feedback entry, in the form of an object to display on a single page
   //This query is quite complex so lets explain it
-  //The first two array_agg clauses make an array of objects that contain discussion topics one for the previous day and one for the next day
-  //The rest of the SELECT clause is pretty straightforward
-  //The first two JOINs are jsut joining the two junction tables for discussion topics
-  //The seconds two JOINs have to be aliased with an AS because they are joining the same table, the alias differentiates them
-  //      these JOINS essentially brings in the info about each discussion topic referenced in the junction tables, e.g., topic_name, podcast_link, etc.
-  //The final two JOINS also need to be aliased because it is the same table being referenced in both but they are referenced in different columns
+  //All of the JOINs are aliased because the same tables are being referenced multiple times
+  //The first two JOINs are joining tables that are created with a subquery
+      //All these subqueries do is create a table with an array of objects containing the discussion topics selected, 
+      //for tomorrow and from yesterday, respectively, along with the feedback.id they correspond to
+      //these are aliased because they both reference the discussion_topics table
+  //The next JOINSs get user information for both the student and the resident, 
+      //these are aliased because they both reference the users table
 
   pool.query(
       `SELECT 
-        array_agg(
-          json_build_object(
-              'topic_id', tomorrow_discussion_topics.id, 
-              'topic_name', tomorrow_discussion_topics.topic, 
-              'podcast', tomorrow_discussion_topics.podcast, 
-              'podcast_link', tomorrow_discussion_topics.podcast_link
-          )
-        ) AS tomorrow_discussion_topics_list,
-        array_agg(
-          json_build_object(
-            'topic_id', yesterday_discussion_topics.id, 
-            'topic_name', yesterday_discussion_topics.topic, 
-            'podcast', yesterday_discussion_topics.podcast, 
-            'podcast_link', yesterday_discussion_topics.podcast_link
-          )
-        ) AS yesterday_discussion_topics_list,
         feedback.*,
         students.first_name AS student_first_name,
         students.last_name AS student_last_name, 
         residents.first_name AS resident_first_name, 
         residents.last_name AS resident_last_name,
-        feedback.id AS feedback_id
+        feedback.id AS feedback_id,
+        tomorrow.tomorrow_discussion_topics_list,
+        yesterday.yesterday_discussion_topics_list
       FROM feedback
-        LEFT OUTER JOIN feedback_discussion_topics ON feedback.id = feedback_discussion_topics.feedback_id
-        LEFT OUTER JOIN feedback_previous_discussion_topics ON feedback.id = feedback_previous_discussion_topics.feedback_id
-        LEFT OUTER JOIN discussion_topics AS tomorrow_discussion_topics ON tomorrow_discussion_topics.id = feedback_discussion_topics.discussion_topic_id
-        LEFT OUTER JOIN discussion_topics AS yesterday_discussion_topics ON yesterday_discussion_topics.id = feedback_previous_discussion_topics.discussion_topic_id
-        LEFT OUTER JOIN users AS students ON students.id = feedback.user_id
-        LEFT OUTER JOIN users AS residents ON residents.id = feedback.resident
+      JOIN (
+        SELECT array_agg(
+          jsonb_build_object(
+            'topic_id', discussion_topics.id, 'topic_name', discussion_topics.topic, 'podcast', discussion_topics.podcast, 'podcast_link', discussion_topics.podcast_link
+          )
+        ) AS tomorrow_discussion_topics_list, feedback.id AS feedback_id
+        FROM discussion_topics
+        JOIN feedback_discussion_topics ON feedback_discussion_topics.discussion_topic_id = discussion_topics.id
+        JOIN feedback ON feedback.id = feedback_discussion_topics.feedback_id
+        WHERE feedback.id = $1
+        GROUP BY feedback.id
+      ) AS tomorrow ON tomorrow.feedback_id = feedback.id
+      JOIN (
+        SELECT array_agg(
+          jsonb_build_object(
+            'topic_id', discussion_topics.id, 'topic_name', discussion_topics.topic, 'podcast', discussion_topics.podcast, 'podcast_link', discussion_topics.podcast_link
+          )
+        ) AS yesterday_discussion_topics_list, feedback.id AS feedback_id
+        FROM discussion_topics
+        JOIN feedback_previous_discussion_topics ON feedback_previous_discussion_topics.discussion_topic_id = discussion_topics.id
+        JOIN feedback ON feedback.id = feedback_previous_discussion_topics.feedback_id
+        WHERE feedback.id = $1
+        GROUP BY feedback.id
+      ) AS yesterday ON yesterday.feedback_id = feedback.id
+      JOIN users AS students ON students.id = feedback.user_id
+      JOIN users AS residents ON residents.id = feedback.resident
       WHERE feedback.id = $1
-      GROUP BY feedback.id, students.id, residents.id;`, [req.params.id]
+      GROUP BY 
+        feedback.id, 
+        students.id, 
+        residents.id, 
+        tomorrow.tomorrow_discussion_topics_list, 
+        yesterday.yesterday_discussion_topics_list;`, [req.params.id]
     ).then( response => {
     res.send(response.rows[0])
   }).catch( err => {
