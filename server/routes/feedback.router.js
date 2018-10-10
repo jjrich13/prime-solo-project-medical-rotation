@@ -14,30 +14,37 @@ router.get('/entry/:id', rejectUnauthenticated, (req, res) => {
   //      these JOINS essentially brings in the info about each discussion topic referenced in the junction tables, e.g., topic_name, podcast_link, etc.
   //The final two JOINS also need to be aliased because it is the same table being referenced in both but they are referenced in different columns
 
-  pool.query(`SELECT 
-      array_agg(
-        json_build_object(
-            'topic_id', tomorrow_discussion_topics.id, 'topic_name', tomorrow_discussion_topics.topic, 'podcast', tomorrow_discussion_topics.podcast, 'podcast_link', tomorrow_discussion_topics.podcast_link
-        )
-      ) AS tomorrow_discussion_topics_list,
-      array_agg(
-        json_build_object(
-          'topic_id', yesterday_discussion_topics.id, 'topic_name', yesterday_discussion_topics.topic, 'podcast', yesterday_discussion_topics.podcast, 'podcast_link', yesterday_discussion_topics.podcast_link
-        )
-      ) AS yesterday_discussion_topics_list,
-      feedback.*,
-      students.first_name AS student_first_name,
-      students.last_name AS student_last_name, 
-      residents.first_name AS resident_first_name, 
-      residents.last_name AS resident_last_name,
-      feedback.id AS feedback_id
+  pool.query(
+      `SELECT 
+        array_agg(
+          json_build_object(
+              'topic_id', tomorrow_discussion_topics.id, 
+              'topic_name', tomorrow_discussion_topics.topic, 
+              'podcast', tomorrow_discussion_topics.podcast, 
+              'podcast_link', tomorrow_discussion_topics.podcast_link
+          )
+        ) AS tomorrow_discussion_topics_list,
+        array_agg(
+          json_build_object(
+            'topic_id', yesterday_discussion_topics.id, 
+            'topic_name', yesterday_discussion_topics.topic, 
+            'podcast', yesterday_discussion_topics.podcast, 
+            'podcast_link', yesterday_discussion_topics.podcast_link
+          )
+        ) AS yesterday_discussion_topics_list,
+        feedback.*,
+        students.first_name AS student_first_name,
+        students.last_name AS student_last_name, 
+        residents.first_name AS resident_first_name, 
+        residents.last_name AS resident_last_name,
+        feedback.id AS feedback_id
       FROM feedback
-      LEFT OUTER JOIN feedback_discussion_topics ON feedback.id = feedback_discussion_topics.feedback_id
-      LEFT OUTER JOIN feedback_previous_discussion_topics ON feedback.id = feedback_previous_discussion_topics.feedback_id
-      LEFT OUTER JOIN discussion_topics AS tomorrow_discussion_topics ON tomorrow_discussion_topics.id = feedback_discussion_topics.discussion_topic_id
-      LEFT OUTER JOIN discussion_topics AS yesterday_discussion_topics ON yesterday_discussion_topics.id = feedback_previous_discussion_topics.discussion_topic_id
-      LEFT OUTER JOIN users AS students ON students.id = feedback.user_id
-      LEFT OUTER JOIN users AS residents ON residents.id = feedback.resident
+        LEFT OUTER JOIN feedback_discussion_topics ON feedback.id = feedback_discussion_topics.feedback_id
+        LEFT OUTER JOIN feedback_previous_discussion_topics ON feedback.id = feedback_previous_discussion_topics.feedback_id
+        LEFT OUTER JOIN discussion_topics AS tomorrow_discussion_topics ON tomorrow_discussion_topics.id = feedback_discussion_topics.discussion_topic_id
+        LEFT OUTER JOIN discussion_topics AS yesterday_discussion_topics ON yesterday_discussion_topics.id = feedback_previous_discussion_topics.discussion_topic_id
+        LEFT OUTER JOIN users AS students ON students.id = feedback.user_id
+        LEFT OUTER JOIN users AS residents ON residents.id = feedback.resident
       WHERE feedback.id = $1
       GROUP BY feedback.id, students.id, residents.id;`, [req.params.id]
     ).then( response => {
