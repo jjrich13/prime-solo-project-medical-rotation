@@ -76,22 +76,6 @@ class FeedbackEntry extends Component {
     render() {
         console.log(this.state);
 
-        let yesterdayDiscussionTopicsListItems = this.state.feedback.yesterday_discussion_topics_list.map((topic, index) => {
-            return (
-                <div key={index}>
-                    <a href={topic.podcast_link}>{topic.topic_name}</a>
-                </div>
-            )
-        })
-
-        let tomorrowDiscussionTopicsListItems = this.state.feedback.tomorrow_discussion_topics_list.map((topic, index) => {
-            return (
-                <div key={index}>
-                    <a href={topic.podcast_link}>{topic.topic_name}</a>
-                </div>
-            )
-        })
-
         let content = null;
         if (this.state.feedback.student_first_name) {
             content = (
