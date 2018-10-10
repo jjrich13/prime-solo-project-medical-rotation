@@ -103,6 +103,7 @@ class FeedbackEntry extends Component {
                     <Typography variant="title">Staff Details</Typography>
                     <Typography>Resident: {this.state.feedback.resident_first_name + ' ' + this.state.feedback.resident_last_name|| 'No Resident Selected'}</Typography>
                     <Typography>Signed by resident: {this.state.feedback.signed_by_resident ? 'Yes':'No'}</Typography>
+                    <Typography>Resident comments: {this.state.feedback.resident_comment ? <i>{this.state.feedback.resident_comment}</i>:<i>None</i>}</Typography>
                     <Typography>Attending Physician: {this.state.feedback.attending_physician || 'No Attending Selected'}</Typography>
                     <br/>
                     <Typography variant="title">Discussion Topics</Typography>

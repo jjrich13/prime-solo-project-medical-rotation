@@ -146,7 +146,8 @@ CREATE TABLE feedback (
     discussion_topics text[],
     read_listened boolean NOT NULL DEFAULT true,
     signed_by_resident boolean NOT NULL DEFAULT false,
-    edited boolean NOT NULL DEFAULT false
+    edited boolean NOT NULL DEFAULT false,
+    resident_comment text
 );
 CREATE TABLE discussion_topics (
     id SERIAL PRIMARY KEY,
