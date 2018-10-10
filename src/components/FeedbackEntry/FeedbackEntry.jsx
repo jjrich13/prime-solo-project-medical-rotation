@@ -66,18 +66,18 @@ class FeedbackEntry extends Component {
     }
     componentDidMount() {
         axios.get(`/api/feedback/entry/${this.props.match.params.id}`).then(response => {
-            this.setState({feedback: response.data})
+            this.setState({ feedback: response.data })
         }).catch(err => {
             console.log(err);
-            
+
         })
     }
 
     render() {
         console.log(this.state);
-        
+
         let yesterdayDiscussionTopicsListItems = this.state.feedback.yesterday_discussion_topics_list.map((topic, index) => {
-            return(
+            return (
                 <div key={index}>
                     <a href={topic.podcast_link}>{topic.topic_name}</a>
                 </div>
@@ -85,7 +85,7 @@ class FeedbackEntry extends Component {
         })
 
         let tomorrowDiscussionTopicsListItems = this.state.feedback.tomorrow_discussion_topics_list.map((topic, index) => {
-            return(
+            return (
                 <div key={index}>
                     <a href={topic.podcast_link}>{topic.topic_name}</a>
                 </div>
@@ -93,30 +93,42 @@ class FeedbackEntry extends Component {
         })
 
         let content = null;
-        if(this.state.feedback.student_first_name){
+        if (this.state.feedback.student_first_name) {
             content = (
                 <div>
                     <Typography variant="display2">Feedback Entry</Typography>
                     <Typography variant="headline">{this.state.feedback.student_first_name + ' ' + this.state.feedback.student_last_name}</Typography>
                     <Typography>{moment(this.state.feedback.date).format('dddd, MMMM Do YYYY')}</Typography>
-                    <br/>
+                    <br />
                     <Typography variant="title">Staff Details</Typography>
-                    <Typography>Resident: {this.state.feedback.resident_first_name + ' ' + this.state.feedback.resident_last_name|| 'No Resident Selected'}</Typography>
-                    <Typography>Signed by resident: {this.state.feedback.signed_by_resident ? 'Yes':'No'}</Typography>
-                    <Typography>Resident comments: {this.state.feedback.resident_comment ? <i>{this.state.feedback.resident_comment}</i>:<i>None</i>}</Typography>
+                    <Typography>Resident: {this.state.feedback.resident_first_name + ' ' + this.state.feedback.resident_last_name || 'No Resident Selected'}</Typography>
+                    <Typography>Signed by resident: {this.state.feedback.signed_by_resident ? 'Yes' : 'No'}</Typography>
+                    <Typography>Resident comments: {this.state.feedback.resident_comment ? <i>{this.state.feedback.resident_comment}</i> : <i>None</i>}</Typography>
                     <Typography>Attending Physician: {this.state.feedback.attending_physician || 'No Attending Selected'}</Typography>
-                    <br/>
+                    <br />
                     <Typography variant="title">Discussion Topics</Typography>
                     <Typography variant="subheading">Discussed today:</Typography>
                     <div>
-                        {yesterdayDiscussionTopicsListItems}
+                        {this.state.feedback.yesterday_discussion_topics_list.map((topic, index) => {
+                            return (
+                                <div key={index}>
+                                    <a href={topic.podcast_link}>{topic.topic_name}</a>
+                                </div>
+                            )
+                        })}
                     </div>
-                    <br/>
+                    <br />
                     <Typography variant="subheading">Topics for next time:</Typography>
                     <div>
-                        {tomorrowDiscussionTopicsListItems}
+                        {this.state.feedback.tomorrow_discussion_topics_list.map((topic, index) => {
+                            return (
+                                <div key={index}>
+                                    <a href={topic.podcast_link}>{topic.topic_name}</a>
+                                </div>
+                            )
+                        })}
                     </div>
-                    <br/>
+                    <br />
                     <Typography variant="title">Daily Progress Towards Goals</Typography>
                     <Typography>IVs: {this.state.feedback.iv}</Typography>
                     <Typography>Intubations: {this.state.feedback.intubation}</Typography>
@@ -126,15 +138,15 @@ class FeedbackEntry extends Component {
                     <Typography>Airway Assessments: {this.state.feedback.airway_assessment}</Typography>
                     <Typography>Insert LMAs: {this.state.feedback.insert_lma}</Typography>
                     <Typography>Assess ASA Score: {this.state.feedback.assess_asa_score}</Typography>
-                    <br/>
+                    <br />
                     <Typography variant="title">Applied Monitors: {this.state.feedback.applied_monitors}</Typography>
                     <Typography>Setup Rooms: {this.state.feedback.setup_room}</Typography>
-                    <Typography>Planned Induction: {this.state.feedback.planned_induction ? 'Yes':'No'}</Typography>
+                    <Typography>Planned Induction: {this.state.feedback.planned_induction ? 'Yes' : 'No'}</Typography>
                     <Typography>Preparing Medication: {this.state.feedback.preparing_medication}</Typography>
                 </div>
             )
         }
-    
+
         return (
             <div>
                 <Nav />
