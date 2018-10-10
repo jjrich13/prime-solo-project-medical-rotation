@@ -129,7 +129,8 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     setupRoom,
     plannedInduction,
     preparingMedication,
-    readListened } = req.body;
+    readListened,
+    residentComment } = req.body;
 
 
     const valuesArray = [
@@ -155,7 +156,8 @@ router.post('/', rejectUnauthenticated, (req, res) => {
       setupRoom,
       plannedInduction,
       preparingMedication,
-      readListened
+      readListened,
+      residentComment
   ];
 
   const query = `INSERT INTO feedback (
@@ -182,10 +184,11 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     planned_induction, 
     preparing_medication, 
     read_listened, 
+    resident_comment,
     signed_by_resident
   ) 
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
-  $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24)
+  $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25)
   RETURNING feedback.id;`
 //Checking if the resident signature matches 
   pool.query('SELECT * FROM resident_code').then(response => {

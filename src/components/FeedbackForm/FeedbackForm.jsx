@@ -32,6 +32,11 @@ let styles = {
     },
     Select: {
         width: '180px'
+    },
+    a: {
+        color: 'blue',
+        textDecoration: 'underline'
+
     }
 }
 class FeedbackForm extends Component {
@@ -39,7 +44,7 @@ class FeedbackForm extends Component {
         super(props);
         this.state = {
             discussionTopics: [],
-            discussionTopicsPrev:[],
+            discussionTopicsPrev: [],
             date: '',
             resident: null,
             attendingPhysician: null,
@@ -62,7 +67,9 @@ class FeedbackForm extends Component {
             plannedInduction: false,
             preparingMedication: '',
             readListened: true,
-            residentSignature: ''
+            residentSignature: '',
+            residentComment: '',
+            showComment: false
         };
 
     }
@@ -126,8 +133,6 @@ class FeedbackForm extends Component {
     }
 
     handleCheckboxChangePrev = (event) => {
-        
-        console.log('hit PREV');
         // current array of options
         const discussionTopics = this.state.discussionTopicsPrev
         let index
@@ -144,7 +149,7 @@ class FeedbackForm extends Component {
 
         // update the state with the new array of options
         this.setState({ discussionTopicsPrev: discussionTopics })
-        
+
     }
 
     handleSubmit = () => {
@@ -155,7 +160,18 @@ class FeedbackForm extends Component {
 
     render() {
         console.log(this.state);
-
+        let showHideComment;
+        if (this.showComment) {
+            showHideComment = (
+                <Input
+                    type="text"
+                    onChange={this.handleInputChangeFor('residentComment')}
+                    value={this.state.residentComment}
+                />
+            )
+        } else {
+            showHideComment = null;
+        }
 
         return (
 
@@ -196,7 +212,9 @@ class FeedbackForm extends Component {
                             <Paper className={this.props.classes.Paper}>
                                 <Typography variant="display1">For Resident</Typography>
                                 <div>
-                                    <Typography variant="subheading">Was it evident that this student read/listen to the required materials for today's assigned topic?</Typography>
+                                    <Typography variant="subheading">
+                                        Was it evident that this student read/listen to the required materials for today's assigned topic?
+                                    </Typography>
                                     <FormControl>
                                         <RadioGroup
                                             onChange={this.handleInputChangeFor('readListened')}
@@ -208,6 +226,20 @@ class FeedbackForm extends Component {
                                     </FormControl>
 
                                 </div>
+                                {this.state.showComment ? <TextField
+                                    id="multiline-static"
+                                    label="Comment"
+                                    onChange={this.handleInputChangeFor('residentComment')}
+                                    value={this.state.residentComment}
+                                    multiline
+                                    rows="4"
+                                    margin="normal"
+                                /> : null}
+                                <br />
+                                <a className={this.props.classes.a} onClick={() => this.setState({ showComment: !this.state.showComment })}>
+                                    {this.state.showComment ? 'Hide' : 'Add'} Comment
+                                </a>
+                                <br />
                                 <div>
                                     <Typography variant="subheading">
                                         Resident Signature

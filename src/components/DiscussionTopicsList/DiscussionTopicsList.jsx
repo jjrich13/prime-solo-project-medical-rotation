@@ -45,15 +45,7 @@ class DiscussionTopicsList extends Component {
                     key={index}
                 >
                     <Paper className={this.props.classes.Paper}>
-                        {/* <input
-                            type="checkbox"
-                            value={topic.podcast_link}
-                            onChange={this.props.handleCheckboxChange}
-                        />
-                        {topic.topic} */}
-                        
                         <FormControlLabel
-                                
                                 control={
                                     <Checkbox 
                                         type="checkbox" 
@@ -61,25 +53,18 @@ class DiscussionTopicsList extends Component {
                                         onChange={this.props.handleCheckboxChange} 
                                     />
                                 }
-                                // label={topic.topic}
                             />
                             <a href={topic.podcast_link}>{topic.topic}</a>
                         <br />
-                        {/* Podcast:
-                    <a style={astyle} href={topic.podcast_link}>
-                            {topic.podcast}
-                        </a> */}
                     </Paper>
                 </Grid>
             )
         })
 
-
         return (
             <div>
                 {list}
             </div>
-
         )
     }
 }
