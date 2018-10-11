@@ -14,7 +14,8 @@ router.get('/entry/:id', rejectUnauthenticated, (req, res) => {
       //these are aliased because they both reference the discussion_topics table
   //The next JOINSs get user information for both the student and the resident, 
       //these are aliased because they both reference the users table
-
+  console.log('Hit entry route');
+  
   pool.query(
       `SELECT 
         feedback.*,
@@ -60,6 +61,8 @@ router.get('/entry/:id', rejectUnauthenticated, (req, res) => {
         tomorrow.tomorrow_discussion_topics_list, 
         yesterday.yesterday_discussion_topics_list;`, [req.params.id]
     ).then( response => {
+      console.log(response.rows[0]);
+      
     res.send(response.rows[0])
   }).catch( err => {
     console.log(err);
