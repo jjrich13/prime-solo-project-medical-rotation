@@ -27,32 +27,32 @@ router.get('/entry/:id', rejectUnauthenticated, (req, res) => {
         tomorrow.tomorrow_discussion_topics_list,
         yesterday.yesterday_discussion_topics_list
       FROM feedback
-      JOIN (
+      LEFT OUTER JOIN (
         SELECT array_agg(
           jsonb_build_object(
             'topic_id', discussion_topics.id, 'topic_name', discussion_topics.topic, 'podcast', discussion_topics.podcast, 'podcast_link', discussion_topics.podcast_link
           )
         ) AS tomorrow_discussion_topics_list, feedback.id AS feedback_id
         FROM discussion_topics
-        JOIN feedback_discussion_topics ON feedback_discussion_topics.discussion_topic_id = discussion_topics.id
-        JOIN feedback ON feedback.id = feedback_discussion_topics.feedback_id
+        LEFT OUTER JOIN feedback_discussion_topics ON feedback_discussion_topics.discussion_topic_id = discussion_topics.id
+        LEFT OUTER JOIN feedback ON feedback.id = feedback_discussion_topics.feedback_id
         WHERE feedback.id = $1
         GROUP BY feedback.id
       ) AS tomorrow ON tomorrow.feedback_id = feedback.id
-      JOIN (
+      LEFT OUTER JOIN (
         SELECT array_agg(
           jsonb_build_object(
             'topic_id', discussion_topics.id, 'topic_name', discussion_topics.topic, 'podcast', discussion_topics.podcast, 'podcast_link', discussion_topics.podcast_link
           )
         ) AS yesterday_discussion_topics_list, feedback.id AS feedback_id
         FROM discussion_topics
-        JOIN feedback_previous_discussion_topics ON feedback_previous_discussion_topics.discussion_topic_id = discussion_topics.id
-        JOIN feedback ON feedback.id = feedback_previous_discussion_topics.feedback_id
+        LEFT OUTER JOIN feedback_previous_discussion_topics ON feedback_previous_discussion_topics.discussion_topic_id = discussion_topics.id
+        LEFT OUTER JOIN feedback ON feedback.id = feedback_previous_discussion_topics.feedback_id
         WHERE feedback.id = $1
         GROUP BY feedback.id
       ) AS yesterday ON yesterday.feedback_id = feedback.id
-      JOIN users AS students ON students.id = feedback.user_id
-      JOIN users AS residents ON residents.id = feedback.resident
+      LEFT OUTER JOIN users AS students ON students.id = feedback.user_id
+      LEFT OUTER JOIN users AS residents ON residents.id = feedback.resident
       WHERE feedback.id = $1
       GROUP BY 
         feedback.id, 

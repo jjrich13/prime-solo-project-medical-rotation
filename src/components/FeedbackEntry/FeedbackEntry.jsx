@@ -75,6 +75,30 @@ class FeedbackEntry extends Component {
 
     render() {
         console.log(this.state);
+        let yesterdayDiscussionTopicsList;
+        if(this.state.feedback.yesterday_discussion_topics_list != null){
+            yesterdayDiscussionTopicsList = this.state.feedback.yesterday_discussion_topics_list.map((topic, index) => {
+                return (
+                    <div key={index}>
+                        <a href={topic.podcast_link}>{topic.topic_name}</a>
+                    </div>
+                )
+            })
+        } else {
+            yesterdayDiscussionTopicsList = 'None'
+        }
+        let tomorrowDiscussionTopicsList;
+        if(this.state.feedback.tomorrow_discussion_topics_list != null){
+            tomorrowDiscussionTopicsList = this.state.feedback.tomorrow_discussion_topics_list.map((topic, index) => {
+            return (
+                <div key={index}>
+                    <a href={topic.podcast_link}>{topic.topic_name}</a>
+                </div>
+            )
+            })
+        } else{
+            tomorrowDiscussionTopicsList = 'None'
+        }
 
         let content = null;
         if (this.state.feedback.student_first_name) {
@@ -93,24 +117,12 @@ class FeedbackEntry extends Component {
                     <Typography variant="title">Discussion Topics</Typography>
                     <Typography variant="subheading">Discussed today:</Typography>
                     <div>
-                        {this.state.feedback.yesterday_discussion_topics_list.map((topic, index) => {
-                            return (
-                                <div key={index}>
-                                    <a href={topic.podcast_link}>{topic.topic_name}</a>
-                                </div>
-                            )
-                        })}
+                        {yesterdayDiscussionTopicsList}
                     </div>
                     <br />
                     <Typography variant="subheading">Topics for next time:</Typography>
                     <div>
-                        {this.state.feedback.tomorrow_discussion_topics_list.map((topic, index) => {
-                            return (
-                                <div key={index}>
-                                    <a href={topic.podcast_link}>{topic.topic_name}</a>
-                                </div>
-                            )
-                        })}
+                        {tomorrowDiscussionTopicsList}
                     </div>
                     <br />
                     <Typography variant="title">Daily Progress Towards Goals</Typography>
